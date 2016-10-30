@@ -5,8 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import re_lease.config.PersistenceConfig;
+import re_lease.service_layer.deal.DealRepository;
+import re_lease.service_layer.message.MessageRepository;
 import re_lease.service_layer.product.Product;
 import re_lease.service_layer.product.ProductRepository;
+import re_lease.service_layer.product_type.ProductType;
+import re_lease.service_layer.product_type.ProductTypeRepository;
 import re_lease.service_layer.user.User;
 import re_lease.service_layer.user.UserRepository;
 
@@ -25,6 +29,15 @@ public class ProductTest extends AbstractTransactionalJUnit4SpringContextTests {
     @Autowired
     ProductRepository productRepository;
 
+    @Autowired
+    DealRepository dealRepository;
+
+    @Autowired
+    MessageRepository messageRepository;
+
+    @Autowired
+    ProductTypeRepository productTypeRepository;
+
     private List<Product> getProductList() {
         return StreamSupport
                 .stream(productRepository.findAll().spliterator(), false)
@@ -34,6 +47,12 @@ public class ProductTest extends AbstractTransactionalJUnit4SpringContextTests {
     private List<User> getUserList() {
         return StreamSupport
                 .stream(userRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
+    }
+
+    private List<ProductType> getTypeList() {
+        return StreamSupport
+                .stream(productTypeRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
     }
 
@@ -51,7 +70,8 @@ public class ProductTest extends AbstractTransactionalJUnit4SpringContextTests {
         executeSqlScript("data.sql", false);
         final int initiallySize = getProductList().size();
         User productLeaser = getUserList().get(1);
-        final Product newProduct = new Product(321, "dsafda", productLeaser);
+        ProductType productType = getTypeList().get(1);
+        final Product newProduct = new Product(321, "dsafda", productLeaser, productType);
         productRepository.save(newProduct);
 
         assertThat(getProductList()).hasSize(initiallySize + 1);
@@ -66,7 +86,8 @@ public class ProductTest extends AbstractTransactionalJUnit4SpringContextTests {
         executeSqlScript("data.sql", false);
         final int initiallySize = getProductList().size();
         User productLeaser = getUserList().get(1);
-        final Product newProduct = new Product(432, "dsafda", productLeaser);
+        ProductType productType = getTypeList().get(1);
+        final Product newProduct = new Product(432, "dsafda", productLeaser, productType);
         productRepository.save(newProduct);
 
         assertThat(getProductList()).hasSize(initiallySize + 1);

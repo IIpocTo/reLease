@@ -8,16 +8,14 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
+import re_lease.service_layer.deal.Deal;
+import re_lease.service_layer.product_photo.ProductPhoto;
+import re_lease.service_layer.product_type.ProductType;
 import re_lease.service_layer.user.User;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -61,10 +59,27 @@ public class Product {
     @JoinColumn(name = "USER_ID")
     private User productLeaser;
 
-    public Product(Integer price, String title, User productLeaser) {
+    @Getter
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "TYPE_ID")
+    private ProductType productType;
+
+    @Getter
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "dealObject",
+            cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Deal> deals;
+
+    @Getter
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product",
+            cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductPhoto> photos;
+
+    public Product(Integer price, String title, User productLeaser, ProductType type) {
         this.price = price;
         this.title = title;
         this.productLeaser = productLeaser;
+        this.productType = type;
     }
 
 }

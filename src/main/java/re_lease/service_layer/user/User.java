@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
+import re_lease.service_layer.deal.Deal;
 import re_lease.service_layer.enumerations.Gender;
+import re_lease.service_layer.message.Message;
 import re_lease.service_layer.product.Product;
 
 import javax.persistence.Basic;
@@ -81,6 +83,26 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "productLeaser",
             cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> products;
+
+    @Getter
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lessor",
+            cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Deal> myProductDeals;
+
+    @Getter
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lessee",
+            cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Deal> notMyProductDeals;
+
+    @Getter
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "sender",
+            cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Message> messagesSent;
+
+    @Getter
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "recipient",
+            cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Message> messagesReceived;
 
     public User(String login, String password, String firstName,
                 String lastName, String phone, String email, Gender gender) {
