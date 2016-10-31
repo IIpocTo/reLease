@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class TestController {
 
-    @RequestMapping(value = "/**", method = RequestMethod.GET)
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
     public ModelAndView test(HttpSession session, HttpServletRequest request) {
         final ModelAndView testView = new ModelAndView("test");
         testView.addObject("path", request.getContextPath());

@@ -1,11 +1,5 @@
 package re_lease.service_layer.product;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 import re_lease.service_layer.user.User;
@@ -18,13 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
 @Table(name = "product")
-@NoArgsConstructor
-@EqualsAndHashCode
-@ToString
 public class Product {
 
     @Id
@@ -55,11 +47,11 @@ public class Product {
     @Column(name = "VIEWS_TODAY", nullable = false, columnDefinition = "integer default(0)")
     private Integer viewsToday = 0;
 
-    @Getter
-    @Setter
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User productLeaser;
+
+    public Product() {}
 
     public Product(Integer price, String title, User productLeaser) {
         this.price = price;
@@ -67,4 +59,85 @@ public class Product {
         this.productLeaser = productLeaser;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Float getRating() {
+        return rating;
+    }
+
+    public void setRating(Float rating) {
+        this.rating = rating;
+    }
+
+    public LocalDateTime getLastTimeUpdate() {
+        return lastTimeUpdate;
+    }
+
+    public void setLastTimeUpdate(LocalDateTime lastTimeUpdate) {
+        this.lastTimeUpdate = lastTimeUpdate;
+    }
+
+    public Integer getViews() {
+        return views;
+    }
+
+    public void setViews(Integer views) {
+        this.views = views;
+    }
+
+    public Integer getViewsToday() {
+        return viewsToday;
+    }
+
+    public void setViewsToday(Integer viewsToday) {
+        this.viewsToday = viewsToday;
+    }
+
+    public User getProductLeaser() {
+        return productLeaser;
+    }
+
+    public void setProductLeaser(User productLeaser) {
+        this.productLeaser = productLeaser;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return id.equals(product.id);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

@@ -1,9 +1,5 @@
 package re_lease.service_layer.user;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 import re_lease.service_layer.enumerations.Gender;
 import re_lease.service_layer.product.Product;
@@ -23,6 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -30,9 +27,6 @@ import java.util.UUID;
         @UniqueConstraint(columnNames = "PHONE"),
         @UniqueConstraint(columnNames = "EMAIL")
 })
-@NoArgsConstructor
-@EqualsAndHashCode
-@ToString
 public class User {
 
     @Id
@@ -77,10 +71,11 @@ public class User {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime lastTimeActive;
 
-    @Getter
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "productLeaser",
             cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> products;
+
+    public User() {}
 
     public User(String login, String password, String firstName,
                 String lastName, String phone, String email, Gender gender) {
@@ -91,6 +86,115 @@ public class User {
         this.phone = phone;
         this.email = email;
         this.gender = gender;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public byte[] getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(byte[] avatar) {
+        this.avatar = avatar;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Float getMark() {
+        return mark;
+    }
+
+    public void setMark(Float mark) {
+        this.mark = mark;
+    }
+
+    public LocalDateTime getLastTimeActive() {
+        return lastTimeActive;
+    }
+
+    public void setLastTimeActive(LocalDateTime lastTimeActive) {
+        this.lastTimeActive = lastTimeActive;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
 }

@@ -1,6 +1,5 @@
 package re_lease;
 
-import lombok.Cleanup;
 import org.apache.log4j.PropertyConfigurator;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -21,7 +20,7 @@ public class StartServer {
     public static void main(String[] args) throws IOException {
 
         Properties properties = new Properties();
-        @Cleanup InputStream stream = StartServer.class.getResourceAsStream("/application.properties");
+        InputStream stream = StartServer.class.getResourceAsStream("/application.properties");
         properties.load(stream);
 
         PropertyConfigurator.configure(properties);
