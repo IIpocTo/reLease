@@ -1,6 +1,5 @@
 package re_lease;
 
-import org.apache.log4j.PropertyConfigurator;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.webapp.WebAppContext;
@@ -22,8 +21,6 @@ public class StartServer {
         Properties properties = new Properties();
         InputStream stream = StartServer.class.getResourceAsStream("/application.properties");
         properties.load(stream);
-
-        PropertyConfigurator.configure(properties);
 
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
         context.register(WebConfig.class);
