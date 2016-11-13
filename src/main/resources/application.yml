@@ -1,0 +1,36 @@
+spring:
+  main:
+    banner-mode: 'Console'
+  profiles:
+    active: dev
+  mvc:
+    view:
+      prefix: /WEB-INF/views
+      suffix: .jsp
+security:
+  basic:
+    enabled: false
+endpoints:
+  enabled: false
+  health.enabled: true
+management:
+  context-path: /manage
+app:
+  jwt:
+    secret: qwerty
+---
+spring:
+  profiles: dev
+  datasource:
+    driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:h2:./db/dev;DB_CLOSE_ON_EXIT=TRUE
+    username: sa
+    password:
+  jpa:
+    database: H2
+    hibernate:
+      ddl-auto: update
+  thymeleaf:
+    cache: false
+flyway:
+  enabled: false

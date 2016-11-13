@@ -4,6 +4,6 @@
     <title>Test page</title>
   </head>
   <body>
-  Successfully testing of running Spring MVC on Embedded Jetty
+  Successfully testing of running Spring MVC on SpringBoot
   </body>
 </html>
