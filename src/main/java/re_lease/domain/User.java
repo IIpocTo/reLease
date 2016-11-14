@@ -49,7 +49,7 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(name = "LOGIN", nullable = false)
-    @Size(min = 4, max = 100)
+    @Size(min = 4, max = 50)
     @Setter
     private String login;
 

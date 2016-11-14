@@ -40,8 +40,9 @@ public class UserServiceImpl implements UserService {
                     .map(User::getEmail)
                     .orElse(null);
             return UserDTO.builder()
-                    .email(email)
+                    .id(u.getId())
                     .login(u.getUsername())
+                    .email(email)
                     .build();
         });
     }

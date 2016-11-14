@@ -2,3 +2,6 @@
 .idea
 target
 *.iml
+
+#H2 database folder
+db
