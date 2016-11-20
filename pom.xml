@@ -205,14 +205,6 @@
             <version>1.4.192</version>
         </dependency>
 
-        <!-- JSTL (sth better approach needed) -->
-
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
-
         <!-- Logging -->
 
         <dependency>
