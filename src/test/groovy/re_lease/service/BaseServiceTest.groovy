@@ -3,7 +3,7 @@ package re_lease.service
 import re_lease.domain.User
 import re_lease.repository.BaseRepositoryTest
 
-class BaseServiceTest extends BaseRepositoryTest {
+abstract class BaseServiceTest extends BaseRepositoryTest {
 
     SecurityContextService securityContextService = Mock(SecurityContextService)
 

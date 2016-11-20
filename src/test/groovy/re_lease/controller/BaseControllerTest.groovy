@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest
 
 @ActiveProfiles("test")
 @ComponentScan(basePackages = ["re_lease.auth"])
-class BaseControllerTest extends Specification {
+abstract class BaseControllerTest extends Specification {
 
     @TestConfiguration
     static class Config {

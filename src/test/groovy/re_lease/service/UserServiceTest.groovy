@@ -40,6 +40,7 @@ class UserServiceTest extends BaseServiceTest {
         Page<UserDTO> page = userService.findAll(pageRequest)
 
         then:"successfully get requested page"
+        page.content.first().id != user1.id
         page.content.first().id == user2.id
         page.totalElements == 2
 

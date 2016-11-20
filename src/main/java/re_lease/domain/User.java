@@ -28,6 +28,7 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -107,11 +108,16 @@ public class User implements UserDetails {
     @Setter
     private LocalDateTime lastTimeActive;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "productLeaser",
-            cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            mappedBy = "productLeaser",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     @Getter
     @Setter
-    private List<Product> products;
+    @JsonIgnore
+    private List<Product> products = new ArrayList<>();
 
     public User(String login, String password, String email) {
         this.login = login;
@@ -175,10 +181,6 @@ public class User implements UserDetails {
     @JsonIgnore
     public boolean isEnabled() {
         return true;
-    }
-
-    public void addProduct(Product product) {
-        products.add(product);
     }
 
 }

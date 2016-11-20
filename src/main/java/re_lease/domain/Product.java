@@ -59,9 +59,10 @@ public class Product {
         this.description = description;
     }
 
-    public Product(Integer price, String title, User productLeaser) {
+    public Product(Integer price, String title, String description, User productLeaser) {
         this.price = price;
         this.title = title;
+        this.description = description;
         this.productLeaser = productLeaser;
     }
 

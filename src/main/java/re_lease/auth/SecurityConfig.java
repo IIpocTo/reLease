@@ -27,6 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public SecurityConfig(UserDetailsService userService,
                           StatelessAuthenticationFilter statelessAuthenticationFilter) {
+        super(true);
         this.userService = userService;
         this.statelessAuthenticationFilter = statelessAuthenticationFilter;
     }
@@ -42,7 +43,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().cacheControl();
 
         http.authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/api/authAccess").hasRole("USER")
+                .antMatchers(HttpMethod.GET, "/api/users/me").hasRole("USER")
+                .antMatchers(HttpMethod.PATCH, "/api/users/me").hasRole("USER")
+                .antMatchers(HttpMethod.GET, "/api/users/me/products").hasRole("USER")
+                .antMatchers(HttpMethod.POST, "/api/products/**").hasRole("USER")
+                .antMatchers(HttpMethod.DELETE, "/api/products/**").hasRole("USER")
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(new Http401AuthenticationEntryPoint("'Bearer token_type=\"JWT\"'"));
