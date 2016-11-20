@@ -34,15 +34,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<UserDTO> findOne(Long id) {
-        return userCustomRepository.findOne(id).map(u -> {
+        return userCustomRepository.findOne(id).map(r -> {
             final Optional<User> currentUser = securityContextService.currentUser();
-            final String email = currentUser.filter(cu -> cu.equals(u))
+            final String email = currentUser.filter(u -> u.equals(r.getUser()))
                     .map(User::getEmail)
                     .orElse(null);
             return UserDTO.builder()
-                    .id(u.getId())
-                    .login(u.getUsername())
+                    .id(r.getUser().getId())
+                    .login(r.getUser().getUsername())
                     .email(email)
+                    .userStats(r.getUserStats())
                     .build();
         });
     }

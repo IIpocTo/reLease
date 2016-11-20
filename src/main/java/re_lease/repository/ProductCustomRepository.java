@@ -3,19 +3,21 @@ package re_lease.repository;
 import lombok.Builder;
 import lombok.Value;
 import org.springframework.data.repository.Repository;
+import re_lease.domain.Product;
 import re_lease.domain.User;
 import re_lease.domain.UserStats;
+import re_lease.dto.PageParams;
 
-import java.util.Optional;
+import java.util.List;
 
-public interface UserCustomRepository extends Repository<User, Long> {
+public interface ProductCustomRepository extends Repository<Product, Long> {
 
-    Optional<Row> findOne(Long userId);
+    List<Row> findByUser(User user, PageParams pageParams);
 
     @Value
     @Builder
     class Row {
-        private final User user;
+        private final Product product;
         private final UserStats userStats;
     }
 

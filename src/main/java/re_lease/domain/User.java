@@ -42,7 +42,7 @@ import java.util.List;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "USER_ID")
     @Getter
     @Setter
@@ -109,6 +109,8 @@ public class User implements UserDetails {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "productLeaser",
             cascade = CascadeType.ALL, orphanRemoval = true)
+    @Getter
+    @Setter
     private List<Product> products;
 
     public User(String login, String password, String email) {
@@ -173,6 +175,10 @@ public class User implements UserDetails {
     @JsonIgnore
     public boolean isEnabled() {
         return true;
+    }
+
+    public void addProduct(Product product) {
+        products.add(product);
     }
 
 }

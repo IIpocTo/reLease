@@ -14,15 +14,18 @@ class UserCustomRepositoryTest extends BaseRepositoryTest {
     def "findOne"() {
 
         given:"creating and saving new User to database"
-        User user = userRepository.save(
+        User savedUser = userRepository.save(
                 new User(login: "testLogin", password: "testPassword", email: "sometest@test.com")
         )
 
-        when:"trying to find user by id"
-        User result = userCustomRepository.findOne(user.id).get()
+        when:"trying to find savedUser by id"
+        UserCustomRepository.Row result = userCustomRepository.findOne(savedUser.id).get()
 
         then:"they must be the same"
-        result == user
+        with(result) {
+            user == savedUser
+            userStats.productCount == 0l
+        }
 
     }
 

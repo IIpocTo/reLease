@@ -5,7 +5,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,6 +51,23 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST)
     public User create(@Valid @RequestBody UserParams params) {
         return userService.create(params);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "{id:\\d+}")
+    public UserDTO show(@PathVariable("id") Long id) throws UserNotFoundException {
+        return userService.findOne(id)
+                .orElseThrow(UserNotFoundException::new);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/me")
+    public UserDTO showMe() {
+        return userService.findMe()
+                .orElseThrow(() -> new AccessDeniedException(""));
+    }
+
+    @RequestMapping(method = RequestMethod.PATCH, path = "/me")
+    public void updateMe(@Valid @RequestBody UserParams userParams) {
+        userService.updateMe(userParams);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

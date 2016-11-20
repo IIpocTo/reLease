@@ -8,12 +8,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "product")
@@ -22,9 +22,9 @@ import java.util.UUID;
 public class Product {
 
     @Id
-    @GeneratedValue
-    @Column(name = "PRODUCT_ID", columnDefinition = "uuid")
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "PRODUCT_ID")
+    private Long id;
 
     @Column(name = "PRICE", nullable = false)
     private Integer price;
@@ -52,6 +52,12 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User productLeaser;
+
+    public Product(Integer price, String title, String description) {
+        this.price = price;
+        this.title = title;
+        this.description = description;
+    }
 
     public Product(Integer price, String title, User productLeaser) {
         this.price = price;
