@@ -2,6 +2,7 @@
 .idea
 target
 *.iml
+build
 
 #H2 database folder
 db

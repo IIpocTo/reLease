@@ -36,7 +36,7 @@ class ProductServiceTest extends BaseServiceTest {
 
     def "can delete product when have a permission"() {
 
-        given:
+        given:"registered user have at least one product"
         User user = userRepository.save(
                 new User(login: "testLogin", password: "testPassword", email: "sometest@test.com")
         )
@@ -45,17 +45,17 @@ class ProductServiceTest extends BaseServiceTest {
         )
         signIn(user)
 
-        when:
+        when:"user want to delete his product"
         productService.delete(product.id)
 
-        then:
+        then:"product successfully deleted"
         productRepository.count() == 0
 
     }
 
     def "can not delete product when have no permission"() {
 
-        given:
+        given:"some user have at least one product"
         User currentUser = userRepository.save(
                 new User(login: "testLogin", password: "testPassword", email: "sometest@test.com")
         )
@@ -67,18 +67,18 @@ class ProductServiceTest extends BaseServiceTest {
         )
         signIn(currentUser)
 
-        when:
+        when:"another user trying to delete not his product"
         productService.delete(product.id)
 
-        then:
+        then:"system throwing Not Permitted Exception and not deleting product"
         thrown(NotPermittedException)
         productRepository.count() == 1
 
     }
 
-    def "can find posts by user when not sign in"() {
+    def "can find products by user when not sign in"() {
 
-        given:
+        given:"some user have at least one product"
         User user = userRepository.save(
                 new User(login: "testLogin", password: "testPassword", email: "sometest@test.com")
         )
@@ -86,34 +86,34 @@ class ProductServiceTest extends BaseServiceTest {
                 new Product(price: 666, title: "BestPen", description: "BBBest Pen", productLeaser: user)
         )
 
-        when:
+        when:"another user not sign in and asked for all of this user products"
         List<ProductDTO> products = productService.findByUser(user.id, new PageParams())
 
-        then:
+        then:"that user successfully get all information about products"
         products.size() == 1
         products.first().title == "BestPen"
         !products.first().isMyProduct
 
     }
 
-    def "can find posts by user when signed in"() {
+    def "can find products by user when signed in"() {
 
-        given:
+        given:"some user signed in"
         User user = userRepository.save(
                 new User(login: "testLogin", password: "testPassword", email: "sometest@test.com")
         )
         signIn(user)
 
-        when:
+        when:"this user create new product and requested his als his products"
         productRepository.save(
                 new Product(price: 666, title: "BestPen", description: "BBBest Pen", productLeaser: user)
         )
         List<ProductDTO> products = productService.findByUser(user.id, new PageParams())
 
-        then:
+        then:"that user successfully get all information about his products"
         products.first().isMyProduct
 
-        when:
+        when:"another user also created his product and first user asked for all products of second user"
         User anotherUser = userRepository.save(
                 new User(login: "test", password: "goodPassword", email: "django@yahoo.com")
         )
@@ -122,14 +122,14 @@ class ProductServiceTest extends BaseServiceTest {
         )
         List<ProductDTO> anotherProducts = productService.findByUser(anotherUser.id, new PageParams())
 
-        then:
+        then:"user successfully get all information about another user products"
         !anotherProducts.first().isMyProduct
 
     }
 
     def "can find my products"() {
 
-        given:
+        given:"user signed in and created his product"
         User user = userRepository.save(
                 new User(login: "testLogin", password: "testPassword", email: "sometest@test.com")
         )
@@ -138,10 +138,10 @@ class ProductServiceTest extends BaseServiceTest {
                 new Product(price: 666, title: "BestPen", description: "BBBest Pen", productLeaser: user)
         )
 
-        when:
+        when:"user asked for all of his products"
         List<ProductDTO> products = productService.findMyProducts(new PageParams())
 
-        then:
+        then:"user successfully get information about all of his products"
         products.size() == 1
         products.first().title == "BestPen"
         products.first().isMyProduct
@@ -150,17 +150,17 @@ class ProductServiceTest extends BaseServiceTest {
 
     def "can save my products"() {
 
-        given:
+        given:"user signed in and creating new product"
         User user = userRepository.save(
                 new User(login: "testLogin", password: "testPassword", email: "sometest@test.com")
         )
         signIn(user)
         Product product = new Product(price: 666, title: "BestPen", description: "BBBest Pen")
 
-        when:
+        when:"user sending request for saving his product"
         productService.saveMyProduct(product)
 
-        then:
+        then:"his product successfully saved in database"
         productRepository.findAll().size() == 1
         productRepository.findAll().first() == product
         product.productLeaser == user
