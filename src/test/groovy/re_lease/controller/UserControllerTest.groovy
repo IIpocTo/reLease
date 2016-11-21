@@ -37,28 +37,28 @@ class UserControllerTest extends BaseControllerTest {
     @Autowired
     UserService userService
 
-    def "can signup"() {
+    def "user can sign up"() {
 
-        given:
+        given:"user had not been registered yet"
         def login = "testLogin"
         def password = "somePassword"
         def email = "test@gmail.com"
 
-        when:
+        when:"user tries to sign up"
         def response = perform(MockMvcRequestBuilders.post("/api/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonOutput.toJson(email: email, password: password, login: login))
         )
         userService.create(new UserParams(email, password, login))
 
-        then:
+        then:"user successfully signs up"
         response.andExpect(MockMvcResultMatchers.status().isOk())
 
     }
 
-    def "can not signup if login or email is duplicated"() {
+    def "user can not sign up if login or email are duplicated"() {
 
-        given:
+        given:"user had duplcated data in database"
         def login = "testLogin"
         def password = "somePassword"
         def email = "test@gmail.com"
@@ -66,13 +66,13 @@ class UserControllerTest extends BaseControllerTest {
             throw new DataIntegrityViolationException("")
         }
 
-        when:
+        when:"user tries to sign up"
         def response = perform(MockMvcRequestBuilders.post("/api/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonOutput.toJson(email: email, password: password, login: login))
         )
 
-        then:
+        then:"user receives en exception of a bad request"
         with(response) {
             andExpect(MockMvcResultMatchers.status().isBadRequest())
             andExpect(MockMvcResultMatchers.jsonPath('$.code', is("email_or_login_already_taken")))
@@ -80,9 +80,9 @@ class UserControllerTest extends BaseControllerTest {
 
     }
 
-    def "can list users"() {
+    def "one can list users"() {
 
-        given:
+        given:"two users were registered"
         userService.findAll(_ as PageRequest) >> {
             List<UserDTO> content = (0..1).collect {
                 User u = new User(id: it, login: "test${it}", password: "secretPass", email: "test${it}@test.com")
@@ -94,10 +94,10 @@ class UserControllerTest extends BaseControllerTest {
             return new PageImpl<>(content)
         }
 
-        when:
+        when:"user tries to get a user list"
         def response = perform(MockMvcRequestBuilders.get("/api/users"))
 
-        then:
+        then:"user successfully is able to list users"
         with(response) {
             andExpect(MockMvcResultMatchers.status().isOk())
             andExpect(MockMvcResultMatchers.jsonPath('$.content').exists())

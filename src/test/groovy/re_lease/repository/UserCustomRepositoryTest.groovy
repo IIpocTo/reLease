@@ -11,17 +11,17 @@ class UserCustomRepositoryTest extends BaseRepositoryTest {
     @Autowired
     UserCustomRepository userCustomRepository
 
-    def "findOne"() {
+    def "system loads the same user it has saved before"() {
 
-        given:"creating and saving new User to database"
+        given:"system had created and saved a new User to database"
         User savedUser = userRepository.save(
                 new User(login: "testLogin", password: "testPassword", email: "sometest@test.com")
         )
 
-        when:"trying to find savedUser by id"
+        when:"system tries to find a saved User by id"
         UserCustomRepository.Row result = userCustomRepository.findOne(savedUser.id).get()
 
-        then:"they must be the same"
+        then:"saved User and the loaded one must be equal"
         with(result) {
             user == savedUser
             userStats.productCount == 0l

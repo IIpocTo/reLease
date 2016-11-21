@@ -66,15 +66,15 @@ class AuthControllerTest extends BaseControllerTest {
 
     }
 
-    def "can auth with correct login and password"() {
+    def "user can authorize with correct login and password"() {
 
-        when:
+        when:"user tries to authorize"
         def response = perform(MockMvcRequestBuilders.post("/api/auth")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonOutput.toJson(login: "testLogin", password: "goodPassword"))
         )
 
-        then:
+        then:"user successfully signs in"
         with(response) {
             andExpect(MockMvcResultMatchers.status().isOk())
             andExpect(MockMvcResultMatchers.jsonPath('$.token', is("created jwt")))
@@ -82,15 +82,15 @@ class AuthControllerTest extends BaseControllerTest {
 
     }
 
-    def "can not auth when login or password is not valid"() {
+    def "user cannot authorize when login or password are not valid"() {
 
-        when:
+        when:"user tries to authorize"
         def response = perform(MockMvcRequestBuilders.post("/api/auth")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonOutput.toJson(login: "invalidLogin", password: "goodPassword"))
         )
 
-        then:
+        then:"user cannot authorize with these data"
         with(response) {
             andExpect(MockMvcResultMatchers.status().isUnauthorized())
         }

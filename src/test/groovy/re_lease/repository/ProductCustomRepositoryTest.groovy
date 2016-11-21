@@ -16,9 +16,9 @@ class ProductCustomRepositoryTest extends BaseRepositoryTest {
     @Autowired
     UserRepository userRepository
 
-    def "can find products by user"() {
+    def "user can find products"() {
 
-        given:
+        given:"user was registered AND some products were added"
         User user = userRepository.save(
                 new User(login: "testLogin", password: "testPassword", email: "sometest@test.com")
         )
@@ -32,18 +32,18 @@ class ProductCustomRepositoryTest extends BaseRepositoryTest {
                 new Product(price: 35, title: "Title3", description: "Description3", productLeaser: user)
         )
 
-        when:
+        when:"user tries to find products of a certain user"
         List<ProductCustomRepository.Row> result =
                 productCustomRepository.findByUser(user, new PageParams(sinceId: product2.id)).collect()
 
-        then:
+        then:"user receives the first page of the product list"
         result.size() == 1
         result.first().product == product3
 
-        when:
+        when:"user tries to find products of a certain user"
         result = productCustomRepository.findByUser(user, new PageParams(maxId: product2.id)).collect()
 
-        then:
+        then:"user receives the last page of the product list"
         result.size() == 1
         result.first().product == product1
 
