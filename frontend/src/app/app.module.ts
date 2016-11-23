@@ -26,4 +26,3 @@ import {ROUTES} from "./app.routes";
 })
 export class AppModule {
 }
-
