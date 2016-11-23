@@ -40,7 +40,13 @@
     ],
     "quotemark": false,
     "semicolon": true,
-    "trailing-comma": [true, {"multiline": "always", "singleline": "never"}],
+    "trailing-comma": [
+      true,
+      {
+        "multiline": "always",
+        "singleline": "never"
+      }
+    ],
     "triple-equals": [
       true,
       "allow-null-check"
@@ -51,7 +57,10 @@
       "check-branch",
       "check-decl",
       "check-operator",
-      "check-separator"
+      "check-module",
+      "check-separator",
+      "check-type",
+      "check-typecast"
     ],
     "directive-selector-name": [
       true,
