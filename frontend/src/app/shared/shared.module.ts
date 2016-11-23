@@ -4,14 +4,14 @@ import {StylesDirective} from "./directives/styles.directive";
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
     ],
     declarations: [
-        StylesDirective
+        StylesDirective,
     ],
     exports: [
-        StylesDirective
-    ]
+        StylesDirective,
+    ],
 })
 export class SharedModule {
 }

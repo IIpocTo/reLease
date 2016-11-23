@@ -58,7 +58,9 @@ module.exports = {
         new ExtractTextPlugin('[name].[chunkhash].css'),
         new webpack.ProvidePlugin({
             $: "jquery",
-            jQuery: "jquery"
+            jQuery: "jquery",
+            "window.jQuery": "jquery",
+            "window.Tether": 'tether'
         })
     ],
     node: {

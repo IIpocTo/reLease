@@ -12,17 +12,17 @@ import {ROUTES} from "./app.routes";
     bootstrap: [AppComponent],
     declarations: [
         AppComponent,
-        NoContentComponent
+        NoContentComponent,
     ],
     imports: [
         BrowserModule,
         RouterModule.forRoot(ROUTES, {
-            preloadingStrategy: PreloadAllModules
+            preloadingStrategy: PreloadAllModules,
         }),
         TopModule,
         HeaderModule,
-        SharedModule
-    ]
+        SharedModule,
+    ],
 })
 export class AppModule {
 }

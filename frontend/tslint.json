@@ -12,7 +12,7 @@
     ],
     "max-line-length": [
       true,
-      100
+      120
     ],
     "member-ordering": [
       true,
@@ -26,7 +26,7 @@
     "no-duplicate-variable": true,
     "no-empty": false,
     "no-eval": true,
-    "trailing-comma": true,
+    "no-string-literal": true,
     "no-trailing-whitespace": true,
     "no-unused-expression": true,
     "no-unused-variable": false,
@@ -40,6 +40,7 @@
     ],
     "quotemark": false,
     "semicolon": true,
+    "trailing-comma": [true, {"multiline": "always", "singleline": "never"}],
     "triple-equals": [
       true,
       "allow-null-check"

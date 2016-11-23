@@ -2,18 +2,24 @@ import {Directive, ElementRef, Input, Renderer, OnChanges, SimpleChanges} from "
 import {css} from "aphrodite";
 
 @Directive({
-    selector: '[mptStyles]'
+    selector: '[mptStyles]',
 })
 export class StylesDirective implements OnChanges {
 
     @Input('mptStyles') mptStyles: any[];
 
-    constructor(private el: ElementRef, private renderer: Renderer) {
+    private el: ElementRef;
+    private renderer: Renderer;
+
+    constructor(el: ElementRef, renderer: Renderer) {
+        this.el = el;
+        this.renderer = renderer;
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (!changes['mptStyles'].isFirstChange()) {
-            const prevClassName = css(changes['mptStyles'].previousValue);
+        let stylesVar = 'mptStyles';
+        if (!changes[stylesVar].isFirstChange()) {
+            const prevClassName = css(changes[stylesVar].previousValue);
             this.renderer.setElementClass(this.el.nativeElement, prevClassName, false);
         }
         const className = css(this.mptStyles);
