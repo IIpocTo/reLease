@@ -3,6 +3,7 @@
 target
 *.iml
 build
+frontend/node_modules
 
 #H2 database folder
 db
