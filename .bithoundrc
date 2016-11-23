@@ -1,6 +1,6 @@
 {
   "ignore": [
-    "**/custom-typings.d.ts",
+    "frontend/src/custom-typings.d.ts"
   ],
   "critics": {
     "lint": {"engine": "tslint"}
