@@ -25,9 +25,9 @@ class UserServiceTest extends BaseServiceTest {
         userService = new UserServiceImpl(userRepository, userCustomRepository, securityContextService)
     }
 
-    def "can find paged user list"() {
+    def "one can find paged user list"() {
 
-        given:"saved two new users to database"
+        given:"two new users were saved to database"
         User user1 = userRepository.save(
                 new User(login: "testLogin", password: "testPassword", email: "sometest@test.com")
         )
@@ -35,29 +35,29 @@ class UserServiceTest extends BaseServiceTest {
                 new User(login: "test2Login", password: "testPassword", email: "sometest2@test.com")
         )
 
-        when:"requesting second page with only one user"
+        when:"user requests the second page with only one user"
         PageRequest pageRequest = new PageRequest(1, 1)
         Page<UserDTO> page = userService.findAll(pageRequest)
 
-        then:"successfully get requested page"
+        then:"user successfully gets requested page"
         page.content.first().id != user1.id
         page.content.first().id == user2.id
         page.totalElements == 2
 
     }
 
-    def "can find me"() {
+    def "one can find himself"() {
 
-        given:"user successfully sign in"
+        given:"user successfully signed in"
         User user = userRepository.save(
                 new User(login: "testLogin", password: "testPassword", email: "sometest@test.com")
         )
         signIn(user)
 
-        when:"requesting info about himself"
+        when:"user requests information about himself"
         UserDTO userDTO = userService.findMe().get()
 
-        then:"successfully return his info"
+        then:"user successfully receives information about himself"
         with(userDTO) {
             id == user.id
             email == user.email
@@ -66,15 +66,15 @@ class UserServiceTest extends BaseServiceTest {
 
     }
 
-    def "can create a user"() {
+    def "system can create a user"() {
 
         given:"user successfully registered"
         UserParams params = new UserParams("somemail@gmail.com", "secretPassword", "testLogin")
 
-        when:"creating new User instance"
+        when:"system creates a new User instance"
         User user = userService.create(params)
 
-        then:"user successfully added to database"
+        then:"user is successfully added to database"
         userRepository.count() == 1
         with(user) {
             id != null
@@ -84,7 +84,7 @@ class UserServiceTest extends BaseServiceTest {
 
     }
 
-    def "can update a user"() {
+    def "one can update a user"() {
 
         given:"user successfully registered"
         User user = userRepository.save(
@@ -92,20 +92,20 @@ class UserServiceTest extends BaseServiceTest {
         )
         UserParams params = new UserParams("somemail@gmail.com", "secretPass", "testLogin")
 
-        when:"trying to update his info"
+        when:"user tries to update his information"
         userService.update(user, params)
 
-        then:"successfully update it"
+        then:"user successfully updates it"
         with(user) {
             username == "testLogin"
             email == "somemail@gmail.com"
         }
 
-        when:"trying to update only part of his info"
+        when:"user tries to update only a part of his information"
         params = new UserParams("test2@ya.ru", null, null)
         userService.update(user, params)
 
-        then:"successfully update just that part"
+        then:"user successfully updates just that part"
         with(user) {
             username == "testLogin"
             email == "test2@ya.ru"
@@ -113,19 +113,19 @@ class UserServiceTest extends BaseServiceTest {
 
     }
 
-    def "can update me"() {
+    def "one can update himself"() {
 
-        given:"user successfully registered and updating info about himself"
+        given:"user successfully registered and updated information about himself"
         User user = userRepository.save(
                 new User(login: "testLogin", password: "testPassword", email: "sometest@test.com")
         )
         UserParams params = new UserParams("somemail@gmail.com", "secretPass", "testLogin")
         signIn(user)
 
-        when:"updating his info"
+        when:"user updates his info"
         userService.updateMe(params)
 
-        then:"successfully update it"
+        then:"user successfully updates his information"
         with(user) {
             username == "testLogin"
             email == "somemail@gmail.com"
@@ -133,23 +133,23 @@ class UserServiceTest extends BaseServiceTest {
 
     }
 
-    def "loadUserByUsername"() {
+    def "system can load user by his username"() {
 
-        given:"saved new User to database"
+        given:"system saved a new User to database"
         User user = userRepository.save(
                 new User(login: "testLogin", password: "testPassword", email: "sometest@test.com")
         )
 
-        when:"trying to get User by existing login"
+        when:"system tries to get the User by an existent login"
         UserDetails userDetails = userService.loadUserByUsername("testLogin")
 
-        then:"returning matching User"
+        then:"system returns a matching User"
         user.username == userDetails.username
 
-        when:"trying to get User by not existing login"
+        when:"system tries to get User by nonexistent login"
         userService.loadUserByUsername("anotherTestLogin")
 
-        then:"throw exception"
+        then:"system throws an exception"
         thrown(UsernameNotFoundException)
 
     }

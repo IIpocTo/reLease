@@ -32,9 +32,9 @@ class UserProductControllerTest extends BaseControllerTest {
     @Autowired
     ProductService productService;
 
-    def "can list products"() {
+    def "one can get a product list"() {
 
-        given:
+        given:"user did not sign in"
         User user = new User(id: 1, login: "testLogin", password: "goodPassword", email: "test@gmail.com")
         productService.findByUser(1, new PageParams()) >> (0..1).collect {
             Product product = new Product(
@@ -43,10 +43,10 @@ class UserProductControllerTest extends BaseControllerTest {
             return ProductDTO.newInstance(product, false)
         }
 
-        when:
+        when:"user tries to get a product list"
         def response = perform(MockMvcRequestBuilders.get("/api/users/${user.id}/products/"))
 
-        then:
+        then:"user successfully receives a product list"
         with(response) {
             andExpect(MockMvcResultMatchers.status().isOk())
             andExpect(MockMvcResultMatchers.jsonPath('$', hasSize(2)))
@@ -59,9 +59,9 @@ class UserProductControllerTest extends BaseControllerTest {
 
     }
 
-    def "can list my products when signed in"() {
+    def "one can get a product list of his own when is signed in"() {
 
-        given:
+        given:"user signed in"
         User user = signIn()
         productService.findMyProducts(new PageParams()) >> (0..1).collect {
             Product product = new Product(
@@ -70,10 +70,10 @@ class UserProductControllerTest extends BaseControllerTest {
             return ProductDTO.newInstance(product, true)
         }
 
-        when:
+        when:"user tries to get a product list of his own"
         def response = perform(MockMvcRequestBuilders.get("/api/users/me/products"))
 
-        then:
+        then:"user successfully receives a product list of his own"
         with(response) {
             andExpect(MockMvcResultMatchers.status().isOk())
             andExpect(MockMvcResultMatchers.jsonPath('$', hasSize(2)))
@@ -86,15 +86,15 @@ class UserProductControllerTest extends BaseControllerTest {
 
     }
 
-    def "can not list my products when not signed in"() {
+    def "one cannot list his own products when is not signed in"() {
 
-        given:
+        given:"undefined amount of products was in database"
         productService.findMyProducts(new PageParams()) >> []
 
-        when:
+        when:"user tries to get a list of his own products"
         def response = perform(MockMvcRequestBuilders.get("/api/users/me/products"))
 
-        then:
+        then:"user receives an exception of being unauthorized"
         response.andExpect(MockMvcResultMatchers.status().isUnauthorized())
 
     }

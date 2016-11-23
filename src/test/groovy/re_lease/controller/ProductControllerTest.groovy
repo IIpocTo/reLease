@@ -31,7 +31,7 @@ class ProductControllerTest extends BaseControllerTest {
     @Autowired
     ProductService productService
 
-    def "can create a product when signed in"() {
+    def "one can create a product when is signed in"() {
 
         given:
         signIn()
@@ -60,59 +60,61 @@ class ProductControllerTest extends BaseControllerTest {
 
     }
 
-    def "can not create a product when not sign in"() {
+    def "one cannot create a product when is not sign in"() {
 
-        given:
+        given:"user did not sign in"
         Integer price = 666
         String title = "Some title"
         String description = "Any description"
 
-        when:
+        when:"user tries to create a product"
         def response = perform(
                 MockMvcRequestBuilders.post("/api/products")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonOutput.toJson(price: price, title: title, description: description))
         )
 
-        then:
+        then:"user receives an exception of being unauthorized"
         response.andExpect(MockMvcResultMatchers.status().isUnauthorized())
 
     }
 
-    def "can delete a product when signed in"() {
+    def "one can delete a product when is signed in"() {
 
-        given:
+        given:"user signed in"
         signIn()
 
-        when:
+        when:"user tries to delete a product"
         def response = perform(MockMvcRequestBuilders.delete("/api/products/1"))
         productService.delete(1)
 
-        then:
+        then:"user successfully deletes the product"
         response.andExpect(MockMvcResultMatchers.status().isOk())
 
     }
 
-    def "can not delete a product when not sign in"() {
+    def "one cannot delete a product when is not sign in"() {
 
-        when:
+        given:"user did not sign in"
+
+        when:"user tries to delete a product"
         def response = perform(MockMvcRequestBuilders.delete("/api/products/1"))
 
-        then:
+        then:"user receives an exception of being unauthorized"
         response.andExpect(MockMvcResultMatchers.status().isUnauthorized())
 
     }
 
-    def "can not delete a product when have no permission"() {
+    def "one cannot delete a product when has no permission"() {
 
-        given:
+        given:"user signed in"
         signIn()
         productService.delete(1) >> { throw new NotPermittedException("") }
 
-        when:
+        when:"user tries to delete a product without permission do to it"
         def response = perform(MockMvcRequestBuilders.delete("/api/products/1"))
 
-        then:
+        then:"user receives an exception of being forbidden to do that"
         response.andExpect(MockMvcResultMatchers.status().isForbidden())
 
     }
