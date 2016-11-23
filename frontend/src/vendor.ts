@@ -13,7 +13,3 @@ import "jwt-decode";
 import "aphrodite";
 import "bootstrap/dist/js/bootstrap.js";
 import "bootstrap/dist/css/bootstrap.css";
-
-if ('production' === ENV) {
-} else {
-}

@@ -8,14 +8,14 @@ import {SharedModule} from "../../shared/shared.module";
     imports: [
         CommonModule,
         RouterModule,
-        SharedModule
+        SharedModule,
     ],
     declarations: [
         HeaderComponent,
     ],
     exports: [
         HeaderComponent,
-    ]
+    ],
 })
 export class HeaderModule {
 }

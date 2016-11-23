@@ -4,5 +4,5 @@ import {NoContentComponent} from "./pages/no-content/no-content.component";
 
 export const ROUTES: Routes = [
     {path: '', component: TopComponent},
-    {path: '**', component: NoContentComponent}
+    {path: '**', component: NoContentComponent},
 ];
