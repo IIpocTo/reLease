@@ -18,9 +18,9 @@ export function createJsonHttp(xhrBackend: XHRBackend, requestOptions: RequestOp
         {
             provide: JsonHttp,
             useFactory: createJsonHttp,
-            deps: [XHRBackend, RequestOptions]
+            deps: [XHRBackend, RequestOptions],
         },
         UserService,
-    ]
+    ],
 })
 export class CoreModule {}

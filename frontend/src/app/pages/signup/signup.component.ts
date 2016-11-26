@@ -7,7 +7,7 @@ import {EMAIL_PATTERN, Validators as AppValidators} from "../../core/forms/index
 
 @Component({
     selector: 'mpt-signup',
-    templateUrl: './signup.component.html'
+    templateUrl: './signup.component.html',
 })
 export class SignupComponent implements OnInit {
 
@@ -53,12 +53,15 @@ export class SignupComponent implements OnInit {
         this.passwordConfirmation = new FormControl('', Validators.compose([
             Validators.required,
         ]));
-        this.userForm = new FormGroup({
-            login: this.login,
-            email: this.email,
-            password: this.password,
-            passwordConfirmation: this.passwordConfirmation,
-        }, AppValidators.match(this.password, this.passwordConfirmation));
+        this.userForm = new FormGroup(
+            {
+                login: this.login,
+                email: this.email,
+                password: this.password,
+                passwordConfirmation: this.passwordConfirmation,
+            },
+            AppValidators.match(this.password, this.passwordConfirmation)
+        );
     }
 
 }

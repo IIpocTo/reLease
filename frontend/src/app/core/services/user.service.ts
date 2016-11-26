@@ -23,7 +23,7 @@ export class UserService {
     }
 
     create(params: UserParams): Observable<Response> {
-        return this.http.post(url, params)
+        return this.http.post(url, params);
     }
 
 }

@@ -5,7 +5,7 @@ export interface Page<T> {
 }
 
 export interface PageRequest {
-    page: number,
+    page: number;
     size: number;
 }
 

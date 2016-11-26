@@ -32,7 +32,7 @@ import {createNewHosts, createInputTransfer, removeNgStyles} from "@angularclass
 })
 export class AppModule {
 
-    //Hot Module Replacement feature https://github.com/AngularClass/angular2-hmr
+    // Hot Module Replacement feature https://github.com/AngularClass/angular2-hmr
 
     public appRef: ApplicationRef;
 

@@ -20,6 +20,6 @@ const routes: Routes = [
     ],
     exports: [
         SignupComponent,
-    ]
+    ],
 })
 export class SignupModule {}
