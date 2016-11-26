@@ -33,20 +33,20 @@ class ProductControllerTest extends BaseControllerTest {
 
     def "one can create a product when is signed in"() {
 
-        given:
+        given:"user signed in"
         signIn()
         Integer price = 666
         String title = "Some title"
         String description = "Any description"
 
-        when:
+        when:"user tries to create a product"
         def response = perform(
                 MockMvcRequestBuilders.post("/api/products")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonOutput.toJson(price: price, title: title, description: description))
         )
 
-        then:
+        then:"system save his product in database"
         productService.saveMyProduct(_ as Product) >> new Product(price, title, description)
         with (response) {
             andExpect(MockMvcResultMatchers.status().isOk())
