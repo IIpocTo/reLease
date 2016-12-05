@@ -1,6 +1,12 @@
 <div class="jumbotron">
-    <h1 class="display-3" [mptStyles]="[styles.header]">Welcome to the Sample App</h1>
-    <p class="lead">This is the home page for the Angular2 Tutorial sample application.</p>
+    <h1 class="display-3" [mptStyles]="[styles.header]">Welcome to the main page of re:Lease project!</h1>
+    <p class="lead">
+        This is the web site that allows you to rent some stuff from other users
+        and put up your own products for the rent.
+    </p>
+    <p class="lead">
+        It is necessary to leave us some info about yourself if you really want to start trading on this platform.
+    </p>
     <p class="lead" *ngIf="!isSignedIn">
         <a class="btn btn-primary btn-lg" [routerLink]="['/signup']" role="button">Sign up now!</a>
     </p>

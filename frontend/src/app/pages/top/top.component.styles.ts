@@ -2,7 +2,7 @@ import {StyleSheet} from "aphrodite";
 
 export const styles = StyleSheet.create({
     header: {
-        fontSize: '60px',
+        fontSize: '45px',
         letterSpacing: '-1px',
         fontWeight: 'bold',
     },
