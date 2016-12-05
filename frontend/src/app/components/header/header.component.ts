@@ -11,7 +11,6 @@ export class HeaderComponent implements OnInit {
 
     styles: any = styles;
     isSignedIn: boolean;
-    isMenuHidden: boolean = true;
 
     constructor(private router: Router, private authService: AuthService) {
     }
@@ -26,15 +25,6 @@ export class HeaderComponent implements OnInit {
     logout() {
         this.authService.logout();
         this.router.navigate(['/login']);
-    }
-
-    toggleMenu(e: Event) {
-        this.isMenuHidden = !this.isMenuHidden;
-        e.stopPropagation();
-    }
-
-    @HostListener('document:click') hideMenu() {
-        this.isMenuHidden = true;
     }
 
 }
