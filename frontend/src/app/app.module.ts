@@ -9,25 +9,34 @@ import {HeaderModule} from "./components/header/header.module";
 import {SharedModule} from "./shared/shared.module";
 import {ROUTES} from "./app.routes";
 import {CoreModule} from "./core/core.module";
+import {AuthModule} from "./pages/auth/auth.module";
+import {HomeModule} from "./pages/home/home.module";
 import {createNewHosts, createInputTransfer, removeNgStyles} from "@angularclass/hmr";
 
 @NgModule({
-    bootstrap: [AppComponent],
+    bootstrap: [
+        AppComponent,
+    ],
     declarations: [
         AppComponent,
         NoContentComponent,
     ],
     imports: [
+
         BrowserModule,
         RouterModule.forRoot(ROUTES, {
             preloadingStrategy: PreloadAllModules,
         }),
         FormsModule,
         ReactiveFormsModule,
+
         CoreModule,
         TopModule,
         HeaderModule,
         SharedModule,
+        AuthModule,
+        HomeModule,
+
     ],
 })
 export class AppModule {

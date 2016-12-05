@@ -1,10 +1,10 @@
 import {Observable} from "rxjs/Observable";
 import {Response} from "@angular/http";
+import {Injectable} from "@angular/core";
 import {User} from "../domains";
 import {objToSearchParams} from "./helpers";
 import {PageRequest, Page, UserParams} from "../dto";
 import {JsonHttp} from "./json-http";
-import {Injectable} from "@angular/core";
 
 const url = '/api/users';
 const defaultPageRequest: PageRequest = {page: 1, size: 5};
@@ -12,7 +12,8 @@ const defaultPageRequest: PageRequest = {page: 1, size: 5};
 @Injectable()
 export class UserService {
 
-    constructor(private http: JsonHttp) {}
+    constructor(private http: JsonHttp) {
+    }
 
     list(pageRequest: PageRequest = defaultPageRequest): Observable<Page<User>> {
         return this.http.get(url, {search: objToSearchParams(pageRequest)}).map(res => res.json());

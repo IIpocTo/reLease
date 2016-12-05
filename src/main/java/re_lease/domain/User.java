@@ -36,7 +36,8 @@ import java.util.List;
 @Entity
 @Table(name = "user", uniqueConstraints = {
         @UniqueConstraint(columnNames = "PHONE"),
-        @UniqueConstraint(columnNames = "EMAIL")
+        @UniqueConstraint(columnNames = "EMAIL"),
+        @UniqueConstraint(columnNames = "LOGIN")
 })
 @NoArgsConstructor
 @ToString
@@ -55,7 +56,7 @@ public class User implements UserDetails {
     private String login;
 
     @Column(name = "PASSWORD", nullable = false)
-    @Size(min = 4, max = 100)
+    @Size(min = 8, max = 100)
     private String password;
 
     @Column(name = "FIRST_NAME")

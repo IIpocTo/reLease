@@ -19,6 +19,7 @@
     "types": [
       "lodash",
       "node",
+      "pluralize",
       "source-map",
       "webpack"
     ]

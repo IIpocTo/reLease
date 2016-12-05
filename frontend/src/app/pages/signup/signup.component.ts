@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {FormGroup, FormControl, Validators} from "@angular/forms";
 import values from "lodash/values";
 import {UserService} from "../../core/services/user.service";
+import {ToastService} from "../../core/toast/toast.service";
 import {EMAIL_PATTERN, Validators as AppValidators} from "../../core/forms/index";
 
 @Component({
@@ -17,12 +18,9 @@ export class SignupComponent implements OnInit {
     password: FormControl;
     passwordConfirmation: FormControl;
 
-    private router: Router;
-    private userService: UserService;
-
-    constructor(router: Router, userService: UserService) {
-        this.router = router;
-        this.userService = userService;
+    constructor(private router: Router,
+                private userService: UserService,
+                private toastService: ToastService) {
     }
 
     ngOnInit(): void {
@@ -32,9 +30,11 @@ export class SignupComponent implements OnInit {
     onSubmit(params) {
         values(this.userForm.controls).forEach(c => c.markAsTouched());
         if (!this.userForm.valid) return;
-        this.userService.create(params).subscribe(() => {
-            this.router.navigate(['/']);
-        });
+        this.userService
+            .create(params)
+            .subscribe(() => {
+                this.router.navigate(['/']);
+            }, e => this.handleError(e));
     }
 
     private initForm() {
@@ -62,6 +62,15 @@ export class SignupComponent implements OnInit {
             },
             AppValidators.match(this.password, this.passwordConfirmation)
         );
+    }
+
+    private handleError(error) {
+        switch (error.status) {
+            case 400:
+                if (error.json()['code'] === 'email_or_login_already_taken') {
+                    this.toastService.error('This email or login is already taken.')
+                }
+        }
     }
 
 }

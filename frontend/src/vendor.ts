@@ -10,6 +10,7 @@ import "lodash/values";
 import "lodash/isEmpty";
 import "lodash/omitBy";
 import "jwt-decode";
+import "pluralize";
 import "aphrodite";
 import "bootstrap/dist/js/bootstrap.js";
 import "bootstrap/dist/css/bootstrap.css";

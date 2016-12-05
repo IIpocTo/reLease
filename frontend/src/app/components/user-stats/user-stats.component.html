@@ -1,0 +1,8 @@
+<div>
+    <section class="clearfix" [mptStyles]="styles.section">
+        <h2 [mptStyles]="[styles.userName]">{{user?.login}}</h2>
+    </section>
+    <span *ngIf="!shownOnProfile" [mptStyles]="[styles.userText]">
+        {{(user?.userStats?.productCount || 0) | pluralize: 'product'}}
+    </span>
+</div>
