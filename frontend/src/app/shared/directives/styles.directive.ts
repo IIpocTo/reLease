@@ -8,12 +8,7 @@ export class StylesDirective implements OnChanges {
 
     @Input('mptStyles') mptStyles: any[];
 
-    private el: ElementRef;
-    private renderer: Renderer;
-
-    constructor(el: ElementRef, renderer: Renderer) {
-        this.el = el;
-        this.renderer = renderer;
+    constructor(private el: ElementRef, private renderer: Renderer) {
     }
 
     ngOnChanges(changes: SimpleChanges): void {

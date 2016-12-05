@@ -34,7 +34,9 @@ export class SignupComponent implements OnInit {
             .create(params)
             .subscribe(() => {
                 this.router.navigate(['/']);
-            }, e => this.handleError(e));
+            },
+                e => this.handleError(e)
+            );
     }
 
     private initForm() {
@@ -67,9 +69,13 @@ export class SignupComponent implements OnInit {
     private handleError(error) {
         switch (error.status) {
             case 400:
-                if (error.json()['code'] === 'email_or_login_already_taken') {
-                    this.toastService.error('This email or login is already taken.')
+                let errorValue = 'code';
+                if (error.json()[errorValue] === 'email_or_login_already_taken') {
+                    this.toastService.error('This email or login is already taken.');
                 }
+                break;
+            default:
+                this.toastService.error('Something bad happened.');
         }
     }
 

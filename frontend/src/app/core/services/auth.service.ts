@@ -3,8 +3,7 @@ import {Response} from "@angular/http";
 import {Subject, Observable} from "rxjs";
 import {JsonHttp} from "./json-http";
 import {User} from "../domains";
-
-const jwtDecode = require('jwt-decode');
+import jwtDecode from "jwt-decode";
 
 @Injectable()
 export class AuthService {
@@ -22,7 +21,7 @@ export class AuthService {
         };
         return this.http.post('/api/auth', body).do((resp: Response) => {
             localStorage.setItem('jwt', resp.json().token);
-            this.authEvents.next(new DidLogin())
+            this.authEvents.next(new DidLogin());
         });
     }
 
@@ -35,7 +34,7 @@ export class AuthService {
         return localStorage.getItem('jwt') !== null;
     }
 
-    isMyself(user: User): boolean | null {
+    isMyself(user: User): boolean|null {
         if (!this.isSignedIn()) return null;
         const decoded = jwtDecode(localStorage.getItem('jwt'));
         return user.id + '' === decoded.sub;

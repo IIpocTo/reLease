@@ -6,25 +6,34 @@ import {styles} from "./auth.component.styles";
 
 @Component({
     selector: 'mpt-auth',
-    templateUrl: './auth.component.html'
+    templateUrl: './auth.component.html',
 })
 export class AuthComponent {
 
     styles: any = styles;
 
-    constructor(private router: Router, private authService: AuthService, private toastService: ToastService) {
+    constructor(private router: Router,
+                private authService: AuthService,
+                private toastService: ToastService) {
     }
 
     logIn(login, password) {
-        this.authService.login(login, password).subscribe(() => {
-            this.router.navigate(['/home']);
-        }, e => this.handleError(e));
+        this.authService
+            .login(login, password)
+            .subscribe(() => {
+                this.router.navigate(['/home']);
+            },
+                e => this.handleError(e)
+            );
     }
 
     handleError(error) {
         switch (error.status) {
             case 401:
-                this.toastService.error('Login or password is wrong.')
+                this.toastService.error('Login or password is wrong.');
+                break;
+            default:
+                this.toastService.error('Something bad happened.');
         }
     }
 
