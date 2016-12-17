@@ -1,4 +1,4 @@
-import {Component, OnInit, HostListener} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {styles} from "./header.component.styles";
 import {Router} from "@angular/router";
 import {AuthService} from "../../core/services/auth.service";
