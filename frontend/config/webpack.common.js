@@ -1,9 +1,11 @@
-const webpack = require('webpack');
 const helpers = require('./helpers');
 
+const {CheckerPlugin} = require('awesome-typescript-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
+const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
+const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 
 module.exports = {
     entry: {
@@ -47,16 +49,17 @@ module.exports = {
             template: 'src/index.html',
             chunksSortMode: 'dependency'
         }),
-        new ForkCheckerPlugin(),
-        new webpack.ContextReplacementPlugin(
+        new CheckerPlugin(),
+        new ContextReplacementPlugin(
+            // The (\\|\/) piece accounts for path separators in *nix and Windows
             /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
             helpers.root('src') // location of your src
         ),
-        new webpack.optimize.CommonsChunkPlugin({
+        new CommonsChunkPlugin({
             name: ['polyfills', 'vendor'].reverse()
         }),
         new ExtractTextPlugin('[name].[chunkhash].css'),
-        new webpack.ProvidePlugin({
+        new ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",
             "window.jQuery": "jquery",

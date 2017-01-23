@@ -13,7 +13,7 @@ export class ToastComponent implements OnInit {
 
     toasts: Toast[] = [];
 
-    constructor(private toastService: ToastService){
+    constructor(private toastService: ToastService) {
     }
 
     ngOnInit(): void {

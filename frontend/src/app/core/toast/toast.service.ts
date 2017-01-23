@@ -11,10 +11,6 @@ export class ToastService {
         return this.toastEvents;
     }
 
-    private publish(toast: ToastEvent) {
-        this.toastEvents.next(toast);
-    }
-
     success(message: string) {
         this.publish({message: message, level: 'success'});
     }
@@ -25,6 +21,10 @@ export class ToastService {
 
     error(message: string) {
         this.publish({message: message, level: 'error'});
+    }
+
+    private publish(toast: ToastEvent) {
+        this.toastEvents.next(toast);
     }
 
 }

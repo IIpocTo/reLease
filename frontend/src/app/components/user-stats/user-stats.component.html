@@ -3,6 +3,10 @@
         <h2 [mptStyles]="[styles.userName]">{{user?.login}}</h2>
     </section>
     <span *ngIf="!shownOnProfile" [mptStyles]="[styles.userText]">
-        {{(user?.userStats?.productCount || 0) | pluralize: 'product'}}
+        <span [ngPlural]="user?.userStats?.productCount || 0">
+        <template ngPluralCase="=0">No micropost</template>
+        <template ngPluralCase="=1">1 micropost</template>
+        <template ngPluralCase="other">{{(user?.userStats?.productCount || 0)}} microposts</template>
+      </span>
     </span>
 </div>

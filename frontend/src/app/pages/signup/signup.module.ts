@@ -22,4 +22,5 @@ const routes: Routes = [
         SignupComponent,
     ],
 })
-export class SignupModule {}
+export class SignupModule {
+}

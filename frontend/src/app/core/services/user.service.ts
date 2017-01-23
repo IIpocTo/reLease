@@ -16,15 +16,20 @@ export class UserService {
     }
 
     list(pageRequest: PageRequest = defaultPageRequest): Observable<Page<User>> {
-        return this.http.get(url, {search: objToSearchParams(pageRequest)}).map(res => res.json());
+        return this.http
+            .get(url, {search: objToSearchParams(pageRequest)})
+            .map(res => res.json());
     }
 
     get(id: string | number): Observable<User> {
-        return this.http.get(`${url}/${id}`).map(res => res.json());
+        return this.http
+            .get(`${url}/${id}`)
+            .map(res => res.json());
     }
 
     create(params: UserParams): Observable<Response> {
-        return this.http.post(url, params);
+        return this.http
+            .post(url, params);
     }
 
 }

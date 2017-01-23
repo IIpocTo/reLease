@@ -20,5 +20,7 @@ import "zone.js/dist/zone";
 import 'zone.js/dist/long-stack-trace-zone';
 import "ts-helpers";
 
-let stackTraceLimit = 'stackTraceLimit';
-Error[stackTraceLimit] = Infinity;
+if (ENV !== 'production') {
+    let stackTraceLimit = 'stackTraceLimit';
+    Error[stackTraceLimit] = Infinity;
+}

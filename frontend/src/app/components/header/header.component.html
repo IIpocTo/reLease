@@ -1,10 +1,10 @@
-<nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
 
-    <div class="navbar-toggleable-xs" id="exCollapsingNavbar2" [hidden]="isMenuHidden">
+    <a class="navbar-brand" [routerLink]="['/']">re:Lease</a>
 
-        <a class="navbar-brand" [routerLink]="['/']">re:Lease</a>
+    <div class="navbar-collapse" [hidden]="isMenuHidden">
 
-        <ul class="nav navbar-nav">
+        <ul class="navbar-nav mr-auto">
             <li class="nav-item" routerLinkActive="active" *ngIf="isSignedIn">
                 <a class="nav-link" [routerLink]="['/home']">Home</a>
             </li>
@@ -17,7 +17,7 @@
             </li>
         </ul>
 
-        <ul class="nav navbar-nav float-sm-right" *ngIf="isSignedIn">
+        <ul class="navbar-nav my-2 my-lg-0" *ngIf="isSignedIn">
             <li class="nav-item">
                 <a class="nav-link logout" href="#" (click)="logout(); $event.preventDefault()">Logout</a>
             </li>

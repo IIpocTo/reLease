@@ -1,8 +1,8 @@
 import {Component, OnInit, Input} from "@angular/core";
-import {styles} from "./user-stats.component.styles";
 import {User} from "../../core/domains";
 import {UserService} from "../../core/services/user.service";
 import {HttpErrorHandler} from "../../core/services/http-error-handler";
+import {styles} from "./user-stats.component.styles";
 
 @Component({
     selector: 'mpt-user-stats',

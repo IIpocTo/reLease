@@ -1,10 +1,10 @@
 import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {FormGroup, FormControl, Validators} from "@angular/forms";
-import values from "lodash/values";
 import {UserService} from "../../core/services/user.service";
 import {ToastService} from "../../core/toast/toast.service";
 import {EMAIL_PATTERN, Validators as AppValidators} from "../../core/forms/index";
+import values from "lodash/values";
 
 @Component({
     selector: 'mpt-signup',
@@ -55,22 +55,19 @@ export class SignupComponent implements OnInit {
         this.passwordConfirmation = new FormControl('', Validators.compose([
             Validators.required,
         ]));
-        this.userForm = new FormGroup(
-            {
+        this.userForm = new FormGroup({
                 login: this.login,
                 email: this.email,
                 password: this.password,
                 passwordConfirmation: this.passwordConfirmation,
-            },
-            AppValidators.match(this.password, this.passwordConfirmation)
+            }, AppValidators.match(this.password, this.passwordConfirmation)
         );
     }
 
     private handleError(error) {
         switch (error.status) {
             case 400:
-                let errorValue = 'code';
-                if (error.json()[errorValue] === 'email_or_login_already_taken') {
+                if (error.json()['code'] === 'email_or_login_already_taken') {
                     this.toastService.error('This email or login is already taken.');
                 }
                 break;
