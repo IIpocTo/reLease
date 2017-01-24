@@ -1,16 +1,16 @@
-<h1>Sign up</h1>
+<h1>Регистрация</h1>
 
 <form [formGroup]="userForm" (submit)="onSubmit(userForm.value)" novalidate>
 
     <div class="form-group" [class.has-danger]="!login.valid && login.touched">
-        <label class="col-form-label" for="loginInput">Login</label>
+        <label class="col-form-label" for="loginInput">Логин</label>
         <input type="text" class="form-control form-control-danger" id="loginInput"
                placeholder="Login" maxlength="30" formControlName="login"/>
         <div *ngIf="login.hasError('required') && login.touched" class="form-control-feedback">
-            Login is required
+            Логин обязателен
         </div>
         <div *ngIf="login.hasError('minlength') && login.touched" class="form-control-feedback">
-            Login must be longer than 4 chars
+            Логин должен состоять более, чем из 4 символов
         </div>
     </div>
 
@@ -19,40 +19,40 @@
         <input type="email" class="form-control form-control-danger" id="emailInput"
                placeholder="Email" maxlength="100" formControlName="email"/>
         <div *ngIf="email.hasError('required') && email.touched" class="form-control-feedback">
-            Email is required
+            Email обязателен
         </div>
         <div *ngIf="email.hasError('pattern') && email.touched" class="form-control-feedback">
-            Invalid format
+            Неверный формат
         </div>
     </div>
 
     <div class="form-group" [class.has-danger]="!password.valid && password.touched">
-        <label class="col-form-label" for="passwordInput">Password</label>
+        <label class="col-form-label" for="passwordInput">Пароль</label>
         <input type="text" class="form-control form-control-danger" id="passwordInput"
                placeholder="Password" maxlength="100" formControlName="password"/>
         <div *ngIf="password.hasError('required') && password.touched" class="form-control-feedback">
-            Login is required
+            Логин обязателен
         </div>
         <div *ngIf="password.hasError('minlength') && password.touched" class="form-control-feedback">
-            Password must be longer than 8 chars.
+            Пароль должен состоять более, чем из 8 символов
         </div>
     </div>
 
     <div class="form-group" [class.has-danger]=
             "(!passwordConfirmation.valid || userForm.hasError('unmatched')) && passwordConfirmation.touched">
-        <label class="col-form-label" for="passwordConfirmationInput">Confirm Password</label>
+        <label class="col-form-label" for="passwordConfirmationInput">Подтвердить пароль</label>
         <input type="text" class="form-control form-control-danger" id="passwordConfirmationInput"
                placeholder="Confirm Password" maxlength="100" formControlName="passwordConfirmation"/>
         <div *ngIf="passwordConfirmation.hasError('required') && passwordConfirmation.touched"
              class="form-control-feedback">
-            Password confirmation is required
+            Требуется подтверждение пароля
         </div>
         <div *ngIf="userForm.hasError('unmatched') && passwordConfirmation.touched"
              class="form-control-feedback">
-            Passwords doesn't match
+            Введённые пароли не совпадают
         </div>
     </div>
 
-    <button type="submit" class="btn btn-lg btn-primary">Submit</button>
+    <button type="submit" class="btn btn-lg btn-primary">Зарегистрироваться</button>
 
 </form>

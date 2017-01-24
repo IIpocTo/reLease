@@ -5,6 +5,12 @@ import {styles} from "./home.component.styles";
     selector: 'mpt-home',
     templateUrl: './home.component.html',
 })
-export class HomeComponent {
+export class HomeComponent{
+
     styles: any = styles;
+    pageType: string = "";
+
+    pageTypeChanged(event: string) {
+        this.pageType = event;
+    }
 }

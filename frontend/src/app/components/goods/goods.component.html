@@ -1,0 +1,18 @@
+<div>
+    <h3>Страница ваших товаров</h3>
+    <div *ngIf="products.length == 0">
+        <p>У  вас нет пока товаров</p>
+    </div>
+    <div *ngIf="products.length != 0">
+        <div *ngFor="let product of products; let i = index">
+            <div class="card">
+                <h3 class="card-header">{{product.title}}</h3>
+                <div class="card-block">
+                    <h4 class="card-title">Описание товара</h4>
+                    <p class="card-text">{{product.description}}</p>
+                    <a href="#" class="btn btn-primary">Перейти на страницу товара</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
