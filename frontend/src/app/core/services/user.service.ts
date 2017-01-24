@@ -3,7 +3,7 @@ import {Response} from "@angular/http";
 import {Injectable} from "@angular/core";
 import {User} from "../domains";
 import {objToSearchParams} from "./helpers";
-import {PageRequest, Page, UserParams} from "../dto";
+import {PageRequest, UserParams} from "../dto";
 import {JsonHttp} from "./json-http";
 
 const url = '/api/users';
@@ -15,7 +15,7 @@ export class UserService {
     constructor(private http: JsonHttp) {
     }
 
-    list(pageRequest: PageRequest = defaultPageRequest): Observable<Page<User>> {
+    list(pageRequest: PageRequest = defaultPageRequest): Observable<User[]> {
         return this.http
             .get(url, {search: objToSearchParams(pageRequest)})
             .map(res => res.json());

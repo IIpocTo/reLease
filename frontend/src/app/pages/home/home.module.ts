@@ -2,13 +2,17 @@ import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {SharedModule} from "../../shared/shared.module";
 import {HomeComponent} from "./home.component";
-import {UserStatsModule} from "../../components/user-stats/user-stats.module";
+import {SidebarModule} from "../../components/sidebar/sidebar.module";
+import {GoodsModule} from "../../components/goods/goods.module";
+import {AccountModule} from "../../components/account/account.module";
 
 @NgModule({
     imports: [
         CommonModule,
         SharedModule,
-        UserStatsModule,
+        SidebarModule,
+        GoodsModule,
+        AccountModule
     ],
     declarations: [
         HomeComponent,

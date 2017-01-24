@@ -14,3 +14,9 @@ export interface UserParams {
     password?: string;
     login?: string;
 }
+
+export interface ProductParams {
+    price?: number;
+    title?: string;
+    description?: string;
+}

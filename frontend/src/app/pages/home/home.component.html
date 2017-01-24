@@ -1,7 +1,18 @@
 <div class="row">
-    <aside class="col-md-4" [mptStyles]="[styles.aside]">
-        <div [mptStyles]="[styles.userStats]">
-            <mpt-user-stats #us [userId]="'me'"></mpt-user-stats>
-        </div>
-    </aside>
+    <div class="col-md-9" [mptStyles]="[styles.aside]">
+            <div [ngSwitch]="pageType">
+                <div *ngSwitchCase="'Goods'">
+                    <mpt-goods [userId]="'me'"></mpt-goods>
+                </div>
+                <div *ngSwitchCase="'Account'">
+                    <mpt-account></mpt-account>
+                </div>
+                <div *ngSwitchDefault>
+                    <mpt-account></mpt-account>
+                </div>
+            </div>
+    </div>
+    <div class="col-md-3">
+        <mpt-sidebar [userId]="'me'" [pageType]="pageType" (onPageTypeChange)="pageTypeChanged($event)"></mpt-sidebar>
+    </div>
 </div>
