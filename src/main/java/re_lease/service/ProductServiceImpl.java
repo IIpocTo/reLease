@@ -11,7 +11,9 @@ import re_lease.repository.ProductCustomRepository;
 import re_lease.repository.ProductRepository;
 import re_lease.repository.UserRepository;
 import re_lease.service.exceptions.NotPermittedException;
+import re_lease.service.exceptions.ProductNotFoundException;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -70,6 +72,14 @@ public class ProductServiceImpl implements ProductService {
                     return productRepository.save(product);
                 })
                 .orElseThrow(() -> new AccessDeniedException(""));
+    }
+
+    @Override
+    public ProductDTO findOne(Long id) throws ProductNotFoundException {
+        return productCustomRepository.findOne(id).map(r -> {
+            return ProductDTO.newInstance(r.getProduct(), true);
+        })
+                .orElseThrow(ProductNotFoundException::new);
     }
 
     private Function<ProductCustomRepository.Row, ProductDTO> toDTO() {

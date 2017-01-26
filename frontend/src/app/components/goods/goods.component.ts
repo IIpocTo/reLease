@@ -3,6 +3,7 @@ import {Product} from "../../core/domains"
 import {styles} from "./goods.component.styles";
 import {ProductService} from "../../core/services/product.service";
 import {HttpErrorHandler} from "../../core/services/http-error-handler";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'mpt-goods',
@@ -15,7 +16,10 @@ export class GoodsComponent implements OnInit {
     userId: string;
     products: Product[];
 
-    constructor(private productService: ProductService, private errorHandler: HttpErrorHandler) {
+    constructor(
+        private productService: ProductService,
+        private errorHandler: HttpErrorHandler,
+        private router: Router) {
         this.products = [];
     }
 
@@ -28,6 +32,22 @@ export class GoodsComponent implements OnInit {
                 },
                 e => this.errorHandler.handle(e)
             );
+    }
+
+    addProductNavigate() {
+        this.router.navigate(['/add_product']);
+    }
+
+    deleteProduct(id) {
+        this.productService
+            .delete(id)
+            .subscribe(
+                () => this.router.navigate(['/home'])
+            );
+    }
+
+    lookAtProduct(product) {
+        this.router.navigate(['/product/' + product]);
     }
 
 }

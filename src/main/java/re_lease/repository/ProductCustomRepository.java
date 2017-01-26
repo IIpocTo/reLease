@@ -9,10 +9,12 @@ import re_lease.domain.UserStats;
 import re_lease.dto.PageParams;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductCustomRepository extends Repository<Product, Long> {
 
     List<Row> findByUser(User user, PageParams pageParams);
+    Optional<Row> findOne(Long id);
 
     @Value
     @Builder

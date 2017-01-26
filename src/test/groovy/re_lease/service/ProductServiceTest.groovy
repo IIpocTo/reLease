@@ -9,7 +9,10 @@ import re_lease.repository.ProductCustomRepository
 import re_lease.repository.ProductRepository
 import re_lease.repository.UserRepository
 import re_lease.service.exceptions.NotPermittedException
+import re_lease.service.exceptions.ProductNotFoundException
 import spock.lang.Shared
+
+import javax.swing.text.html.Option
 
 class ProductServiceTest extends BaseServiceTest {
 
@@ -164,6 +167,30 @@ class ProductServiceTest extends BaseServiceTest {
         productRepository.findAll().size() == 1
         productRepository.findAll().first() == product
         product.productLeaser == user
+
+    }
+
+    def "one can get product by its id"() {
+        given:"user has been signed in"
+        User user = userRepository.save(
+                new User(login: "testLogin", password: "testPassword", email: "sometest@test.com")
+        )
+        signIn(user)
+        Product product = productService.saveMyProduct(
+                new Product(12, "fsd", "sdfdsf")
+        )
+
+        when:"there is a product with such id in the store"
+        ProductDTO productFound =  productService.findOne(product.id)
+
+        then:"we receive the product that matches our requested id"
+        productFound.id == product.id
+
+        when:"there is no product with such id in the store"
+        productService.findOne(product.id + 1)
+
+        then:"service throws a ProductNotFound exception"
+        thrown(ProductNotFoundException)
 
     }
 
