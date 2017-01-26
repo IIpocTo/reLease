@@ -1,9 +1,11 @@
 package re_lease.repository
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.core.userdetails.UsernameNotFoundException
 import re_lease.domain.Product
 import re_lease.domain.User
 import re_lease.dto.PageParams
+import javax.persistence.EntityNotFoundException
 
 class ProductCustomRepositoryTest extends BaseRepositoryTest {
 
@@ -49,4 +51,27 @@ class ProductCustomRepositoryTest extends BaseRepositoryTest {
 
     }
 
+    def "system can load product by its id"() {
+
+        given:"system saved a new Product to database"
+        User user = userRepository.save(new User("user", "password", "ea@ya.ru"))
+        Product product = new Product(12,"test","some description");
+        product.productLeaser = user
+        Product productCreated = productRepository.save(product)
+
+        when:"system tries to get the Product by an existent id"
+        ProductCustomRepository.Row productFound = productCustomRepository.findOne(productCreated.id).get()
+
+        then:"system returns a matching Product"
+        productFound.product == productCreated
+        productFound.userStats.productCount == 1L
+
+        when:"system tries to get Product by nonexistent id"
+        Long notExistingId = productCreated.id + 1
+        ProductCustomRepository.Row productNotFound = productCustomRepository.findOne(notExistingId).orElse(null)
+
+        then:"system returns null"
+        productNotFound == null
+
+    }
 }

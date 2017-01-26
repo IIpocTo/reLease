@@ -1,6 +1,7 @@
 package re_lease.controller
 
 import groovy.json.JsonOutput
+import org.omg.CosNaming.NamingContextPackage.NotFound
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.context.TestConfiguration
@@ -9,8 +10,10 @@ import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import re_lease.domain.Product
+import re_lease.dto.ProductDTO
 import re_lease.service.ProductService
 import re_lease.service.exceptions.NotPermittedException
+import re_lease.service.exceptions.ProductNotFoundException
 import spock.mock.DetachedMockFactory
 
 import static org.hamcrest.Matchers.is
@@ -118,5 +121,38 @@ class ProductControllerTest extends BaseControllerTest {
         response.andExpect(MockMvcResultMatchers.status().isForbidden())
 
     }
+
+    def "one can get data about product by its id from server"() {
+        given:"user signed in and there was at least one good in the repository"
+        productService.findOne(1)>> {
+            Product product = new Product(id: 1, title: "sfdsf", description: "sfsdfsd", price: 12)
+            ProductDTO productDTO = ProductDTO.builder()
+                    .id(product.id)
+            .title(product.title)
+            .description(product.description)
+            .price(product.price)
+            .isMyProduct(false)
+            .build()
+
+            return productDTO
+        }
+        productService.findOne(2) >> {
+            throw new ProductNotFoundException()
+        }
+
+        when:"user tries to get an existing product"
+        def response = perform(MockMvcRequestBuilders.get("/api/products/" + 1))
+
+        then:"user receives a product with a status 200 response"
+        response.andExpect(MockMvcResultMatchers.status().isOk())
+
+        when:"user tries to get an non-existing product"
+        Long nonExistingId = 2
+        def response1 = perform(MockMvcRequestBuilders.get("/api/products/" + nonExistingId))
+
+        then:"user receives not found response"
+        response1.andExpect(MockMvcResultMatchers.status().isNotFound())
+    }
+
 
 }

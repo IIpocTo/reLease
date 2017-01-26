@@ -40,8 +40,13 @@ public class ProductController {
 
     @RequestMapping(method = RequestMethod.GET, path = "{id:\\d+}")
     public ProductDTO show(@PathVariable("id") Long id) throws ProductNotFoundException {
-        return productService.findOne(id)
-                .orElseThrow(ProductNotFoundException::new);
+        return productService.findOne(id);
+    }
+
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "No product")
+    @ExceptionHandler(ProductNotFoundException.class)
+    public void handleProductNotFound() {
+
     }
 
     @ResponseStatus(value = HttpStatus.FORBIDDEN)
