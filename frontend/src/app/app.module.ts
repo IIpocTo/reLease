@@ -1,4 +1,4 @@
-import {NgModule, ApplicationRef} from "@angular/core";
+import {NgModule, ApplicationRef, LOCALE_ID} from "@angular/core";
 import {RouterModule, PreloadAllModules} from "@angular/router";
 import {BrowserModule} from "@angular/platform-browser";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -13,6 +13,8 @@ import {AuthModule} from "./pages/auth/auth.module";
 import {HomeModule} from "./pages/home/home.module";
 import {ENV_PROVIDERS} from "./environment";
 import {ROUTES} from "./app.routes";
+import {AddProductModule} from "./pages/add-product/add-product.module";
+import {ProductModule} from "./pages/product/product.module";
 
 @NgModule({
     bootstrap: [
@@ -35,10 +37,13 @@ import {ROUTES} from "./app.routes";
         HeaderModule,
         SharedModule,
         AuthModule,
+        AddProductModule,
+        ProductModule,
         HomeModule,
     ],
     providers: [
         ENV_PROVIDERS,
+        {provide: LOCALE_ID, useValue: 'ru'}
     ]
 })
 export class AppModule {

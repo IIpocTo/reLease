@@ -38,6 +38,12 @@ export class ProductService {
             .post(url, params);
     }
 
+    get(id: number): Observable<Product> {
+        return this.http
+            .get(`${url}/${id}`)
+            .map(res => res.json());
+    }
+
 }
 
 

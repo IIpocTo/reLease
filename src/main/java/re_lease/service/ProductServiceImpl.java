@@ -72,6 +72,13 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(() -> new AccessDeniedException(""));
     }
 
+    @Override
+    public Optional<ProductDTO> findOne(Long id) {
+        return productCustomRepository.findOne(id).map(r -> {
+            return ProductDTO.newInstance(r.getProduct(), true);
+        });
+    }
+
     private Function<ProductCustomRepository.Row, ProductDTO> toDTO() {
         final Optional<User> currentUser = securityContextService.currentUser();
         return r -> {
