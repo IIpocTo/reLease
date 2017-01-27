@@ -36,18 +36,18 @@ class ProductCustomRepositoryTest extends BaseRepositoryTest {
 
         when:"user tries to find products of a certain user"
         List<ProductCustomRepository.Row> result =
-                productCustomRepository.findByUser(user, new PageParams(sinceId: product2.id)).collect()
+                productCustomRepository.findByUser(user, new PageParams(page: 1, size: 1)).collect()
 
         then:"user receives the first page of the product list"
         result.size() == 1
-        result.first().product == product3
+        result.first().product == product1
 
         when:"user tries to find products of a certain user"
-        result = productCustomRepository.findByUser(user, new PageParams(maxId: product2.id)).collect()
+        result = productCustomRepository.findByUser(user, new PageParams(page: 3, size: 1)).collect()
 
         then:"user receives the last page of the product list"
         result.size() == 1
-        result.first().product == product1
+        result.first().product == product3
 
     }
 

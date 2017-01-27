@@ -1,12 +1,25 @@
-export interface Page<T> {
+export class Page<T> {
     content: T[];
+    currentPage: number;
     totalPages: number;
     totalElements: number;
+
+    constructor(content: T[], currentPage: number, totalPages: number, totalElements: number) {
+        this.content = content;
+        this.currentPage = currentPage;
+        this.totalElements = totalElements;
+        this.totalPages = totalPages
+    }
 }
 
-export interface PageRequest {
+export class PageRequest {
     page: number;
     size: number;
+
+    constructor(page:number, size: number) {
+        this.page = page;
+        this.size = size;
+    }
 }
 
 export interface UserParams {
