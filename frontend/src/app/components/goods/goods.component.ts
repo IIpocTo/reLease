@@ -84,4 +84,20 @@ export class GoodsComponent implements OnInit {
             );
     }
 
+    addProductNavigate() {
+        this.router.navigate(['/add_product']);
+    }
+
+    deleteProduct(id) {
+        this.productService
+            .delete(id)
+            .subscribe(
+                () => this.router.navigate(['/home'])
+            );
+    }
+
+    lookAtProduct(product) {
+        this.router.navigate(['/product/' + product]);
+    }
+
 }
