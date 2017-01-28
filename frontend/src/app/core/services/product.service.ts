@@ -3,7 +3,7 @@ import {Response} from "@angular/http";
 import {Injectable} from "@angular/core";
 import {Product} from "../domains";
 import {objToSearchParams} from "./helpers";
-import {PageRequest, ProductParams} from "../dto";
+import {PageRequest, ProductParams, Page} from "../dto";
 import {JsonHttp} from "./json-http";
 
 const url = '/api/products';
@@ -16,7 +16,7 @@ export class ProductService {
     constructor(private http: JsonHttp) {
     }
 
-    list(id: string | number, pageRequest: PageRequest = defaultPageRequest): Observable<Product[]> {
+    list(id: string | number, pageRequest: PageRequest = defaultPageRequest): Observable<Page<Product>> {
         return this.http
             .get(
                 `${url_list}/${id}/products`,
@@ -24,7 +24,14 @@ export class ProductService {
                     search: objToSearchParams(pageRequest)
                 })
             .map(
-                res => res.json()
+                res => {
+                    return new Page<Product>(
+                        res.json().content,
+                        res.json().currentPage,
+                        res.json().totalPages,
+                        res.json().totalElements
+                    );
+                }
             );
     }
 

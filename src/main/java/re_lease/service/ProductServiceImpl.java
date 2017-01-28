@@ -7,13 +7,14 @@ import re_lease.domain.Product;
 import re_lease.domain.User;
 import re_lease.dto.PageParams;
 import re_lease.dto.ProductDTO;
+import re_lease.dto.ProductPage;
 import re_lease.repository.ProductCustomRepository;
 import re_lease.repository.ProductRepository;
 import re_lease.repository.UserRepository;
 import re_lease.service.exceptions.NotPermittedException;
 import re_lease.service.exceptions.ProductNotFoundException;
 
-import javax.persistence.EntityNotFoundException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -49,19 +50,72 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDTO> findByUser(Long userId, PageParams pageParams) {
+    public ProductPage findByUser(Long userId, PageParams pageParams) {
         final User user = userRepository.findOne(userId);
-        return productCustomRepository.findByUser(user, pageParams)
+        List<ProductCustomRepository.Row> rows = productCustomRepository.findByUser(user, pageParams);
+        List<ProductDTO> products = rows
                 .stream()
                 .map(toDTO())
                 .collect(Collectors.toList());
+        Long page;
+        Long size;
+        if (pageParams.getPage().isPresent()) {
+            page = pageParams.getPage().get();
+        } else {
+            return null;
+        }
+        if (pageParams.getSize().isPresent()) {
+            size = pageParams.getSize().get();
+        } else {
+            return null;
+        }
+        if (rows != null && rows.size() > 0) {
+            Long value = rows.get(0).getUserStats().getProductCount();
+            Long pageMax = 0L;
+            if (value > 0) {
+                pageMax = value / size + 1;
+            }
+            return ProductPage.instance(page, pageMax, value, products);
+        } else {
+            return ProductPage.instance(1L, 0L, 0L, Collections.emptyList());
+        }
     }
 
     @Override
-    public List<ProductDTO> findMyProducts(PageParams pageParams) {
+    public ProductPage findMyProducts(PageParams pageParams) {
         return securityContextService.currentUser()
                 .map(u -> findByUser(u.getId(), pageParams))
                 .orElseThrow(RuntimeException::new);
+    }
+
+    @Override
+    public ProductPage findFromAll(PageParams pageParams) {
+        List<ProductCustomRepository.Row> rows = productCustomRepository.findAll(pageParams);
+        List<ProductDTO> products = rows
+                .stream()
+                .map(toDTO())
+                .collect(Collectors.toList());
+        Long value = 0L;
+        Long page;
+        Long size;
+        if (pageParams.getPage().isPresent()) {
+            page = pageParams.getPage().get();
+        } else {
+            return null;
+        }
+        if (pageParams.getSize().isPresent()) {
+            size = pageParams.getSize().get();
+        } else {
+            return null;
+        }
+        if (rows != null && rows.size() > 0) {
+            value = rows.get(0).getUserStats().getProductCount();
+        }
+        Long pageMax = 0L;
+        if (value > 0) {
+            pageMax = value / size + 1;
+        }
+        return ProductPage.instance(page, pageMax, value, products);
     }
 
     @Override

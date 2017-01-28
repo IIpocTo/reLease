@@ -14,6 +14,7 @@ import java.util.Optional;
 public interface ProductCustomRepository extends Repository<Product, Long> {
 
     List<Row> findByUser(User user, PageParams pageParams);
+    List<Row> findAll(PageParams pageParams);
     Optional<Row> findOne(Long id);
 
     @Value

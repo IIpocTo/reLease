@@ -6,14 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import re_lease.domain.User;
 import re_lease.dto.ErrorResponse;
 import re_lease.dto.UserDTO;
@@ -39,7 +32,7 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public Page<UserDTO> list(@RequestParam(value = "page", required = false) @Nullable Integer page,
+    public Page<UserDTO> list(@RequestParam(value = "currentPage", required = false) @Nullable Integer page,
                               @RequestParam(value = "size", required = false) @Nullable Integer size) {
         final PageRequest pageable = new PageRequest(
                 Optional.ofNullable(page).orElse(1) - 1,
@@ -78,6 +71,7 @@ public class UserController {
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "No user")
     @ExceptionHandler(UserNotFoundException.class)
-    public void handleUserNotFound() {}
+    public void handleUserNotFound() {
+    }
 
 }

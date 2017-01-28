@@ -11,6 +11,7 @@ import re_lease.domain.UserStats;
 import re_lease.dto.PageParams;
 import re_lease.repository.helper.UserStatsQueryHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,18 +31,84 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
     @Override
     public List<Row> findByUser(User user, PageParams pageParams) {
         final QProduct qProduct = QProduct.product;
-        return queryFactory.selectFrom(qProduct)
-                .where(qProduct.productLeaser.eq(user)
-                        .and(pageParams.getSinceId().map(qProduct.id::gt).orElse(null))
-                        .and(pageParams.getMaxId().map(qProduct.id::lt).orElse(null))
+        Long page;
+        Long size;
+        if (pageParams.getPage().isPresent()) {
+            page = pageParams.getPage().get();
+        } else {
+            return null;
+        }
+        if (pageParams.getSize().isPresent()) {
+            size = pageParams.getSize().get();
+        } else {
+            return null;
+        }
+        List<Product> products = queryFactory.selectFrom(qProduct)
+                .where(qProduct.productLeaser.eq(user))
+                .orderBy(qProduct.id.asc()).fetch();
+        List<Product> result = new ArrayList<>();
+        for (int i = 0; i < products.size(); i++) {
+            if (i + 1 > (page - 1) * size && i + 1 <= page * size) {
+                result.add(products.get(i));
+            }
+        }
+
+        return result
+                .stream()
+                .map(product -> {
+                            final QUser qUser = QUser.user;
+                            Long productAmount = queryFactory.select(qProduct.id.count())
+                                    .from(qProduct, qUser)
+                                    .where(qUser.id.eq(product.getProductLeaser().getId()).and(qProduct.productLeaser.id.eq(qUser.id)))
+                                    .groupBy(qUser)
+                                    .fetchOne();
+
+                            UserStats userStats = new UserStats(productAmount);
+                            return Row.builder()
+                                    .product(product)
+                                    .userStats(userStats)
+                                    .build();
+                        }
                 )
-                .orderBy(qProduct.id.desc())
-                .limit(pageParams.getCount())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Row> findAll(PageParams pageParams) {
+        final QProduct qProduct = QProduct.product;
+        Long page;
+        Long size;
+        if (pageParams.getPage().isPresent()) {
+            page = pageParams.getPage().get();
+        } else {
+            return null;
+        }
+        if (pageParams.getSize().isPresent()) {
+            size = pageParams.getSize().get();
+        } else {
+            return null;
+        }
+        return queryFactory.selectFrom(qProduct)
+                .where(qProduct.id.gt((page - 1) * size))
+                .orderBy(qProduct.id.asc())
+                .limit(size)
                 .fetch()
                 .stream()
-                .map(product -> Row.builder()
-                        .product(product)
-                        .build()
+                .map(product -> {
+                            final QUser qUser = QUser.user;
+                            Long productAmount = queryFactory.select(qProduct.id.count())
+                                    .from(qProduct, qUser)
+                                    .where(qUser.id.eq(product.getProductLeaser().getId()).and(qProduct.productLeaser.id.eq(qUser.id)))
+                                    .groupBy(qUser)
+                                    .fetchOne();
+
+                            UserStats userStats = new UserStats(productAmount);
+
+                            return Row.builder()
+                                    .product(product)
+                                    .userStats(userStats)
+                                    .build();
+                        }
                 )
                 .collect(Collectors.toList());
     }

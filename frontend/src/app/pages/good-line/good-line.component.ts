@@ -1,23 +1,23 @@
-import {Component, OnInit, Input} from "@angular/core";
-import {Product} from "../../core/domains"
-import {styles} from "./goods.component.styles";
-import {ProductService} from "../../core/services/product.service";
-import {HttpErrorHandler} from "../../core/services/http-error-handler";
+import {Component} from "@angular/core";
 import {Router} from "@angular/router";
+import {styles} from "./good-line.component.styles";
+import {HttpErrorHandler} from "../../core/services/http-error-handler";
+import {ProductService} from "../../core/services/product.service";
+import {Product} from "../../core/domains";
 import {PageRequest} from "../../core/dto";
 
 @Component({
-    selector: 'mpt-goods',
-    templateUrl: 'goods.component.html',
+    selector: 'mpt-good-line',
+    templateUrl: './good-line.component.html',
 })
-export class GoodsComponent implements OnInit {
+export class GoodLineComponent {
 
     styles: any = styles;
-    @Input()
-    userId: string;
+
     products: Product[];
     currentPage: number;
     totalPages: number;
+
 
     constructor(
         private productService: ProductService,
@@ -29,7 +29,7 @@ export class GoodsComponent implements OnInit {
 
     ngOnInit(): any {
         this.productService
-            .list(this.userId, new PageRequest(this.currentPage, 5))
+            .list("all", new PageRequest(this.currentPage, 5))
             .subscribe(
                 page => {
                     this.products = page.content;
@@ -37,18 +37,6 @@ export class GoodsComponent implements OnInit {
                     this.totalPages = page.totalPages;
                 },
                 e => this.errorHandler.handle(e)
-            );
-    }
-
-    addProductNavigate() {
-        this.router.navigate(['/add_product']);
-    }
-
-    deleteProduct(id) {
-        this.productService
-            .delete(id)
-            .subscribe(
-                () => this.router.navigate(['/home'])
             );
     }
 
@@ -84,20 +72,5 @@ export class GoodsComponent implements OnInit {
             );
     }
 
-    addProductNavigate() {
-        this.router.navigate(['/add_product']);
-    }
-
-    deleteProduct(id) {
-        this.productService
-            .delete(id)
-            .subscribe(
-                () => this.router.navigate(['/home'])
-            );
-    }
-
-    lookAtProduct(product) {
-        this.router.navigate(['/product/' + product]);
-    }
 
 }

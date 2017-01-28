@@ -11,16 +11,16 @@ public class PageParams {
 
     private static final int DEFAULT_COUNT = 20;
 
-    private Long sinceId;
-    private Long maxId;
+    private Long page;
+    private Long size;
     private int count = DEFAULT_COUNT;
 
-    public Optional<Long> getSinceId() {
-        return Optional.ofNullable(sinceId);
+    public Optional<Long> getPage() {
+        return Optional.ofNullable(page);
     }
 
-    public Optional<Long> getMaxId() {
-        return Optional.ofNullable(maxId);
+    public Optional<Long> getSize() {
+        return Optional.ofNullable(size);
     }
 
 }
