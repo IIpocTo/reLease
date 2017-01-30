@@ -5,9 +5,7 @@ import com.querydsl.core.types.ConstructorExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import re_lease.domain.QProduct;
-import re_lease.domain.User;
-import re_lease.domain.UserStats;
+import re_lease.domain.*;
 import re_lease.dto.PageParams;
 import re_lease.repository.helper.UserStatsQueryHelper;
 
