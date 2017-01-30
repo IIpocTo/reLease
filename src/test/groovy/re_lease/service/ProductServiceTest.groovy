@@ -5,6 +5,7 @@ import re_lease.domain.Product
 import re_lease.domain.User
 import re_lease.dto.PageParams
 import re_lease.dto.ProductDTO
+import re_lease.dto.ProductPage
 import re_lease.repository.ProductCustomRepository
 import re_lease.repository.ProductRepository
 import re_lease.repository.UserRepository
@@ -90,9 +91,10 @@ class ProductServiceTest extends BaseServiceTest {
         )
 
         when:"another user not signed in asks for all of this user products"
-        List<ProductDTO> products = productService.findByUser(user.id, new PageParams())
+        ProductPage page = productService.findByUser(user.id, new PageParams(page: 1, size: 1))
 
         then:"the user successfully gets all information about products of another user"
+        List<ProductDTO> products = page.content;
         products.size() == 1
         products.first().title == "BestPen"
         !products.first().isMyProduct
@@ -111,9 +113,10 @@ class ProductServiceTest extends BaseServiceTest {
         productRepository.save(
                 new Product(price: 666, title: "BestPen", description: "BBBest Pen", productLeaser: user)
         )
-        List<ProductDTO> products = productService.findByUser(user.id, new PageParams())
+        ProductPage page = productService.findByUser(user.id, new PageParams(page: 1, size: 1))
 
         then:"the user successfully gets all information about his products"
+        List<ProductDTO> products = page.content
         products.first().isMyProduct
 
         when:"the user requests all the products of another user who created at least one product."
@@ -123,9 +126,10 @@ class ProductServiceTest extends BaseServiceTest {
         productRepository.save(
                 new Product(price: 4412, title: "BestPencil", description: " Not Best Pen", productLeaser: anotherUser)
         )
-        List<ProductDTO> anotherProducts = productService.findByUser(anotherUser.id, new PageParams())
+        ProductPage page1 = productService.findByUser(anotherUser.id, new PageParams(page: 1, size: 1))
 
         then:"user successfully gets all information about another user's products"
+        List<ProductDTO> anotherProducts = page1.content;
         !anotherProducts.first().isMyProduct
 
     }
@@ -142,9 +146,10 @@ class ProductServiceTest extends BaseServiceTest {
         )
 
         when:"user requests all his own products"
-        List<ProductDTO> products = productService.findMyProducts(new PageParams())
+        ProductPage page = productService.findMyProducts(new PageParams(page: 1, size: 1))
 
         then:"user successfully gets information about all of his own products"
+        List<ProductDTO> products = page.content;
         products.size() == 1
         products.first().title == "BestPen"
         products.first().isMyProduct

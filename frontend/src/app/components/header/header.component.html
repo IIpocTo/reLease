@@ -10,21 +10,24 @@
     <div class="navbar-collapse" [hidden]="isMenuHidden">
 
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item" routerLinkActive="active" *ngIf="isSignedIn">
-                <a class="nav-link" [routerLink]="['/home']">Кабинет</a>
-            </li>
             <li class="nav-item" routerLinkActive="active"
                 [routerLinkActiveOptions]="{exact: true}" *ngIf="!isSignedIn">
                 <a class="nav-link" [routerLink]="['/']">Главная</a>
             </li>
-            <li class="nav-item" routerLinkActive="active" *ngIf="!isSignedIn">
-                <a class="nav-link" [routerLink]="['/login']">Войти</a>
+            <li class="nav-item" routerLinkActive="active" *ngIf="isSignedIn">
+                <a class="nav-link" [routerLink]="['/home']">Кабинет</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/goodline']">Лента товаров</a>
             </li>
         </ul>
 
-        <ul class="navbar-nav my-2 my-lg-0" *ngIf="isSignedIn">
-            <li class="nav-item">
+        <ul class="navbar-nav my-2 my-lg-0">
+            <li class="nav-item" *ngIf="isSignedIn">
                 <a class="nav-link logout" href="#" (click)="logout(); $event.preventDefault()">Выйти</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" *ngIf="!isSignedIn">
+                <a class="nav-link" [routerLink]="['/login']">Войти</a>
             </li>
         </ul>
 
