@@ -5,7 +5,7 @@
     <span *ngIf="!shownOnProfile" [mptStyles]="[styles.userText]">
         <span [ngPlural]="user?.userStats?.productCount || 0">
         <template ngPluralCase="=0">Нет товаров</template>
-        <template ngPluralCase="one">{(user?.userStats?.productCount)}} товар</template>
+        <template ngPluralCase="one">{{(user?.userStats?.productCount)}} товар</template>
         <template ngPluralCase="few">{{(user?.userStats?.productCount)}} товара</template>
         <template ngPluralCase="other">{{(user?.userStats?.productCount || 0)}} товаров</template>
       </span>
