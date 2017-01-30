@@ -15,7 +15,7 @@ import {ENV_PROVIDERS} from "./environment";
 import {ROUTES} from "./app.routes";
 import {AddProductModule} from "./pages/add-product/add-product.module";
 import {ProductModule} from "./pages/product/product.module";
-import {GoodLineModule} from "./pages/good-line/good-line.module";
+import {CatalogModule} from "./pages/catalog/catalog.module";
 
 @NgModule({
     bootstrap: [
@@ -41,7 +41,7 @@ import {GoodLineModule} from "./pages/good-line/good-line.module";
         AddProductModule,
         ProductModule,
         HomeModule,
-        GoodLineModule,
+        CatalogModule
     ],
     providers: [
         ENV_PROVIDERS,

@@ -5,7 +5,11 @@ import com.querydsl.core.types.ConstructorExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import re_lease.domain.*;
+import re_lease.domain.Product;
+import re_lease.domain.QProduct;
+import re_lease.domain.QUser;
+import re_lease.domain.User;
+import re_lease.domain.UserStats;
 import re_lease.dto.PageParams;
 import re_lease.repository.helper.UserStatsQueryHelper;
 
@@ -57,7 +61,8 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
                             final QUser qUser = QUser.user;
                             Long productAmount = queryFactory.select(qProduct.id.count())
                                     .from(qProduct, qUser)
-                                    .where(qUser.id.eq(product.getProductLeaser().getId()).and(qProduct.productLeaser.id.eq(qUser.id)))
+                                    .where(qUser.id.eq(product.getProductLeaser().getId())
+                                            .and(qProduct.productLeaser.id.eq(qUser.id)))
                                     .groupBy(qUser)
                                     .fetchOne();
 
@@ -96,7 +101,8 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
                             final QUser qUser = QUser.user;
                             Long productAmount = queryFactory.select(qProduct.id.count())
                                     .from(qProduct, qUser)
-                                    .where(qUser.id.eq(product.getProductLeaser().getId()).and(qProduct.productLeaser.id.eq(qUser.id)))
+                                    .where(qUser.id.eq(product.getProductLeaser().getId())
+                                            .and(qProduct.productLeaser.id.eq(qUser.id)))
                                     .groupBy(qUser)
                                     .fetchOne();
 

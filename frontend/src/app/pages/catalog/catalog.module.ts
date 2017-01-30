@@ -2,7 +2,7 @@ import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 import {SharedModule} from "../../shared/shared.module";
-import {GoodLineComponent} from "./good-line.component";
+import {CatalogComponent} from "./catalog.component";
 
 @NgModule({
     imports: [
@@ -11,11 +11,11 @@ import {GoodLineComponent} from "./good-line.component";
         SharedModule,
     ],
     declarations: [
-        GoodLineComponent,
+        CatalogComponent,
     ],
     exports: [
-        GoodLineComponent,
+        CatalogComponent,
     ],
 })
-export class GoodLineModule {
+export class CatalogModule {
 }

@@ -45,9 +45,7 @@ public class ProductController {
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "No product")
     @ExceptionHandler(ProductNotFoundException.class)
-    public void handleProductNotFound() {
-
-    }
+    public void handleProductNotFound() {}
 
     @ResponseStatus(value = HttpStatus.FORBIDDEN)
     @ExceptionHandler(NotPermittedException.class)

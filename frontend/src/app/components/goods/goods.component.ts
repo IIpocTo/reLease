@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from "@angular/core";
-import {Product} from "../../core/domains"
+import {Product} from "../../core/domains";
 import {styles} from "./goods.component.styles";
 import {ProductService} from "../../core/services/product.service";
 import {HttpErrorHandler} from "../../core/services/http-error-handler";
@@ -13,16 +13,14 @@ import {PageRequest} from "../../core/dto";
 export class GoodsComponent implements OnInit {
 
     styles: any = styles;
-    @Input()
-    userId: string;
+    @Input() userId: string;
     products: Product[];
     currentPage: number;
     totalPages: number;
 
-    constructor(
-        private productService: ProductService,
-        private errorHandler: HttpErrorHandler,
-        private router: Router) {
+    constructor(private productService: ProductService,
+                private errorHandler: HttpErrorHandler,
+                private router: Router) {
         this.products = [];
         this.currentPage = 1;
     }
@@ -82,22 +80,6 @@ export class GoodsComponent implements OnInit {
                 },
                 e => this.errorHandler.handle(e)
             );
-    }
-
-    addProductNavigate() {
-        this.router.navigate(['/add_product']);
-    }
-
-    deleteProduct(id) {
-        this.productService
-            .delete(id)
-            .subscribe(
-                () => this.router.navigate(['/home'])
-            );
-    }
-
-    lookAtProduct(product) {
-        this.router.navigate(['/product/' + product]);
     }
 
 }

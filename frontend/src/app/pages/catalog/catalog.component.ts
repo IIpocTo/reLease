@@ -1,16 +1,16 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
-import {styles} from "./good-line.component.styles";
+import {styles} from "./catalog.component.styles";
 import {HttpErrorHandler} from "../../core/services/http-error-handler";
 import {ProductService} from "../../core/services/product.service";
 import {Product} from "../../core/domains";
 import {PageRequest} from "../../core/dto";
 
 @Component({
-    selector: 'mpt-good-line',
-    templateUrl: './good-line.component.html',
+    selector: 'mpt-catalog',
+    templateUrl: './catalog.component.html',
 })
-export class GoodLineComponent {
+export class CatalogComponent implements OnInit {
 
     styles: any = styles;
 
@@ -18,11 +18,9 @@ export class GoodLineComponent {
     currentPage: number;
     totalPages: number;
 
-
-    constructor(
-        private productService: ProductService,
-        private errorHandler: HttpErrorHandler,
-        private router: Router) {
+    constructor(private productService: ProductService,
+                private errorHandler: HttpErrorHandler,
+                private router: Router) {
         this.products = [];
         this.currentPage = 1;
     }

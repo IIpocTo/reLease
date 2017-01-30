@@ -5,7 +5,7 @@
     <div class="form-group" [class.has-danger]="!login.valid && login.touched">
         <label class="col-form-label" for="loginInput">Логин</label>
         <input type="text" class="form-control form-control-danger" id="loginInput"
-               placeholder="Login" maxlength="30" formControlName="login"/>
+               maxlength="30" formControlName="login"/>
         <div *ngIf="login.hasError('required') && login.touched" class="form-control-feedback">
             Логин обязателен
         </div>
@@ -17,7 +17,7 @@
     <div class="form-group" [class.has-danger]="!email.valid && email.touched">
         <label class="col-form-label" for="emailInput">Email</label>
         <input type="email" class="form-control form-control-danger" id="emailInput"
-               placeholder="Email" maxlength="100" formControlName="email"/>
+               maxlength="100" formControlName="email"/>
         <div *ngIf="email.hasError('required') && email.touched" class="form-control-feedback">
             Email обязателен
         </div>
@@ -29,7 +29,7 @@
     <div class="form-group" [class.has-danger]="!password.valid && password.touched">
         <label class="col-form-label" for="passwordInput">Пароль</label>
         <input type="text" class="form-control form-control-danger" id="passwordInput"
-               placeholder="Password" maxlength="100" formControlName="password"/>
+               maxlength="100" formControlName="password"/>
         <div *ngIf="password.hasError('required') && password.touched" class="form-control-feedback">
             Логин обязателен
         </div>
@@ -42,7 +42,7 @@
             "(!passwordConfirmation.valid || userForm.hasError('unmatched')) && passwordConfirmation.touched">
         <label class="col-form-label" for="passwordConfirmationInput">Подтвердить пароль</label>
         <input type="text" class="form-control form-control-danger" id="passwordConfirmationInput"
-               placeholder="Confirm Password" maxlength="100" formControlName="passwordConfirmation"/>
+               maxlength="100" formControlName="passwordConfirmation"/>
         <div *ngIf="passwordConfirmation.hasError('required') && passwordConfirmation.touched"
              class="form-control-feedback">
             Требуется подтверждение пароля
