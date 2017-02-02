@@ -16,6 +16,9 @@ import {ROUTES} from "./app.routes";
 import {AddProductModule} from "./pages/add-product/add-product.module";
 import {ProductModule} from "./pages/product/product.module";
 import {CatalogModule} from "./pages/catalog/catalog.module";
+import {AboutModule} from "./pages/about/about.module";
+import {UsageModule} from "./pages/usage/usage.module";
+import {PolicyModule} from "./components/policy/policy.module";
 
 @NgModule({
     bootstrap: [
@@ -33,6 +36,7 @@ import {CatalogModule} from "./pages/catalog/catalog.module";
         FormsModule,
         ReactiveFormsModule,
 
+        PolicyModule,
         CoreModule,
         TopModule,
         HeaderModule,
@@ -41,7 +45,9 @@ import {CatalogModule} from "./pages/catalog/catalog.module";
         AddProductModule,
         ProductModule,
         HomeModule,
-        CatalogModule
+        CatalogModule,
+        AboutModule,
+        UsageModule
     ],
     providers: [
         ENV_PROVIDERS,

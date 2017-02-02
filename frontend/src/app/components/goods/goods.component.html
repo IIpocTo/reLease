@@ -3,20 +3,32 @@
     <div>
         <button class="btn btn-primary"><a (click)="addProductNavigate()">Добавить товар</a></button>
     </div>
+    <br/>
     <div *ngIf="products.length == 0">
-        <p>У  вас нет пока товаров</p>
+        <p>У вас нет пока товаров</p>
     </div>
     <div *ngIf="products.length != 0">
         <div *ngFor="let product of products; let i = index">
             <div class="card">
                 <h3 class="card-header">{{product.title}}</h3>
                 <div class="card-block">
-                    <h4 class="card-title">Описание товара</h4>
-                    <p class="card-text">{{product.description}}</p>
-                    <button (click)="lookAtProduct(product.id)" class="btn btn-primary">Перейти на страницу товара</button>
-                    <button (click)="deleteProduct(product.id)" class="btn btn-danger">Удалить</button>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h4 class="card-title">Описание товара</h4>
+                            <p class="card-text">{{product.description}}</p>
+                        </div>
+                        <div class="col-md-3">
+                            <p>
+                                <button (click)="lookAtProduct(product.id)" class="btn btn-primary">Перейти</button>
+                            </p>
+                            <p>
+                                <button (click)="deleteProduct(product.id)" class="btn btn-danger">Удалить</button>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <br/>
         </div>
         <button class="btn btn-info" (click)="prevPage()" *ngIf="currentPage > 1">Назад</button>
         <button class="btn btn-info" (click)="nextPage()" *ngIf="currentPage < totalPages">Вперед</button>

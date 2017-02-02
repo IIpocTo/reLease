@@ -7,9 +7,15 @@
             <div class="card">
                 <h3 class="card-header">{{product.title}}</h3>
                 <div class="card-block">
+                    <div class="row">
+                        <div class="col-md-9">
                     <h4 class="card-title">Описание товара</h4>
                     <p class="card-text">{{product.description}}</p>
-                    <button (click)="lookAtProduct(product.id)" class="btn btn-primary">Перейти на страницу товара</button>
+                        </div>
+                        <div class="col-md-3">
+                    <button (click)="lookAtProduct(product.id)" class="btn btn-primary">Перейти</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

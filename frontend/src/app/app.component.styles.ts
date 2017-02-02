@@ -8,4 +8,7 @@ export const styles = StyleSheet.create({
         borderTop: `1px solid ${colors.borderColor}`,
         color: colors.weakTextColor,
     },
+    footer_link: {
+        color: colors.weakTextColor
+    },
 });
