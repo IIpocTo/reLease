@@ -24,15 +24,39 @@ module.exports = {
         rules: [
             {
                 test: /\.ts$/,
-                loaders: [
-                    '@angularclass/hmr-loader',
-                    'awesome-typescript-loader',
-                    'angular2-template-loader',
-                    'angular2-router-loader?loader=system'
+                use: [
+                    {
+                        loader: '@angularclass/hmr-loader',
+                        options: {
+                            pretty: true,
+                            prod: false
+                        }
+                    },
+                    {
+                        loader: 'ng-router-loader',
+                        options: {
+                            loader: 'async-import',
+                            genDir: 'compiled',
+                            aot: false
+                        }
+                    },
+                    {
+                        loader: 'awesome-typescript-loader',
+                    },
+                    {
+                        loader: 'angular2-template-loader'
+                    },
+                    {
+                        loader: 'tslint-loader',
+                        options: {
+                            configFile: 'tslint.json',
+                            emitErrors: true,
+                            failOnHint: true
+                        }
+                    }
                 ],
                 exclude: [/\.spec\.ts$/]
             },
-            // global css
             {
                 test: /\.css$/,
                 exclude: [helpers.root('src')],

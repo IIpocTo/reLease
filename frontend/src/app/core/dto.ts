@@ -8,7 +8,7 @@ export class Page<T> {
         this.content = content;
         this.currentPage = currentPage;
         this.totalElements = totalElements;
-        this.totalPages = totalPages
+        this.totalPages = totalPages;
     }
 }
 

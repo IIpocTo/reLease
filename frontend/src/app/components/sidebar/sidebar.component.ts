@@ -8,7 +8,7 @@ import {styles} from "./sidebar.component.styles";
     selector: 'mpt-sidebar',
     templateUrl: './sidebar.component.html',
 })
-export class SidebarComponent implements OnInit{
+export class SidebarComponent implements OnInit {
 
     @Input()
     userId: string;
@@ -34,7 +34,5 @@ export class SidebarComponent implements OnInit{
         this.pageType = event;
         this.onPageTypeChange.emit(this.pageType);
     }
-
-
 
 }

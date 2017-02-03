@@ -5,8 +5,6 @@ import {styles} from "./top.component.styles";
     selector: 'mpt-top',
     templateUrl: './top.component.html',
 })
-export class TopComponent{
-
+export class TopComponent {
     styles: any = styles;
-
 }

@@ -28,7 +28,7 @@ export class AddProductComponent implements OnInit {
             title: new FormControl(),
             description: new FormControl(),
             price: new FormControl()
-        })
+        });
     }
 
     public addProduct(params) {
