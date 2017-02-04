@@ -1,7 +1,7 @@
 <div>
     <h3>Страница ваших товаров</h3>
     <div>
-        <button class="btn btn-primary"><a (click)="addProductNavigate()">Добавить товар</a></button>
+        <button class="btn btn-primary" (click)="addProductNavigate()">Добавить товар</button>
     </div>
     <div *ngIf="products?.length == 0">
         <p>У  вас нет пока товаров</p>
