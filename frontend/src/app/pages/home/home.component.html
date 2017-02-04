@@ -2,17 +2,17 @@
     <div class="col-md-9 sidebar">
             <div [ngSwitch]="pageType">
                 <div *ngSwitchCase="'Goods'">
-                    <mpt-goods [userId]="'me'"></mpt-goods>
+                    <mpt-goods [user]="user"></mpt-goods>
                 </div>
                 <div *ngSwitchCase="'Account'">
-                    <mpt-account></mpt-account>
+                    <mpt-account [user]="user"></mpt-account>
                 </div>
                 <div *ngSwitchDefault>
-                    <mpt-account></mpt-account>
+                    <mpt-account [user]="user"></mpt-account>
                 </div>
             </div>
     </div>
     <div class="col-md-3">
-        <mpt-sidebar [userId]="'me'" [pageType]="pageType" (onPageTypeChange)="pageTypeChanged($event)"></mpt-sidebar>
+        <mpt-sidebar [user]="user" [pageType]="pageType" (onPageTypeChange)="pageTypeChanged($event)"></mpt-sidebar>
     </div>
 </div>

@@ -1,3 +1,11 @@
 <div>
-    <mpt-user-stats [userId]="'me'"></mpt-user-stats>
+    <section class="user clearfix">
+        <h2 id="user-stats-username">{{user?.login}}</h2>
+        <span [ngPlural]="user?.userStats?.productCount || 0">
+            <template ngPluralCase="=0">Нет товаров</template>
+            <template ngPluralCase="one">{{(user?.userStats?.productCount)}} товар</template>
+            <template ngPluralCase="few">{{(user?.userStats?.productCount)}} товара</template>
+            <template ngPluralCase="other">{{(user?.userStats?.productCount || 0)}} товаров</template>
+        </span>
+    </section>
 </div>

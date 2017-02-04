@@ -4,6 +4,7 @@ import {HomeComponent} from "./home.component";
 import {SidebarModule} from "../../components/sidebar/sidebar.module";
 import {GoodsModule} from "../../components/goods/goods.module";
 import {AccountModule} from "../../components/account/account.module";
+import {HomeResolver} from "./home.resolver";
 
 @NgModule({
     imports: [
@@ -14,6 +15,9 @@ import {AccountModule} from "../../components/account/account.module";
     ],
     declarations: [
         HomeComponent,
+    ],
+    providers: [
+        HomeResolver
     ],
     exports: [
         HomeComponent,

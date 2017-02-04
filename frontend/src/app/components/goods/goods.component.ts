@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from "@angular/core";
-import {Product} from "../../core/domains";
+import {Product, User} from "../../core/domains";
 import {ProductService} from "../../core/services/product.service";
 import {HttpErrorHandler} from "../../core/services/http-error-handler";
 import {Router} from "@angular/router";
@@ -12,7 +12,7 @@ import {PageRequest} from "../../core/dto";
 })
 export class GoodsComponent implements OnInit {
 
-    @Input() userId: string;
+    @Input() user: User;
     products?: Product[];
     currentPage: number;
     totalPages: number;
@@ -25,7 +25,7 @@ export class GoodsComponent implements OnInit {
 
     ngOnInit(): any {
         this.productService
-            .list(this.userId, new PageRequest(this.currentPage, 5))
+            .list(this.user.id, new PageRequest(this.currentPage, 5))
             .subscribe(
                 page => {
                     this.products = page.content;
