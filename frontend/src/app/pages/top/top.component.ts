@@ -3,7 +3,7 @@ import {AuthService} from "../../core/services/auth.service";
 
 @Component({
     selector: 'mpt-top',
-    styleUrls: ['./top.component.css'],
+    styleUrls: ['./top.component.scss'],
     templateUrl: './top.component.html',
 })
 export class TopComponent implements OnInit {

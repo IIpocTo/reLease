@@ -26,10 +26,10 @@ export class AuthComponent {
     handleError(error) {
         switch (error.status) {
             case 401:
-                toastr.error('Login or password is wrong.');
+                toastr.error('Неправильный логин или пароль.');
                 break;
             default:
-                toastr.error('Something bad happened.');
+                toastr.error('Неизвестная ошибка.');
         }
     }
 

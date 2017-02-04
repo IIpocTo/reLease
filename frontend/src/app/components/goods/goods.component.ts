@@ -7,20 +7,19 @@ import {PageRequest} from "../../core/dto";
 
 @Component({
     selector: 'mpt-goods',
-    styleUrls: ['goods.component.css'],
+    styleUrls: ['goods.component.scss'],
     templateUrl: 'goods.component.html',
 })
 export class GoodsComponent implements OnInit {
 
     @Input() userId: string;
-    products: Product[];
+    products?: Product[];
     currentPage: number;
     totalPages: number;
 
     constructor(private productService: ProductService,
                 private errorHandler: HttpErrorHandler,
                 private router: Router) {
-        this.products = [];
         this.currentPage = 1;
     }
 

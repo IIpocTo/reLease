@@ -1,17 +1,13 @@
 const path = require('path');
-const _root = path.resolve(__dirname, '..');
+const ROOT = path.resolve(__dirname, '..');
+const root = path.join.bind(path, ROOT);
 
 function hasProcessFlag(flag) {
-  return process.argv.join('').indexOf(flag) > -1;
-}
-
-function root(args) {
-  args = Array.prototype.slice.call(arguments, 0);
-  return path.join.apply(path, [_root].concat(args));
+    return process.argv.join('').indexOf(flag) > -1;
 }
 
 function prod() {
-  return process.env.NODE_ENV === 'production';
+    return process.env.NODE_ENV === 'production';
 }
 
 exports.hasProcessFlag = hasProcessFlag;

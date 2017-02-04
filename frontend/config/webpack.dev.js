@@ -11,10 +11,35 @@ module.exports = webpackMerge(commonConfig, {
     devtool: 'cheap-module-source-map',
     output: {
         path: helpers.root('dist'),
-        filename: '[name].js',
-        sourceMapFilename: '[name].map',
+        filename: '[name].bundle.js',
+        sourceMapFilename: '[file].map',
         chunkFilename: '[id].chunk.js',
+        library: 'ac_[name]',
+        libraryTarget: 'var',
         publicPath: 'http://localhost:4200/'
+    },
+    module: {
+        rules: [
+            {
+                test: /\.ts$/,
+                use: [
+                    {
+                        loader: 'tslint-loader',
+                        options: {
+                            configFile: 'tslint.json',
+                            emitErrors: true,
+                            failOnHint: true
+                        }
+                    }
+                ],
+                exclude: [/\.spec\.ts$/]
+            },
+            {
+                test: /\.scss$/,
+                use: ['style-loader', 'css-loader', 'sass-loader'],
+                include: [helpers.root('src/styles')]
+            },
+        ]
     },
     plugins: [
         new DefinePlugin({

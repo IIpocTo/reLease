@@ -66,11 +66,11 @@ export class SignupComponent implements OnInit {
         switch (error.status) {
             case 400:
                 if (error.json()['code'] === 'email_or_login_already_taken') {
-                    toastr.error('This email or login is already taken.');
+                    toastr.error('Данный email или логин уже занят.');
                 }
                 break;
             default:
-                toastr.error('Something bad happened.');
+                toastr.error('Неизвестная ошибка.');
         }
     }
 

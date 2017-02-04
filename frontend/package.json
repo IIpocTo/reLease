@@ -4,8 +4,7 @@
   "description": "Lease-oriented web project",
   "scripts": {
     "server:dev": "webpack-dev-server --config config/webpack.dev.js --progress --profile --hot --watch --content-base src/",
-    "sass:watch": "node-sass src -o src && node-sass -w src -o src",
-    "start": "npm-run-all -p -r sass:watch server:dev"
+    "start": "yarn run server:dev"
   },
   "dependencies": {
     "@angular/common": "^2.4.6",
@@ -43,11 +42,12 @@
     "http-proxy": "^1.16.1",
     "ng-router-loader": "^2.1.0",
     "node-sass": "^4.5.0",
-    "npm-run-all": "^4.0.1",
     "raw-loader": "^0.5.1",
+    "sass-loader": "^4.1.1",
     "source-map-loader": "^0.1.5",
     "style-loader": "^0.13.1",
-    "ts-helpers": "^1.1.2",
+    "to-string-loader": "^1.1.5",
+    "tslib": "^1.5.0",
     "tslint": "~4.4.2",
     "tslint-loader": "^3.3.0",
     "typescript": "~2.1.5",
