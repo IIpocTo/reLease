@@ -2,7 +2,6 @@ const helpers = require('./helpers');
 
 const {CheckerPlugin} = require('awesome-typescript-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
@@ -80,7 +79,6 @@ module.exports = {
         new CommonsChunkPlugin({
             name: ['polyfills', 'vendor'].reverse()
         }),
-        new ExtractTextPlugin('[name].[chunkhash].css'),
         new ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",
@@ -90,13 +88,6 @@ module.exports = {
             Tether: 'tether'
         })
     ],
-
-    /*
-     * Include polyfills or mocks for various node stuff
-     * Description: Node configuration
-     *
-     * See: https://webpack.github.io/docs/configuration.html#node
-     */
     node: {
         global: true,
         crypto: 'empty',
