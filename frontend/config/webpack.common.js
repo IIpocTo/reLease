@@ -9,7 +9,6 @@ const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 module.exports = {
     entry: {
         'polyfills': './src/polyfills.ts',
-        'vendor': './src/vendor.ts',
         'main': './src/main.ts'
     },
     resolve: {
@@ -34,8 +33,7 @@ module.exports = {
                         loader: 'ng-router-loader',
                         options: {
                             loader: 'async-import',
-                            genDir: 'compiled',
-                            aot: false
+                            genDir: 'compiled'
                         }
                     },
                     {
@@ -43,25 +41,23 @@ module.exports = {
                     },
                     {
                         loader: 'angular2-template-loader'
-                    },
-                    {
-                        loader: 'tslint-loader',
-                        options: {
-                            configFile: 'tslint.json',
-                            emitErrors: true,
-                            failOnHint: true
-                        }
                     }
                 ],
                 exclude: [/\.spec\.ts$/]
             },
             {
-                test: /\.css$/,
-                loader: 'raw-loader'
+                test: /\.scss$/,
+                use: [
+                    'to-string-loader',
+                    'css-loader',
+                    'sass-loader'
+                ],
+                exclude: [helpers.root('src/styles')]
             },
             {
                 test: /\.html$/,
-                loader: 'raw-loader'
+                use: 'raw-loader',
+                exclude: [helpers.root('src/index.html')]
             }
         ]
     },
@@ -74,7 +70,7 @@ module.exports = {
         new ContextReplacementPlugin(
             // The (\\|\/) piece accounts for path separators in *nix and Windows
             /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-            helpers.root('src') // location of your src
+            helpers.root('src')
         ),
         new CommonsChunkPlugin({
             name: ['polyfills', 'vendor'].reverse()

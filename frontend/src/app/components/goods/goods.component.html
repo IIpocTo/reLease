@@ -3,10 +3,10 @@
     <div>
         <button class="btn btn-primary"><a (click)="addProductNavigate()">Добавить товар</a></button>
     </div>
-    <div *ngIf="products.length == 0">
+    <div *ngIf="products?.length == 0">
         <p>У  вас нет пока товаров</p>
     </div>
-    <div *ngIf="products.length != 0">
+    <div *ngIf="products?.length != 0">
         <div class="product_cell" *ngFor="let product of products; let i = index">
             <div class="card">
                 <h3 class="card-header">{{product.title}}</h3>

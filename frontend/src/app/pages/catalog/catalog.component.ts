@@ -7,7 +7,7 @@ import {PageRequest} from "../../core/dto";
 
 @Component({
     selector: 'mpt-catalog',
-    styleUrls: ['catalog.component.css'],
+    styleUrls: ['catalog.component.scss'],
     templateUrl: './catalog.component.html',
 })
 export class CatalogComponent implements OnInit {

@@ -9,14 +9,18 @@
     "sourceMap": true,
     "noEmit": true,
     "noEmitHelpers": true,
+    "importHelpers": true,
     "noUnusedLocals": true,
     "strictNullChecks": true,
     "lib": [
-      "es2015",
+      "es6",
       "dom"
     ],
     "skipLibCheck": true,
     "baseUrl": "./src",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "types": [
       "lodash",
       "node",
