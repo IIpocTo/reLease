@@ -2,9 +2,9 @@ import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {FormGroup, FormControl, Validators} from "@angular/forms";
 import {UserService} from "../../core/services/user.service";
-import {ToastService} from "../../core/toast/toast.service";
 import {EMAIL_PATTERN, Validators as AppValidators} from "../../core/forms/index";
 import values from "lodash/values";
+import * as toastr from "toastr";
 
 @Component({
     selector: 'mpt-signup',
@@ -18,9 +18,7 @@ export class SignupComponent implements OnInit {
     password: FormControl;
     passwordConfirmation: FormControl;
 
-    constructor(private router: Router,
-                private userService: UserService,
-                private toastService: ToastService) {
+    constructor(private router: Router, private userService: UserService) {
     }
 
     ngOnInit(): void {
@@ -68,11 +66,11 @@ export class SignupComponent implements OnInit {
         switch (error.status) {
             case 400:
                 if (error.json()['code'] === 'email_or_login_already_taken') {
-                    this.toastService.error('This email or login is already taken.');
+                    toastr.error('This email or login is already taken.');
                 }
                 break;
             default:
-                this.toastService.error('Something bad happened.');
+                toastr.error('Something bad happened.');
         }
     }
 

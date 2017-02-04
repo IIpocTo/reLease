@@ -7,7 +7,7 @@
         <p>У  вас нет пока товаров</p>
     </div>
     <div *ngIf="products.length != 0">
-        <div *ngFor="let product of products; let i = index">
+        <div class="product_cell" *ngFor="let product of products; let i = index">
             <div class="card">
                 <h3 class="card-header">{{product.title}}</h3>
                 <div class="card-block">

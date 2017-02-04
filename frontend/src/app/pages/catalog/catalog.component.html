@@ -1,19 +1,22 @@
 <div>
-    <div *ngIf="products.length == 0">
+    <div *ngIf="products?.length == 0">
         <p>В системе пока нет никаких товаров.</p>
     </div>
-    <div *ngIf="products.length != 0">
-        <div *ngFor="let product of products; let i = index">
+    <div *ngIf="products?.length != 0">
+        <div class="product_cell" *ngFor="let product of products; let i = index">
             <div class="card">
-                <h3 class="card-header">{{product.title}}</h3>
-                <div class="card-block">
-                    <h4 class="card-title">Описание товара</h4>
-                    <p class="card-text">{{product.description}}</p>
-                    <button (click)="lookAtProduct(product.id)" class="btn btn-primary">Перейти на страницу товара</button>
+                <h4 class="card-header">{{product.title}}</h4>
+                <div class="col-lg-9">
+                    <div class="card-block">
+                        <h4 class="card-title">Описание товара</h4>
+                        <p class="card-text">{{product.description}}</p>
+                        <button (click)="lookAtProduct(product.id)"
+                                class="btn btn-primary">Перейти на страницу товара</button>
+                    </div>
                 </div>
             </div>
         </div>
         <button class="btn btn-info" (click)="prevPage()" *ngIf="currentPage > 1">Назад</button>
-        <button class="btn btn-info" (click)="nextPage()" *ngIf="currentPage < totalPages">Вперед</button>
+        <button class="btn btn-info" (ctick)="nextPage()" *ngIf="currentPage < totalPages">Вперед</button>
     </div>
 </div>

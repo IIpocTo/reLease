@@ -10,6 +10,8 @@ import "lodash/values";
 import "lodash/isEmpty";
 import "lodash/omitBy";
 import "jwt-decode";
-import "aphrodite";
-import "bootstrap/dist/js/bootstrap.js";
-import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/js/bootstrap";
+import * as toastr from "toastr";
+
+require("!style-loader!css-loader!./vendor.css");
+toastr.options.preventDuplicates = true;

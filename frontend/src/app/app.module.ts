@@ -7,7 +7,6 @@ import {AppComponent} from "./app.component";
 import {NoContentComponent} from "./pages/no-content/no-content.component";
 import {TopModule} from "./pages/top/top.module";
 import {HeaderModule} from "./components/header/header.module";
-import {SharedModule} from "./shared/shared.module";
 import {CoreModule} from "./core/core.module";
 import {AuthModule} from "./pages/auth/auth.module";
 import {HomeModule} from "./pages/home/home.module";
@@ -36,7 +35,6 @@ import {CatalogModule} from "./pages/catalog/catalog.module";
         CoreModule,
         TopModule,
         HeaderModule,
-        SharedModule,
         AuthModule,
         AddProductModule,
         ProductModule,

@@ -1,7 +1,6 @@
 import {Component, OnInit, HostListener} from "@angular/core";
 import {Router} from "@angular/router";
 import {AuthService} from "../../core/services/auth.service";
-import {styles} from "./header.component.styles";
 
 @Component({
     selector: 'mpt-header',
@@ -9,7 +8,6 @@ import {styles} from "./header.component.styles";
 })
 export class HeaderComponent implements OnInit {
 
-    styles: any = styles;
     isSignedIn: boolean;
     isMenuHidden: boolean = true;
 

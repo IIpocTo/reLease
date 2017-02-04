@@ -1,7 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {ProductService} from "../../core/services/product.service";
-import {styles} from "./product.component.styles";
 import {Product} from "../../core/domains";
 import {HttpErrorHandler} from "../../core/services/http-error-handler";
 
@@ -11,7 +10,6 @@ import {HttpErrorHandler} from "../../core/services/http-error-handler";
 })
 export class ProductComponent implements OnInit {
 
-    styles: any = styles;
     product: Product;
 
     constructor(private productService: ProductService,

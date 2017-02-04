@@ -2,7 +2,6 @@ import {Component, OnInit, Input, Output, EventEmitter} from "@angular/core";
 import {User} from "../../core/domains";
 import {HttpErrorHandler} from "../../core/services/http-error-handler";
 import {UserService} from "../../core/services/user.service";
-import {styles} from "./sidebar.component.styles";
 
 @Component({
     selector: 'mpt-sidebar',
@@ -15,10 +14,10 @@ export class SidebarComponent implements OnInit {
 
     @Input()
     pageType: string;
+
     @Output()
     onPageTypeChange = new EventEmitter<string>();
 
-    styles: any = styles;
     user: User;
 
     constructor(private userService: UserService, private errorHandler: HttpErrorHandler) {

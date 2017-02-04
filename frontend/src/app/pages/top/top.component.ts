@@ -1,14 +1,13 @@
 import {Component, OnInit} from "@angular/core";
 import {AuthService} from "../../core/services/auth.service";
-import {styles} from "./top.component.styles";
 
 @Component({
     selector: 'mpt-top',
+    styleUrls: ['./top.component.css'],
     templateUrl: './top.component.html',
 })
 export class TopComponent implements OnInit {
 
-    styles: any = styles;
     isSignedIn: boolean;
 
     constructor(private authService: AuthService) {

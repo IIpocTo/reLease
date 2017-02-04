@@ -1,13 +1,12 @@
 <div>
-    <section class="clearfix" [mptStyles]="styles.section">
-        <h2 [mptStyles]="[styles.userName]">{{user?.login}}</h2>
-    </section>
-    <span *ngIf="!shownOnProfile" [mptStyles]="[styles.userText]">
+    <section class="user clearfix">
+        <h2 id="user-stats-username">{{user?.login}}</h2>
         <span [ngPlural]="user?.userStats?.productCount || 0">
-        <template ngPluralCase="=0">Нет товаров</template>
-        <template ngPluralCase="one">{{(user?.userStats?.productCount)}} товар</template>
-        <template ngPluralCase="few">{{(user?.userStats?.productCount)}} товара</template>
-        <template ngPluralCase="other">{{(user?.userStats?.productCount || 0)}} товаров</template>
-      </span>
-    </span>
+            <template ngPluralCase="=0">Нет товаров</template>
+            <template ngPluralCase="one">{{(user?.userStats?.productCount)}} товар</template>
+            <template ngPluralCase="few">{{(user?.userStats?.productCount)}} товара</template>
+            <template ngPluralCase="other">{{(user?.userStats?.productCount || 0)}} товаров</template>
+        </span>
+    </section>
+
 </div>

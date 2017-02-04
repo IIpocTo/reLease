@@ -1,7 +1,6 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
-import {SharedModule} from "../../shared/shared.module";
 import {SidebarMenuComponent} from "./sidebar-menu.component";
 import {MenuElementModule} from "../menu-element/menu-element.module";
 
@@ -9,7 +8,6 @@ import {MenuElementModule} from "../menu-element/menu-element.module";
     imports: [
         CommonModule,
         RouterModule,
-        SharedModule,
         MenuElementModule
     ],
     declarations: [

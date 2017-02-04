@@ -1,6 +1,6 @@
 <h1>Войти</h1>
 
-<form (submit)="logIn(login.value, password.value); $event.preventDefault()" [mptStyles]="styles.formStyle">
+<form class="auth-form" (submit)="logIn(login.value, password.value); $event.preventDefault()">
 
     <div class="form-group">
         <label class="col-form-label" for="login">Логин</label>

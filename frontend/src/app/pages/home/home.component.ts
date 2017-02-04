@@ -1,16 +1,16 @@
 import {Component} from "@angular/core";
-import {styles} from "./home.component.styles";
 
 @Component({
     selector: 'mpt-home',
-    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css'],
+    templateUrl: './home.component.html'
 })
 export class HomeComponent {
 
-    styles: any = styles;
     pageType: string = "";
 
     pageTypeChanged(event: string) {
         this.pageType = event;
     }
+
 }

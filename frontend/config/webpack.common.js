@@ -16,8 +16,7 @@ module.exports = {
     resolve: {
         extensions: ['.ts', '.js'],
         alias: {
-            lodash: 'lodash-es',
-            aphrodite: 'aphrodite/no-important'
+            lodash: 'lodash-es'
         }
     },
     module: {
@@ -59,13 +58,12 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                exclude: [helpers.root('src')],
-                loader: ExtractTextPlugin.extract({
-                    fallbackLoader: "style-loader",
-                    loader: "css-loader"
-                })
+                loader: 'raw-loader'
             },
-            {test: /\.html$/, loader: 'raw-loader'}
+            {
+                test: /\.html$/,
+                loader: 'raw-loader'
+            }
         ]
     },
     plugins: [

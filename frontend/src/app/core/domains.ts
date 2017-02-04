@@ -11,8 +11,8 @@ export interface UserStats {
 
 export interface Product {
     id: number;
-    price: number;
-    title: string;
-    description: string;
+    price?: number;
+    title?: string;
+    description?: string;
     isMyProduct?: boolean;
 }
