@@ -22,12 +22,17 @@
                                 <button (click)="lookAtProduct(product.id)" class="btn btn-primary">Перейти</button>
                             </p>
                             <p>
-                                <button (click)="deleteProduct(product.id)" class="btn btn-danger">Удалить</button>
+                                <!--<button (click)="confirm(product)" class="btn btn-danger">Удалить</button>-->
+                                <a href="#confirmation{{product.id}}" data-toggle="modal" class="btn btn-danger">Удалить</a>
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
+            <mpt-confirmation [title]="'Подтверждение'"
+                              [description]="'Подтвердите удаление товара'"
+                              [product]="product"
+                              (onProductDelete)="deleteProduct($event)"></mpt-confirmation>
             <br/>
         </div>
         <button class="btn btn-info" (click)="prevPage()" *ngIf="currentPage > 1">Назад</button>

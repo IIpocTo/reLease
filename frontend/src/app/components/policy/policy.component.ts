@@ -1,10 +1,9 @@
 import {Component} from "@angular/core";
-import {styles} from "./policy.component.styles";
 
 @Component({
     selector: 'mpt-policy',
     templateUrl: 'policy.component.html',
+    styleUrls: ['policy.component.scss'],
 })
 export class PolicyComponent {
-    styles: any = styles;
 }

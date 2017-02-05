@@ -46,7 +46,7 @@ export class GoodsComponent implements OnInit {
             .subscribe(
                 () => {
                     this.productService
-                        .list(this.userId, new PageRequest(this.currentPage, 5))
+                        .list(this.user.id, new PageRequest(this.currentPage, 5))
                         .subscribe(
                             page => {
                                 this.products = page.content;

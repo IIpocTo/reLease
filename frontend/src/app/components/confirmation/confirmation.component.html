@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<div id="confirmation{{product.id}}" class="modal" [ngClass]="currentClasses">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Заголовок модального окна -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">{{title}}</h4>
+            </div>
+            <!-- Основное содержимое модального окна -->
+            <div class="modal-body">
+                {{description}}
+            </div>
+
+            <!-- Футер модального окна -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteProduct([product.id])">Удалить</button>
+            </div>
+        </div>
+    </div>
+</div>
