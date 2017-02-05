@@ -10,12 +10,13 @@ import {TopComponent} from "./pages/top/top.component";
 import {CatalogComponent} from "./pages/catalog/catalog.component";
 import {AboutComponent} from "./pages/about/about.component";
 import {UsageComponent} from "./pages/usage/usage.component";
+import {HomeResolver} from "./pages/home/home.resolver";
 
 export const ROUTES: Routes = [
     {path: '', component: TopComponent, canActivate: []},
     {path: 'login', component: AuthComponent, canActivate: [PublicPageGuard]},
     {path: 'signup', loadChildren: './pages/signup/signup.module#SignupModule', canActivate: [PublicPageGuard]},
-    {path: 'home', component: HomeComponent, canActivate: [PrivatePageGuard]},
+    {path: 'home', component: HomeComponent, resolve: {user: HomeResolver}, canActivate: [PrivatePageGuard]},
     {path: 'catalog', component: CatalogComponent, canActivate: []},
     {path: 'add_product', component: AddProductComponent, canActivate: [PrivatePageGuard]},
     {path: 'product/:productId', component: ProductComponent, canActivate: []},

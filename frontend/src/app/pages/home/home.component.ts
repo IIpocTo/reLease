@@ -1,16 +1,27 @@
-import {Component} from "@angular/core";
-import {styles} from "./home.component.styles";
+import {Component, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
+import {User} from "../../core/domains";
 
 @Component({
     selector: 'mpt-home',
-    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss'],
+    templateUrl: './home.component.html'
 })
-export class HomeComponent{
+export class HomeComponent implements OnInit {
 
-    styles: any = styles;
+    user: User;
     pageType: string = "";
+
+    constructor(private route: ActivatedRoute) {
+    }
+
+    ngOnInit() {
+        this.user = this.route.snapshot.data['user'];
+        console.log(this.user);
+    }
 
     pageTypeChanged(event: string) {
         this.pageType = event;
     }
+
 }

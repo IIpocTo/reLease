@@ -3,9 +3,7 @@ import {JsonHttp} from "./services/json-http";
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {UserService} from "./services/user.service";
-import {ToastModule} from "./toast/toast.module";
 import {AuthService} from "./services/auth.service";
-import {ToastComponent} from "./toast/toast.component";
 import {HttpErrorHandler} from "./services/http-error-handler";
 import {PublicPageGuard} from "./services/public-page.guard";
 import {PrivatePageGuard} from "./services/private-page.guard";
@@ -19,11 +17,7 @@ export function createJsonHttp(xhrBackend: XHRBackend, requestOptions: RequestOp
 @NgModule({
     imports: [
         CommonModule,
-        HttpModule,
-        ToastModule,
-    ],
-    exports: [
-      ToastComponent,
+        HttpModule
     ],
     providers: [
         {
@@ -40,5 +34,4 @@ export function createJsonHttp(xhrBackend: XHRBackend, requestOptions: RequestOp
     ],
 })
 export class CoreModule {
-
 }

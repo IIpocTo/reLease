@@ -1,5 +1,4 @@
 import {Component, Input, Output, EventEmitter} from "@angular/core";
-import {styles} from "./sidebar-menu.component.styles";
 
 @Component({
     selector: 'mpt-sidebar-menu',
@@ -9,28 +8,40 @@ export class SidebarMenuComponent {
 
     @Input()
     pageType: string;
+
     @Output()
     onPageTypeChange = new EventEmitter<string>();
 
-    styles: any = styles;
+    highlightedButtonIndex: number = 1;
 
-    showProducts() {
-        this.pageType = "Goods";
-        this.onPageTypeChange.emit(this.pageType);
+    show(index: number) {
+        switch (index) {
+            case 1: {
+                this.highlightedButtonIndex = 1;
+                this.pageType = "Account";
+                this.onPageTypeChange.emit(this.pageType);
+                break;
+            }
+            case 2: {
+                this.highlightedButtonIndex = 2;
+                this.pageType = "Goods";
+                this.onPageTypeChange.emit(this.pageType);
+                break;
+            }
+            case 3: {
+                this.highlightedButtonIndex = 3;
+                this.pageType = "Reviews";
+                this.onPageTypeChange.emit(this.pageType);
+                break;
+            }
+            case 4: {
+                this.highlightedButtonIndex = 4;
+                this.pageType = "Messages";
+                this.onPageTypeChange.emit(this.pageType);
+                break;
+            }
+            default:
+        }
     }
 
-    showMessages() {
-        this.pageType = "Messages";
-        this.onPageTypeChange.emit(this.pageType);
-    }
-
-    showAccount() {
-        this.pageType = "Account";
-        this.onPageTypeChange.emit(this.pageType);
-    }
-
-    showReviews() {
-        this.pageType = "Reviews";
-        this.onPageTypeChange.emit(this.pageType);
-    }
 }

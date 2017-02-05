@@ -1,6 +1,10 @@
 <div class="list-group">
-    <button (click)="showAccount()"  class="list-group-item">Личный кабинет</button>
-    <button (click)="showProducts()" class="list-group-item">Мои товары</button>
-    <button (click)="showReviews()" class="list-group-item">Мои отзывы</button>
-    <button (click)="showMessages()" class="list-group-item">Мои сообщения</button>
+    <button (click)="show(1)" [ngClass]="{'active': highlightedButtonIndex === 1 }"
+            class="list-group-item">Личный кабинет</button>
+    <button (click)="show(2)" [ngClass]="{'active': highlightedButtonIndex === 2 }"
+            class="list-group-item">Мои товары</button>
+    <button (click)="show(3)" [ngClass]="{'active': highlightedButtonIndex === 3 }"
+            class="list-group-item">Мои отзывы</button>
+    <button (click)="show(4)" [ngClass]="{'active': highlightedButtonIndex === 4 }"
+            class="list-group-item">Мои сообщения</button>
 </div>

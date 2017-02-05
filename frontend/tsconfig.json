@@ -1,22 +1,26 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "es2015",
+    "module": "commonjs",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
+    "noEmit": true,
     "noEmitHelpers": true,
+    "importHelpers": true,
     "noUnusedLocals": true,
+    "strictNullChecks": true,
     "lib": [
-      "es2015",
+      "es6",
       "dom"
     ],
-    "strictNullChecks": true,
     "skipLibCheck": true,
     "baseUrl": "./src",
-    "paths": {},
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "types": [
       "lodash",
       "node",

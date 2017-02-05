@@ -50,4 +50,4 @@ export class DidLogin {
 }
 export class DidLogout {
 }
-export type AuthEvent = DidLogin | DidLogout
+export type AuthEvent = DidLogin | DidLogout;

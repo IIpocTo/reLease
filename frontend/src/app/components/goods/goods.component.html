@@ -1,14 +1,14 @@
 <div>
     <h3>Страница ваших товаров</h3>
     <div>
-        <button class="btn btn-primary"><a (click)="addProductNavigate()">Добавить товар</a></button>
+        <button class="btn btn-primary" (click)="addProductNavigate()">Добавить товар</button>
     </div>
     <br/>
-    <div *ngIf="products.length == 0">
-        <p>У вас нет пока товаров</p>
+    <div *ngIf="products?.length == 0">
+        <p>У  вас нет пока товаров</p>
     </div>
-    <div *ngIf="products.length != 0">
-        <div *ngFor="let product of products; let i = index">
+    <div *ngIf="products?.length != 0">
+        <div class="product_cell" *ngFor="let product of products; let i = index">
             <div class="card">
                 <h3 class="card-header">{{product.title}}</h3>
                 <div class="card-block">

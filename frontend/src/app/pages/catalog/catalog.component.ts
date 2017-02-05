@@ -1,6 +1,5 @@
 import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
-import {styles} from "./catalog.component.styles";
 import {HttpErrorHandler} from "../../core/services/http-error-handler";
 import {ProductService} from "../../core/services/product.service";
 import {Product} from "../../core/domains";
@@ -8,20 +7,18 @@ import {PageRequest} from "../../core/dto";
 
 @Component({
     selector: 'mpt-catalog',
+    styleUrls: ['catalog.component.scss'],
     templateUrl: './catalog.component.html',
 })
 export class CatalogComponent implements OnInit {
 
-    styles: any = styles;
-
-    products: Product[];
+    products?: Product[];
     currentPage: number;
     totalPages: number;
 
     constructor(private productService: ProductService,
                 private errorHandler: HttpErrorHandler,
                 private router: Router) {
-        this.products = [];
         this.currentPage = 1;
     }
 

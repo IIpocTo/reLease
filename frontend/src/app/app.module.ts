@@ -7,7 +7,6 @@ import {AppComponent} from "./app.component";
 import {NoContentComponent} from "./pages/no-content/no-content.component";
 import {TopModule} from "./pages/top/top.module";
 import {HeaderModule} from "./components/header/header.module";
-import {SharedModule} from "./shared/shared.module";
 import {CoreModule} from "./core/core.module";
 import {AuthModule} from "./pages/auth/auth.module";
 import {HomeModule} from "./pages/home/home.module";
@@ -19,6 +18,7 @@ import {CatalogModule} from "./pages/catalog/catalog.module";
 import {AboutModule} from "./pages/about/about.module";
 import {UsageModule} from "./pages/usage/usage.module";
 import {PolicyModule} from "./components/policy/policy.module";
+import '../styles/_index.scss';
 
 @NgModule({
     bootstrap: [
@@ -40,7 +40,6 @@ import {PolicyModule} from "./components/policy/policy.module";
         CoreModule,
         TopModule,
         HeaderModule,
-        SharedModule,
         AuthModule,
         AddProductModule,
         ProductModule,

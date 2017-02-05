@@ -1,10 +1,13 @@
-import {Component} from "@angular/core";
-import {styles} from "./account.component.styles";
+import {Component, Input} from "@angular/core";
+import {User} from "../../core/domains";
 
 @Component({
     selector: 'mpt-account',
+    styleUrls: ['account.component.scss'],
     templateUrl: 'account.component.html',
 })
 export class AccountComponent {
-    styles: any = styles;
+
+    @Input() user: User;
+
 }

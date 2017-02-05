@@ -1,9 +1,8 @@
 import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {ProductService} from "../../core/services/product.service";
-import {ToastService} from "../../core/toast/toast.service";
-import {styles} from "./add-product.component.styles";
 import {FormControl, FormGroup} from "@angular/forms";
+import * as toastr from "toastr";
 
 @Component({
     selector: 'mpt-add-product',
@@ -11,16 +10,12 @@ import {FormControl, FormGroup} from "@angular/forms";
 })
 export class AddProductComponent implements OnInit {
 
-    styles: any = styles;
-
     productForm: FormGroup;
     title: FormControl;
     description: FormControl;
     price: FormControl;
 
-    constructor(private router: Router,
-                private productService: ProductService,
-                private toastService: ToastService) {
+    constructor(private router: Router, private productService: ProductService) {
     }
 
     ngOnInit() {
@@ -28,14 +23,13 @@ export class AddProductComponent implements OnInit {
             title: new FormControl(),
             description: new FormControl(),
             price: new FormControl()
-        })
+        });
     }
 
     public addProduct(params) {
         this.productService
             .create(params)
-            .subscribe(value => {
-                    console.log(value);
+            .subscribe(() => {
                     this.router.navigate(['/home']);
                 },
                 e => this.handleError(e)
@@ -45,10 +39,10 @@ export class AddProductComponent implements OnInit {
     handleError(error) {
         switch (error.status) {
             case 401:
-                this.toastService.error('Увы, какие-то данные были неправильными.');
+                toastr.error('Увы, какие-то данные были неправильными.');
                 break;
             default:
-                this.toastService.error('Что-то нехорошее случилось.');
+                toastr.error('Что-то нехорошее случилось.');
         }
     }
 

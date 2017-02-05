@@ -2,7 +2,6 @@ const helpers = require('./helpers');
 
 const {CheckerPlugin} = require('awesome-typescript-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
@@ -10,38 +9,56 @@ const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 module.exports = {
     entry: {
         'polyfills': './src/polyfills.ts',
-        'vendor': './src/vendor.ts',
         'main': './src/main.ts'
     },
     resolve: {
         extensions: ['.ts', '.js'],
         alias: {
-            lodash: 'lodash-es',
-            aphrodite: 'aphrodite/no-important'
+            lodash: 'lodash-es'
         }
     },
     module: {
         rules: [
             {
                 test: /\.ts$/,
-                loaders: [
-                    '@angularclass/hmr-loader',
-                    'awesome-typescript-loader',
-                    'angular2-template-loader',
-                    'angular2-router-loader?loader=system'
+                use: [
+                    {
+                        loader: '@angularclass/hmr-loader',
+                        options: {
+                            pretty: true,
+                            prod: false
+                        }
+                    },
+                    {
+                        loader: 'ng-router-loader',
+                        options: {
+                            loader: 'async-import',
+                            genDir: 'compiled'
+                        }
+                    },
+                    {
+                        loader: 'awesome-typescript-loader',
+                    },
+                    {
+                        loader: 'angular2-template-loader'
+                    }
                 ],
                 exclude: [/\.spec\.ts$/]
             },
-            // global css
             {
-                test: /\.css$/,
-                exclude: [helpers.root('src')],
-                loader: ExtractTextPlugin.extract({
-                    fallbackLoader: "style-loader",
-                    loader: "css-loader"
-                })
+                test: /\.scss$/,
+                use: [
+                    'to-string-loader',
+                    'css-loader',
+                    'sass-loader'
+                ],
+                exclude: [helpers.root('src/styles')]
             },
-            {test: /\.html$/, loader: 'raw-loader'}
+            {
+                test: /\.html$/,
+                use: 'raw-loader',
+                exclude: [helpers.root('src/index.html')]
+            }
         ]
     },
     plugins: [
@@ -53,12 +70,11 @@ module.exports = {
         new ContextReplacementPlugin(
             // The (\\|\/) piece accounts for path separators in *nix and Windows
             /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-            helpers.root('src') // location of your src
+            helpers.root('src')
         ),
         new CommonsChunkPlugin({
             name: ['polyfills', 'vendor'].reverse()
         }),
-        new ExtractTextPlugin('[name].[chunkhash].css'),
         new ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",
@@ -68,13 +84,6 @@ module.exports = {
             Tether: 'tether'
         })
     ],
-
-    /*
-     * Include polyfills or mocks for various node stuff
-     * Description: Node configuration
-     *
-     * See: https://webpack.github.io/docs/configuration.html#node
-     */
     node: {
         global: true,
         crypto: 'empty',

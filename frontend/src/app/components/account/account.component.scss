@@ -1,0 +1,19 @@
+@import "../../../styles/index";
+
+section {
+  padding: 8px 0;
+  border-bottom: 1px solid $border-color;
+}
+
+section.user {
+  h2 {
+    font-size: 1.4em;
+    margin-top: 0;
+    margin-bottom: $margin-xxsmall
+  }
+  span {
+    display: block;
+    margin-bottom: $margin-xxsmall;
+    line-height: 1;
+  }
+}

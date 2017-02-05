@@ -8,7 +8,7 @@ export class Page<T> {
         this.content = content;
         this.currentPage = currentPage;
         this.totalElements = totalElements;
-        this.totalPages = totalPages
+        this.totalPages = totalPages;
     }
 }
 
@@ -16,7 +16,7 @@ export class PageRequest {
     page: number;
     size: number;
 
-    constructor(page:number, size: number) {
+    constructor(page: number, size: number) {
         this.page = page;
         this.size = size;
     }

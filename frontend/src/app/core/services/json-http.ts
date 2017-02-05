@@ -16,7 +16,8 @@ const mergeAuthToken = (options: RequestOptionsArgs = {}) => {
 @Injectable()
 export class JsonHttp {
 
-    constructor(private http: Http) {}
+    constructor(private http: Http) {
+    }
 
     get(url: string, options?: RequestOptionsArgs): Observable<Response> {
         return this.http.get(url, mergeAuthToken(options));
