@@ -6,12 +6,15 @@
         <div class="product_cell" *ngFor="let product of products; let i = index">
             <div class="card">
                 <h4 class="card-header">{{product.title}}</h4>
-                <div class="col-lg-9">
-                    <div class="card-block">
-                        <h4 class="card-title">Описание товара</h4>
-                        <p class="card-text">{{product.description}}</p>
-                        <button (click)="lookAtProduct(product.id)"
-                                class="btn btn-primary">Перейти на страницу товара</button>
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-md-9">
+                    <h4 class="card-title">Описание товара</h4>
+                    <p class="card-text">{{product.description}}</p>
+                        </div>
+                        <div class="col-md-3">
+                    <button (click)="lookAtProduct(product.id)" class="btn btn-primary">Перейти</button>
+                        </div>
                     </div>
                 </div>
             </div>

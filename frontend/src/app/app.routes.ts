@@ -8,6 +8,8 @@ import {AddProductComponent} from "./pages/add-product/add-product.component";
 import {ProductComponent} from "./pages/product/product.component";
 import {TopComponent} from "./pages/top/top.component";
 import {CatalogComponent} from "./pages/catalog/catalog.component";
+import {AboutComponent} from "./pages/about/about.component";
+import {UsageComponent} from "./pages/usage/usage.component";
 import {HomeResolver} from "./pages/home/home.resolver";
 
 export const ROUTES: Routes = [
@@ -18,5 +20,7 @@ export const ROUTES: Routes = [
     {path: 'catalog', component: CatalogComponent, canActivate: []},
     {path: 'add_product', component: AddProductComponent, canActivate: [PrivatePageGuard]},
     {path: 'product/:productId', component: ProductComponent, canActivate: []},
+    {path: 'about', component: AboutComponent, canActivate: []},
+    {path: 'usage', component: UsageComponent, canActivate: []},
     {path: '**', component: NoContentComponent},
 ];

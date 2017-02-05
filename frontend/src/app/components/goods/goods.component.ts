@@ -44,7 +44,18 @@ export class GoodsComponent implements OnInit {
         this.productService
             .delete(id)
             .subscribe(
-                () => this.router.navigate(['/home'])
+                () => {
+                    this.productService
+                        .list(this.user.id, new PageRequest(this.currentPage, 5))
+                        .subscribe(
+                            page => {
+                                this.products = page.content;
+                                this.currentPage = page.currentPage;
+                                this.totalPages = page.totalPages;
+                            },
+                            e => this.errorHandler.handle(e)
+                        );
+                }
             );
     }
 
