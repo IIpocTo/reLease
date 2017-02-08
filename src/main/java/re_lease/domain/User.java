@@ -69,13 +69,6 @@ public class User implements UserDetails {
     @Setter
     private String lastName;
 
-    @Basic(fetch = FetchType.LAZY)
-    @Lob
-    @Column(name = "AVATAR")
-    @Getter
-    @Setter
-    private byte[] avatar;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "GENDER")
     @Getter
@@ -97,11 +90,6 @@ public class User implements UserDetails {
     @Setter
     @Pattern(regexp = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")
     private String email;
-
-    @Column(name = "MARK")
-    @Getter
-    @Setter
-    private Float mark;
 
     @Column(name = "LAST_TIME_ACTIVE")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
