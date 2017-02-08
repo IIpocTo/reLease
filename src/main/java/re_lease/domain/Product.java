@@ -32,7 +32,7 @@ public class Product {
     @Column(name = "TITLE", nullable = false)
     private String title;
 
-    @Column(name = "DESCRIPTION")
+    @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 
     @Column(name = "RATING", nullable = false, columnDefinition = "float default(0.0)")

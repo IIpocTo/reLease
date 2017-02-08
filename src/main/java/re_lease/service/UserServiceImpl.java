@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
                     .id(row.getUser().getId())
                     .login(row.getUser().getUsername())
                     .email(email)
-                    .avatarHash(MD5Utils.md5(row.getUser().getUsername()))
+                    .avatarHash(MD5Utils.md5(row.getUser().getEmail()))
                     .userStats(row.getUserStats())
                     .build();
         });
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
                 .id(user.getId())
                 .login(user.getUsername())
                 .email(user.getEmail())
-                .avatarHash(MD5Utils.md5(user.getUsername()))
+                .avatarHash(MD5Utils.md5(user.getEmail()))
                 .build()
         );
     }
