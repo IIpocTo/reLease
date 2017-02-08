@@ -14,8 +14,11 @@ import java.util.Optional;
 public final class UserParams {
 
     private final String email;
+
     @Size(min = 8, max = 100)
     private final String password;
+
+    @Size(min = 4, max = 50)
     private final String login;
 
     public UserParams(@JsonProperty("email") String email,

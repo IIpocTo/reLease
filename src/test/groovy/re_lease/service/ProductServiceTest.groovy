@@ -129,7 +129,7 @@ class ProductServiceTest extends BaseServiceTest {
         ProductPage page1 = productService.findByUser(anotherUser.id, new PageParams(page: 1, size: 1))
 
         then:"user successfully gets all information about another user's products"
-        List<ProductDTO> anotherProducts = page1.content;
+        List<ProductDTO> anotherProducts = page1.content
         !anotherProducts.first().isMyProduct
 
     }
@@ -182,7 +182,7 @@ class ProductServiceTest extends BaseServiceTest {
         )
         signIn(user)
         Product product = productService.saveMyProduct(
-                new Product(12, "fsd", "sdfdsf")
+                new Product(12, "product", "productDesc")
         )
 
         when:"there is a product with such id in the store"
@@ -194,7 +194,7 @@ class ProductServiceTest extends BaseServiceTest {
         when:"there is no product with such id in the store"
         productService.findOne(product.id + 1)
 
-        then:"service throws a ProductNotFound exception"
+        then:"service doesn't return any products"
         thrown(ProductNotFoundException)
 
     }

@@ -26,8 +26,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
     @Override
     public Optional<Row> findOne(Long userId) {
 
-        final ConstructorExpression<UserStats> userStatsExpression =
-                UserStatsQueryHelper.userStatsExpression(qUser);
+        final ConstructorExpression<UserStats> userStatsExpression = UserStatsQueryHelper.userStatsExpression(qUser);
 
         final Tuple row = queryFactory.select(qUser, userStatsExpression)
                 .from(qUser)

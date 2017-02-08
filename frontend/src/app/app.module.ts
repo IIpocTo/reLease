@@ -10,12 +10,11 @@ import {HeaderModule} from "./components/header/header.module";
 import {CoreModule} from "./core/core.module";
 import {AuthModule} from "./pages/auth/auth.module";
 import {HomeModule} from "./pages/home/home.module";
+import {CatalogModule} from "./pages/catalog/catalog.module";
+import {ProductModule} from "./pages/product/product.module";
+import {PolicyModule} from "./components/policy/policy.module";
 import {ENV_PROVIDERS} from "./environment";
 import {ROUTES} from "./app.routes";
-import {AddProductModule} from "./pages/add-product/add-product.module";
-import {ProductModule} from "./pages/product/product.module";
-import {CatalogModule} from "./pages/catalog/catalog.module";
-import {PolicyModule} from "./components/policy/policy.module";
 import '../styles/_index.scss';
 
 @NgModule({
@@ -39,9 +38,8 @@ import '../styles/_index.scss';
         TopModule,
         HeaderModule,
         AuthModule,
-        AddProductModule,
-        ProductModule,
         HomeModule,
+        ProductModule,
         CatalogModule
     ],
     providers: [

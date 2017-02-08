@@ -13,6 +13,7 @@ import re_lease.dto.UserDTO;
 import re_lease.dto.UserParams;
 import re_lease.repository.UserCustomRepository;
 import re_lease.repository.UserRepository;
+import re_lease.utils.MD5Utils;
 
 import java.util.Optional;
 
@@ -34,31 +35,33 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<UserDTO> findOne(Long id) {
-        return userCustomRepository.findOne(id).map(r -> {
+        return userCustomRepository.findOne(id).map(row -> {
             final Optional<User> currentUser = securityContextService.currentUser();
-            final String email = currentUser.filter(u -> u.equals(r.getUser()))
+            final String email = currentUser.filter(user -> user.equals(row.getUser()))
                     .map(User::getEmail)
                     .orElse(null);
             return UserDTO.builder()
-                    .id(r.getUser().getId())
-                    .login(r.getUser().getUsername())
+                    .id(row.getUser().getId())
+                    .login(row.getUser().getUsername())
                     .email(email)
-                    .userStats(r.getUserStats())
+                    .avatarHash(MD5Utils.md5(row.getUser().getUsername()))
+                    .userStats(row.getUserStats())
                     .build();
         });
     }
 
     @Override
     public Optional<UserDTO> findMe() {
-        return securityContextService.currentUser().flatMap(u -> findOne(u.getId()));
+        return securityContextService.currentUser().flatMap(user -> findOne(user.getId()));
     }
 
     @Override
     public Page<UserDTO> findAll(PageRequest pageable) {
-        return userRepository.findAll(pageable).map(u -> UserDTO.builder()
-                .id(u.getId())
-                .login(u.getUsername())
-                .email(u.getEmail())
+        return userRepository.findAll(pageable).map(user -> UserDTO.builder()
+                .id(user.getId())
+                .login(user.getUsername())
+                .email(user.getEmail())
+                .avatarHash(MD5Utils.md5(user.getUsername()))
                 .build()
         );
     }
@@ -79,7 +82,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User updateMe(UserParams params) {
         return securityContextService.currentUser()
-                .map(u -> update(u, params))
+                .map(user -> update(user, params))
                 .orElseThrow(() -> new AccessDeniedException(""));
     }
 

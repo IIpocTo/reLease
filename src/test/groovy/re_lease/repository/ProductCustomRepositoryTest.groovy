@@ -54,13 +54,13 @@ class ProductCustomRepositoryTest extends BaseRepositoryTest {
     def "system can load product by its id"() {
 
         given:"system saved a new Product to database"
-        User user = userRepository.save(new User("user", "password", "ea@ya.ru"))
-        Product product = new Product(12,"test","some description");
+        User user = userRepository.save(new User("user", "password", "sometest@test.com"))
+        Product product = new Product(12, "test", "some description")
         product.productLeaser = user
         Product productCreated = productRepository.save(product)
 
         when:"system tries to get the Product by an existent id"
-        ProductCustomRepository.Row productFound = productCustomRepository.findOne(productCreated.id).get()
+        ProductCustomRepository.Row productFound = productCustomRepository.findOne(productCreated.id).orElse(null)
 
         then:"system returns a matching Product"
         productFound.product == productCreated
