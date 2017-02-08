@@ -13,14 +13,14 @@ const routes: Routes = [
         CommonModule,
         RouterModule.forChild(routes),
         FormsModule,
-        ReactiveFormsModule,
+        ReactiveFormsModule
     ],
     declarations: [
-        SignupComponent,
+        SignupComponent
     ],
     exports: [
         SignupComponent,
-    ],
+    ]
 })
 export class SignupModule {
 }
