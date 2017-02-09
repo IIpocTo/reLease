@@ -50,7 +50,7 @@ public class User implements UserDetails {
     @Setter
     private Long id;
 
-    @Column(name = "LOGIN", nullable = false)
+    @Column(name = "LOGIN", nullable = false, unique = true)
     @Size(min = 4, max = 50)
     @Setter
     private String login;
@@ -75,7 +75,7 @@ public class User implements UserDetails {
     @Setter
     private Gender gender;
 
-    @Column(name = "PHONE")
+    @Column(name = "PHONE", unique = true)
     @Getter
     @Setter
     private String phone;
@@ -85,7 +85,7 @@ public class User implements UserDetails {
     @Setter
     private String about;
 
-    @Column(name = "EMAIL", nullable = false)
+    @Column(name = "EMAIL", nullable = false, unique = true)
     @Getter
     @Setter
     @Pattern(regexp = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")

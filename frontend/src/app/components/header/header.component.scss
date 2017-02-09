@@ -1,0 +1,17 @@
+.navbar {
+  background-color: #fff;
+  box-shadow: 0 0 1px #57ad68;
+}
+
+.active {
+  .nav-link {
+    font-weight: bold;
+    color: #16984d;
+    border-bottom: 4px solid #16984d;
+  }
+}
+
+.nav-link {
+  color: #38393d;
+  padding: 0;
+}

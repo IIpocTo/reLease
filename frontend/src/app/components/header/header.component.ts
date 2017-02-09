@@ -5,6 +5,7 @@ import {AuthService} from "../../core/services/auth.service";
 @Component({
     selector: 'mpt-header',
     templateUrl: 'header.component.html',
+    styleUrls: ['header.component.scss']
 })
 export class HeaderComponent implements OnInit {
 
