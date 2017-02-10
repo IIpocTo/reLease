@@ -74,4 +74,25 @@ class ProductCustomRepositoryTest extends BaseRepositoryTest {
         productNotFound == null
 
     }
+
+    def "system can load list of products"() {
+
+        given:"system saved some Products to database"
+        User user = userRepository.save(new User("user", "password", "ea@ya.ru"))
+        Product product = new Product(12,"test","some description");
+        Product product2 = new Product(123,"test","some description");
+        product.productLeaser = user
+        product2.productLeaser = user
+        productRepository.save(product)
+        productRepository.save(product2)
+
+        when:"system tries to get a list of products"
+        List<ProductCustomRepository.Row> productsFound =
+                productCustomRepository.findAll(new PageParams(page: 1, size: 3)).collect()
+
+        then:"system returns a list of Products"
+        productsFound.size() == 2
+
+    }
+
 }
