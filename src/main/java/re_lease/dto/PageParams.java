@@ -15,12 +15,12 @@ public class PageParams {
     private Long size;
     private int count = DEFAULT_COUNT;
 
-    public Optional<Long> getPage() {
-        return Optional.ofNullable(page);
+    public Long getPage() {
+        return page;
     }
 
-    public Optional<Long> getSize() {
-        return Optional.ofNullable(size);
+    public Long getSize() {
+        return size;
     }
 
 }

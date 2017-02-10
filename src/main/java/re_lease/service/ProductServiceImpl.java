@@ -57,18 +57,8 @@ public class ProductServiceImpl implements ProductService {
                 .stream()
                 .map(toDTO())
                 .collect(Collectors.toList());
-        Long page;
-        Long size;
-        if (pageParams.getPage().isPresent()) {
-            page = pageParams.getPage().get();
-        } else {
-            return null;
-        }
-        if (pageParams.getSize().isPresent()) {
-            size = pageParams.getSize().get();
-        } else {
-            return null;
-        }
+        Long page = pageParams.getPage();
+        Long size = pageParams.getSize();
         if (rows != null && rows.size() > 0) {
             Long value = rows.get(0).getUserStats().getProductCount();
             Long pageMax = 0L;
@@ -96,18 +86,8 @@ public class ProductServiceImpl implements ProductService {
                 .map(toDTO())
                 .collect(Collectors.toList());
         Long value = 0L;
-        Long page;
-        Long size;
-        if (pageParams.getPage().isPresent()) {
-            page = pageParams.getPage().get();
-        } else {
-            return null;
-        }
-        if (pageParams.getSize().isPresent()) {
-            size = pageParams.getSize().get();
-        } else {
-            return null;
-        }
+        Long page = pageParams.getPage();
+        Long size = pageParams.getSize();
         if (rows != null && rows.size() > 0) {
             value = rows.get(0).getUserStats().getProductCount();
         }
