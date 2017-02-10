@@ -43,9 +43,9 @@ public class ProductServiceImpl implements ProductService {
     public void delete(Long id) throws NotPermittedException {
         final Product product = productRepository.findOne(id);
         final Optional<User> currentUser = securityContextService.currentUser();
-        currentUser.filter(u -> u.equals(product.getProductLeaser()))
-                .ifPresent(u -> productRepository.delete(id));
-        currentUser.filter(u -> u.equals(product.getProductLeaser()))
+        currentUser.filter(user -> user.equals(product.getProductLeaser()))
+                .ifPresent(user -> productRepository.delete(id));
+        currentUser.filter(user -> user.equals(product.getProductLeaser()))
                 .orElseThrow(() -> new NotPermittedException("no permission to delete this product"));
     }
 
@@ -59,7 +59,7 @@ public class ProductServiceImpl implements ProductService {
                 .collect(Collectors.toList());
         Long page = pageParams.getPage();
         Long size = pageParams.getSize();
-        if (rows != null && rows.size() > 0) {
+        if (!rows.isEmpty() && page != null && size != null) {
             Long value = rows.get(0).getUserStats().getProductCount();
             Long pageMax = 0L;
             if (value > 0) {
@@ -81,14 +81,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductPage findFromAll(PageParams pageParams) {
         List<ProductCustomRepository.Row> rows = productCustomRepository.findAll(pageParams);
-        List<ProductDTO> products = rows
-                .stream()
-                .map(toDTO())
-                .collect(Collectors.toList());
+        List<ProductDTO> products = rows.stream().map(toDTO()).collect(Collectors.toList());
         Long value = 0L;
         Long page = pageParams.getPage();
         Long size = pageParams.getSize();
-        if (rows != null && rows.size() > 0) {
+        if (!rows.isEmpty()) {
             value = rows.get(0).getUserStats().getProductCount();
         }
         Long pageMax = 0L;
@@ -110,19 +107,18 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDTO findOne(Long id) throws ProductNotFoundException {
-        return productCustomRepository.findOne(id).map(r -> {
-            return ProductDTO.newInstance(r.getProduct(), true);
-        })
+        return productCustomRepository.findOne(id)
+                .map(row -> ProductDTO.newInstance(row.getProduct(), true))
                 .orElseThrow(ProductNotFoundException::new);
     }
 
     private Function<ProductCustomRepository.Row, ProductDTO> toDTO() {
         final Optional<User> currentUser = securityContextService.currentUser();
-        return r -> {
+        return row -> {
             final Boolean isMyProduct = currentUser
-                    .map(u -> r.getProduct().getProductLeaser().equals(u))
+                    .map(user -> row.getProduct().getProductLeaser().equals(user))
                     .orElse(null);
-            return ProductDTO.newInstance(r.getProduct(), r.getUserStats(), isMyProduct);
+            return ProductDTO.newInstance(row.getProduct(), row.getUserStats(), isMyProduct);
         };
     }
 

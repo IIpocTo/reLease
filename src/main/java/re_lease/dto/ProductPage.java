@@ -16,7 +16,8 @@ public class ProductPage {
     private Long totalElements;
     private List<ProductDTO> content;
 
-    public static ProductPage instance(Long currentPage, Long totalPages,Long totalElements, List<ProductDTO> content) {
+    public static ProductPage instance(Long currentPage, Long totalPages,
+                                       Long totalElements, List<ProductDTO> content) {
         return ProductPage.builder()
                 .currentPage(currentPage)
                 .totalPages(totalPages)

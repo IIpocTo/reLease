@@ -8,8 +8,9 @@ import re_lease.domain.UserStats;
 @Value
 @Builder
 public class UserDTO {
-    private final long id;
-    private final String email;
+    @NonNull private final Long id;
+    @NonNull private final String email;
     @NonNull private final String login;
+    private final String avatarHash;
     private final UserStats userStats;
 }

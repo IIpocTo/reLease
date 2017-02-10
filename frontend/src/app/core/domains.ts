@@ -2,6 +2,7 @@ export interface User {
     id: string | number;
     email?: string;
     login?: string;
+    avatarHash?: string;
     userStats: UserStats;
 }
 

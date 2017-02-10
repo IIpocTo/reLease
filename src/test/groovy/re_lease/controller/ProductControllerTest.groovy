@@ -124,8 +124,8 @@ class ProductControllerTest extends BaseControllerTest {
 
     def "one can get data about product by its id from server"() {
         given:"user signed in and there was at least one good in the repository"
-        productService.findOne(1)>> {
-            Product product = new Product(id: 1, title: "sfdsf", description: "sfsdfsd", price: 12)
+        productService.findOne(1) >> {
+            Product product = new Product(id: 1, title: "anyTitle", description: "anyDesc", price: 12)
             ProductDTO productDTO = ProductDTO.builder()
                     .id(product.id)
             .title(product.title)
@@ -133,7 +133,6 @@ class ProductControllerTest extends BaseControllerTest {
             .price(product.price)
             .isMyProduct(false)
             .build()
-
             return productDTO
         }
         productService.findOne(2) >> {

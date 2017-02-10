@@ -19,7 +19,6 @@ import spock.mock.DetachedMockFactory
 
 import static org.hamcrest.Matchers.hasSize
 import static org.hamcrest.Matchers.is
-import static org.hamcrest.Matchers.nullValue
 
 @WebMvcTest(UserController)
 class UserControllerTest extends BaseControllerTest {
@@ -89,6 +88,7 @@ class UserControllerTest extends BaseControllerTest {
                 UserDTO.builder()
                     .id(u.id)
                     .login(u.username)
+                    .email(u.email)
                     .build()
             }
             return new PageImpl<>(content)
@@ -103,7 +103,7 @@ class UserControllerTest extends BaseControllerTest {
             andExpect(MockMvcResultMatchers.jsonPath('$.content').exists())
             andExpect(MockMvcResultMatchers.jsonPath('$.content', hasSize(2)))
             andExpect(MockMvcResultMatchers.jsonPath('$.content[0].login', is("test0")))
-            andExpect(MockMvcResultMatchers.jsonPath('$.content[0].email', nullValue()))
+            andExpect(MockMvcResultMatchers.jsonPath('$.content[0].email', is("test0@test.com")))
             andExpect(MockMvcResultMatchers.jsonPath('$.content[1].login', is("test1")))
         }
 

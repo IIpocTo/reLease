@@ -17,7 +17,6 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         this.user = this.route.snapshot.data['user'];
-        console.log(this.user);
     }
 
     pageTypeChanged(event: string) {

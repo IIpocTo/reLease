@@ -1,6 +1,9 @@
 <div>
-    <section class="user clearfix">
-        <h2 id="user-stats-username">{{user?.login}}</h2>
+    <section class="clearfix">
+        <h2 id="user-stats-username">
+            <mpt-gravatar class="gravatar" [hash]="user?.avatarHash" [size]="68" [alt]="user?.login"></mpt-gravatar>
+            {{user?.login}}
+        </h2>
         <span [ngPlural]="user?.userStats?.productCount || 0">
             <template ngPluralCase="=0">Нет товаров</template>
             <template ngPluralCase="one">{{(user?.userStats?.productCount)}} товар</template>

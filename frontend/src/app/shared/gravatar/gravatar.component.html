@@ -1,0 +1,4 @@
+<div class="wrapper" [ngStyle]="{'width': size + 'px', 'height': size + 'px'}">
+    <div class="loading" [hidden]="!isLoading"></div>
+    <img *ngIf="imageUrl" [alt]="alt" [src]="imageUrl" (load)="stopLoading()" [hidden]="isLoading"/>
+</div>

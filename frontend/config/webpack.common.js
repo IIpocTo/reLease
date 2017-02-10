@@ -2,6 +2,8 @@ const helpers = require('./helpers');
 
 const {CheckerPlugin} = require('awesome-typescript-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplacementPlugin');
 const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
@@ -9,6 +11,7 @@ const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 module.exports = {
     entry: {
         'polyfills': './src/polyfills.ts',
+        'vendor': './src/vendor.ts',
         'main': './src/main.ts'
     },
     resolve: {
@@ -62,10 +65,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            template: 'src/index.html',
-            chunksSortMode: 'dependency'
-        }),
         new CheckerPlugin(),
         new ContextReplacementPlugin(
             // The (\\|\/) piece accounts for path separators in *nix and Windows
@@ -73,7 +72,15 @@ module.exports = {
             helpers.root('src')
         ),
         new CommonsChunkPlugin({
-            name: ['polyfills', 'vendor'].reverse()
+            name: 'polyfills'
+        }),
+        new HtmlWebpackPlugin({
+            template: 'src/index.html',
+            chunksSortMode: 'dependency',
+            inject: 'head'
+        }),
+        new ScriptExtHtmlWebpackPlugin({
+           defaultAttribute: "defer"
         }),
         new ProvidePlugin({
             $: "jquery",
