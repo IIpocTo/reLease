@@ -11,6 +11,7 @@ import java.util.Optional;
 public interface UserCustomRepository extends Repository<User, Long> {
 
     Optional<Row> findOne(Long userId);
+    Optional<User> findUserByEmail(String email);
 
     @Value
     @Builder

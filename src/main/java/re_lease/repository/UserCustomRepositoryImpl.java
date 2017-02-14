@@ -6,6 +6,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import re_lease.domain.QUser;
+import re_lease.domain.User;
 import re_lease.domain.UserStats;
 import re_lease.repository.helper.UserStatsQueryHelper;
 
@@ -38,5 +39,14 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
                 .userStats(tuple.get(userStatsExpression))
                 .build());
 
+    }
+
+    @Override
+    public Optional<User> findUserByEmail(String email) {
+        final User user = queryFactory.select(qUser)
+                .from(qUser)
+                .where(qUser.email.eq(email))
+                .fetchOne();
+        return Optional.ofNullable(user);
     }
 }

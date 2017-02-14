@@ -24,6 +24,9 @@
         <div *ngIf="email.hasError('pattern') && email.touched" class="form-control-feedback">
             Неверный формат
         </div>
+        <div *ngIf="email.hasError('validateEmail') && email.touched" class="form-control-feedback">
+            Данный email уже занят
+        </div>
     </div>
 
     <div class="form-group" [class.has-danger]="!password.valid && password.touched">

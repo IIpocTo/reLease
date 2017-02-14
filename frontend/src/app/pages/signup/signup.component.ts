@@ -2,13 +2,15 @@ import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {FormGroup, FormControl, Validators} from "@angular/forms";
 import {UserService} from "../../core/services/user.service";
-import {EMAIL_PATTERN, Validators as AppValidators} from "../../core/forms/index";
+import {Validators as AppValidators, EMAIL_PATTERN} from "../../core/forms/index";
 import values from "lodash/values";
 import * as toastr from "toastr";
+import {ValidationService} from "../../core/services/validation.service";
+import {Observable} from "rxjs";
 
 @Component({
     selector: 'mpt-signup',
-    templateUrl: './signup.component.html',
+    templateUrl: './signup.component.html'
 })
 export class SignupComponent implements OnInit {
 
@@ -18,7 +20,9 @@ export class SignupComponent implements OnInit {
     password: FormControl;
     passwordConfirmation: FormControl;
 
-    constructor(private router: Router, private userService: UserService) {
+    constructor(private router: Router,
+                private userService: UserService,
+                private validationService: ValidationService) {
     }
 
     ngOnInit(): void {
@@ -37,15 +41,35 @@ export class SignupComponent implements OnInit {
             );
     }
 
+    validateEmail (c: FormControl):  Promise<any> | Observable<any> {
+        const reg = new RegExp(EMAIL_PATTERN);
+        if (reg.test(c.value)) {
+            return new Promise<any>(
+                (resolve, reject) => {
+                            this.validationService.email(c.value)
+                                .subscribe(
+                                    data => {
+                                        if (!data) {
+                                            resolve({'validateEmail': true});
+                                        } else {
+                                            resolve(null);
+                                        }
+                                    });
+                        });
+            // return !this.emailResult ? {validateEmail: true} : {};
+        } else {
+            return new Promise((resolve) => { resolve({pattern: true}); });
+        }
+    }
+
     private initForm() {
         this.login = new FormControl('', Validators.compose([
             Validators.required,
             Validators.minLength(4),
         ]));
         this.email = new FormControl('', Validators.compose([
-            Validators.required,
-            Validators.pattern(EMAIL_PATTERN),
-        ]));
+            Validators.required
+        ]),  this.validateEmail);
         this.password = new FormControl('', Validators.compose([
             Validators.required,
             Validators.minLength(8),

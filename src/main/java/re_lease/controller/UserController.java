@@ -63,11 +63,11 @@ public class UserController {
         userService.updateMe(userParams);
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    public ErrorResponse handleValidationException(DataIntegrityViolationException e) {
-        return new ErrorResponse("email_or_login_already_taken", "This email or login is already taken.");
-    }
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    @ExceptionHandler(DataIntegrityViolationException.class)
+//    public ErrorResponse handleValidationException(DataIntegrityViolationException e) {
+//        return new ErrorResponse("email_or_login_already_taken", "This email or login is already taken.");
+//    }
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "No user")
     @ExceptionHandler(UserNotFoundException.class)
