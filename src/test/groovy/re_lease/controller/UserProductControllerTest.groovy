@@ -90,4 +90,17 @@ class UserProductControllerTest extends BaseControllerTest {
 
     }
 
+    def "one can list all products"() {
+
+        given:"undefined amount of products was in database"
+        productService.findFromAll(new PageParams()) >> new ProductPage(1,0,0,[])
+
+        when:"user tries to get a list of his own products"
+        def response = perform(MockMvcRequestBuilders.get("/api/users/all/products"))
+
+        then:"user receives an exception of being unauthorized"
+        response.andExpect(MockMvcResultMatchers.status().isOk())
+
+    }
+
 }

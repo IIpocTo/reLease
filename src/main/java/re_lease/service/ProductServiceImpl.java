@@ -53,9 +53,12 @@ public class ProductServiceImpl implements ProductService {
     public ProductPage findByUser(Long userId, PageParams pageParams) {
         final User user = userRepository.findOne(userId);
         List<ProductCustomRepository.Row> rows = productCustomRepository.findByUser(user, pageParams);
-        List<ProductDTO> products = rows.stream().map(toDTO()).collect(Collectors.toList());
-        Long page = pageParams.getPage().orElse(null);
-        Long size = pageParams.getSize().orElse(null);
+        List<ProductDTO> products = rows
+                .stream()
+                .map(toDTO())
+                .collect(Collectors.toList());
+        Long page = pageParams.getPage();
+        Long size = pageParams.getSize();
         if (!rows.isEmpty() && page != null && size != null) {
             Long value = rows.get(0).getUserStats().getProductCount();
             Long pageMax = 0L;
@@ -80,8 +83,8 @@ public class ProductServiceImpl implements ProductService {
         List<ProductCustomRepository.Row> rows = productCustomRepository.findAll(pageParams);
         List<ProductDTO> products = rows.stream().map(toDTO()).collect(Collectors.toList());
         Long value = 0L;
-        Long page = pageParams.getPage().orElse(null);
-        Long size = pageParams.getSize().orElse(null);
+        Long page = pageParams.getPage();
+        Long size = pageParams.getSize();
         if (!rows.isEmpty()) {
             value = rows.get(0).getUserStats().getProductCount();
         }

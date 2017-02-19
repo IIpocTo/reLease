@@ -33,18 +33,8 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
     @Override
     public List<Row> findByUser(User user, PageParams pageParams) {
         final QProduct qProduct = QProduct.product;
-        Long page;
-        Long size;
-        if (pageParams.getPage().isPresent()) {
-            page = pageParams.getPage().get();
-        } else {
-            return null;
-        }
-        if (pageParams.getSize().isPresent()) {
-            size = pageParams.getSize().get();
-        } else {
-            return null;
-        }
+        Long page = pageParams.getPage();
+        Long size = pageParams.getSize();
         List<Product> products = queryFactory.selectFrom(qProduct)
                 .where(qProduct.productLeaser.eq(user))
                 .orderBy(qProduct.id.asc()).fetch();
@@ -79,18 +69,8 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
     @Override
     public List<Row> findAll(PageParams pageParams) {
         final QProduct qProduct = QProduct.product;
-        Long page;
-        Long size;
-        if (pageParams.getPage().isPresent()) {
-            page = pageParams.getPage().get();
-        } else {
-            return null;
-        }
-        if (pageParams.getSize().isPresent()) {
-            size = pageParams.getSize().get();
-        } else {
-            return null;
-        }
+        Long page = pageParams.getPage();
+        Long size = pageParams.getSize();
         return queryFactory.selectFrom(qProduct)
                 .where(qProduct.id.gt((page - 1) * size))
                 .orderBy(qProduct.id.asc())
