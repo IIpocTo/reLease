@@ -55,30 +55,6 @@ class UserControllerTest extends BaseControllerTest {
 
     }
 
-    def "user can not sign up if login or email are duplicated"() {
-
-        given:"user had duplcated data in database"
-        def login = "testLogin"
-        def password = "somePassword"
-        def email = "test@gmail.com"
-        userService.create(_ as UserParams) >> {
-            throw new DataIntegrityViolationException("")
-        }
-
-        when:"user tries to sign up"
-        def response = perform(MockMvcRequestBuilders.post("/api/users")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonOutput.toJson(email: email, password: password, login: login))
-        )
-
-        then:"user receives en exception of a bad request"
-        with(response) {
-            andExpect(MockMvcResultMatchers.status().isBadRequest())
-            andExpect(MockMvcResultMatchers.jsonPath('$.code', is("email_or_login_already_taken")))
-        }
-
-    }
-
     def "one can list users"() {
 
         given:"two users were registered"
