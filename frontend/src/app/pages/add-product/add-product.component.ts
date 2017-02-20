@@ -1,8 +1,9 @@
 import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {ProductService} from "../../core/services/product.service";
-import {FormControl, FormGroup, Validators, ValidatorFn} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import * as toastr from "toastr";
+import {Validators as AppValidators} from "../../core/forms/index";
 import values from "lodash/values";
 
 @Component({
@@ -45,19 +46,6 @@ export class AddProductComponent implements OnInit {
         }
     }
 
-    private positive(c: FormControl) : ValidatorFn {
-        return () : {[key: string]: any} => {
-            if (isNaN(parseInt(c.value))) {
-                return {};
-            }
-            if (parseInt(c.value) >= 0) {
-                return {};
-            } else {
-                return {negative: true};
-            }
-        };
-    }
-
     private initForm() {
         this.title = new FormControl('', Validators.required);
         this.description = new FormControl('', Validators.required);
@@ -68,7 +56,7 @@ export class AddProductComponent implements OnInit {
             title: this.title,
             description: this.description,
             price: this.price
-        },  this.positive(this.price));
+        },  AppValidators.positive(this.price));
     }
 
 }
