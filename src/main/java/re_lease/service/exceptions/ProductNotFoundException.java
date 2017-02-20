@@ -1,4 +1,3 @@
 package re_lease.service.exceptions;
 
-public class ProductNotFoundException extends Exception {
-}
+public class ProductNotFoundException extends Exception {}

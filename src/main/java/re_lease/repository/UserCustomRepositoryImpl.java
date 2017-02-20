@@ -42,11 +42,21 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
     }
 
     @Override
-    public Optional<User> findUserByEmail(String email) {
-        final User user = queryFactory.select(qUser)
+    public Optional<String> checkUsernameExistence(String login) {
+        final String returnedUsername = queryFactory.select(qUser.login)
+                .from(qUser)
+                .where(qUser.login.eq(login))
+                .fetchOne();
+        return Optional.ofNullable(returnedUsername);
+    }
+
+    @Override
+    public Optional<String> checkEmailExistence(String email) {
+        final String returnedEmail = queryFactory.select(qUser.email)
                 .from(qUser)
                 .where(qUser.email.eq(email))
                 .fetchOne();
-        return Optional.ofNullable(user);
+        return Optional.ofNullable(returnedEmail);
     }
+
 }

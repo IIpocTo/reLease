@@ -2,21 +2,24 @@
 
 <form [formGroup]="userForm" (submit)="onSubmit(userForm.value)" novalidate>
 
-    <div class="form-group" [class.has-danger]="!login.valid && login.touched">
+    <div class="form-group" [class.has-danger]="!login.valid && login.touched" [class.has-success]="login.valid">
         <label class="col-form-label" for="loginInput">Логин</label>
-        <input type="text" class="form-control form-control-danger" id="loginInput"
+        <input type="text" class="form-control form-control-success form-control-danger" id="loginInput"
                maxlength="30" formControlName="login"/>
         <div *ngIf="login.hasError('required') && login.touched" class="form-control-feedback">
             Логин обязателен
         </div>
         <div *ngIf="login.hasError('minlength') && login.touched" class="form-control-feedback">
-            Логин должен состоять более, чем из 4 символов
+            Логин должен состоять как минимум из 4 символов
+        </div>
+        <div *ngIf="login.hasError('validateUsername') && login.touched" class="form-control-feedback">
+            Данный логин уже занят
         </div>
     </div>
 
-    <div class="form-group" [class.has-danger]="!email.valid && email.touched">
+    <div class="form-group" [class.has-danger]="!email.valid && email.touched" [class.has-success]="email.valid">
         <label class="col-form-label" for="emailInput">Email</label>
-        <input type="email" class="form-control form-control-danger" id="emailInput"
+        <input type="email" class="form-control form-control-success form-control-danger" id="emailInput"
                maxlength="100" formControlName="email"/>
         <div *ngIf="email.hasError('required') && email.touched" class="form-control-feedback">
             Email обязателен
@@ -29,29 +32,27 @@
         </div>
     </div>
 
-    <div class="form-group" [class.has-danger]="!password.valid && password.touched">
+    <div class="form-group" [class.has-danger]="!password.valid && password.touched" [class.has-success]="password.valid">
         <label class="col-form-label" for="passwordInput">Пароль</label>
-        <input type="text" class="form-control form-control-danger" id="passwordInput"
+        <input type="text" class="form-control form-control-success form-control-danger" id="passwordInput"
                maxlength="100" formControlName="password"/>
         <div *ngIf="password.hasError('required') && password.touched" class="form-control-feedback">
             Логин обязателен
         </div>
         <div *ngIf="password.hasError('minlength') && password.touched" class="form-control-feedback">
-            Пароль должен состоять более, чем из 8 символов
+            Пароль должен состоять как минимум из 8 символов
         </div>
     </div>
 
-    <div class="form-group" [class.has-danger]=
-            "(!passwordConfirmation.valid || userForm.hasError('unmatched')) && passwordConfirmation.touched">
-        <label class="col-form-label" for="passwordConfirmationInput">Подтвердить пароль</label>
-        <input type="text" class="form-control form-control-danger" id="passwordConfirmationInput"
+    <div class="form-group" [class.has-success]="passwordConfirmation.valid" [class.has-danger]=
+            "(!passwordConfirmation.valid || userForm.hasError('unmatched')) && passwordConfirmation.touched" >
+        <label class="col-form-label" for="passwordConfirmationInput">Подтвердите пароль</label>
+        <input type="text" class="form-control form-control-success form-control-danger" id="passwordConfirmationInput"
                maxlength="100" formControlName="passwordConfirmation"/>
-        <div *ngIf="passwordConfirmation.hasError('required') && passwordConfirmation.touched"
-             class="form-control-feedback">
+        <div *ngIf="passwordConfirmation.hasError('required') && passwordConfirmation.touched" class="form-control-feedback">
             Требуется подтверждение пароля
         </div>
-        <div *ngIf="userForm.hasError('unmatched') && passwordConfirmation.touched"
-             class="form-control-feedback">
+        <div *ngIf="userForm.hasError('unmatched') && passwordConfirmation.touched" class="form-control-feedback">
             Введённые пароли не совпадают
         </div>
     </div>

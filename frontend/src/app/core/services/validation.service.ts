@@ -11,7 +11,15 @@ export class ValidationService {
     constructor(private http: JsonHttp) {
     }
 
-    email(email: string): Observable<boolean> {
+    checkUsername(username: string): Observable<boolean> {
+        let headers = new Headers();
+        headers.append('username', username);
+        return this.http
+            .get(url + '/username', {headers: headers})
+            .map(res => res.json());
+    }
+
+    checkEmail(email: string): Observable<boolean> {
         let headers = new Headers();
         headers.append('email', email);
         return this.http

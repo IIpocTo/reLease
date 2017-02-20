@@ -2,15 +2,14 @@ import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {FormGroup, FormControl, Validators} from "@angular/forms";
 import {UserService} from "../../core/services/user.service";
-import {Validators as AppValidators, EMAIL_PATTERN} from "../../core/forms/index";
+import {ValidationService} from "../../core/services/validation.service";
+import {EMAIL_PATTERN, Validators as AppValidators} from "../../core/forms/index";
 import values from "lodash/values";
 import * as toastr from "toastr";
-import {ValidationService} from "../../core/services/validation.service";
-import {Observable} from "rxjs";
 
 @Component({
     selector: 'mpt-signup',
-    templateUrl: './signup.component.html'
+    templateUrl: './signup.component.html',
 })
 export class SignupComponent implements OnInit {
 
@@ -34,42 +33,54 @@ export class SignupComponent implements OnInit {
         if (!this.userForm.valid) return;
         this.userService
             .create(params)
-            .subscribe(() => {
-                this.router.navigate(['/']);
-            },
+            .subscribe(
+                () => this.router.navigate(['/']),
                 e => this.handleError(e)
             );
     }
 
-    validateEmail (c: FormControl):  Promise<any> | Observable<any> {
-        const reg = new RegExp(EMAIL_PATTERN);
-        if (reg.test(c.value)) {
-            return new Promise<any>(
-                (resolve, reject) => {
-                            this.validationService.email(c.value)
-                                .subscribe(
-                                    data => {
-                                        if (!data) {
-                                            resolve({'validateEmail': true});
-                                        } else {
-                                            resolve(null);
-                                        }
-                                    });
-                        });
-            // return !this.emailResult ? {validateEmail: true} : {};
+    private validateUsername(control: FormControl): Promise<any> {
+        if (control.value.length > 3) {
+            return new Promise<any>(resolve => {
+                this.validationService.checkUsername(control.value)
+                    .subscribe(data => {
+                            if (!data) {
+                                resolve({'validateUsername': true});
+                            } else {
+                                resolve(null);
+                            }
+                        },
+                        e => this.handleError(e)
+                    );
+            });
         } else {
-            return new Promise((resolve) => { resolve({pattern: true}); });
+            return new Promise(resolve => resolve({minlength: true}));
+        }
+    }
+
+    private validateEmail(control: FormControl): Promise<any> {
+        const reg = new RegExp(EMAIL_PATTERN);
+        if (reg.test(control.value)) {
+            return new Promise<any>(resolve => {
+                this.validationService.checkEmail(control.value)
+                    .subscribe(data => {
+                            if (!data) {
+                                resolve({'validateEmail': true});
+                            } else {
+                                resolve(null);
+                            }
+                        },
+                        e => this.handleError(e)
+                    );
+            });
+        } else {
+            return new Promise(resolve => resolve({pattern: true}));
         }
     }
 
     private initForm() {
-        this.login = new FormControl('', Validators.compose([
-            Validators.required,
-            Validators.minLength(4),
-        ]));
-        this.email = new FormControl('', Validators.compose([
-            Validators.required
-        ]),  this.validateEmail);
+        this.login = new FormControl('', Validators.required, this.validateUsername.bind(this));
+        this.email = new FormControl('', Validators.required, this.validateEmail.bind(this));
         this.password = new FormControl('', Validators.compose([
             Validators.required,
             Validators.minLength(8),
@@ -87,15 +98,7 @@ export class SignupComponent implements OnInit {
     }
 
     private handleError(error) {
-        switch (error.status) {
-            case 400:
-                if (error.json()['code'] === 'email_or_login_already_taken') {
-                    toastr.error('Данный email или логин уже занят.');
-                }
-                break;
-            default:
-                toastr.error('Неизвестная ошибка.');
-        }
+        toastr.error('Критическая ошибка - ' + error);
     }
 
 }

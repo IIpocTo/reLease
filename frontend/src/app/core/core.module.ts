@@ -8,6 +8,7 @@ import {HttpErrorHandler} from "./services/http-error-handler";
 import {PublicPageGuard} from "./services/public-page.guard";
 import {PrivatePageGuard} from "./services/private-page.guard";
 import {ProductService} from "./services/product.service";
+import {ValidationService} from "./services/validation.service";
 
 export function createJsonHttp(xhrBackend: XHRBackend, requestOptions: RequestOptions) {
     const ngHttp = new Http(xhrBackend, requestOptions);
@@ -28,6 +29,7 @@ export function createJsonHttp(xhrBackend: XHRBackend, requestOptions: RequestOp
         UserService,
         ProductService,
         AuthService,
+        ValidationService,
         HttpErrorHandler,
         PublicPageGuard,
         PrivatePageGuard,
