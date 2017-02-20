@@ -3,7 +3,6 @@ import {NgModule} from "@angular/core";
 import {SignupComponent} from "./signup.component";
 import {CommonModule} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {ValidationService} from "../../core/services/validation.service";
 
 const routes: Routes = [
     {path: '', component: SignupComponent},
@@ -18,9 +17,6 @@ const routes: Routes = [
     ],
     declarations: [
         SignupComponent
-    ],
-    providers: [
-        ValidationService
     ],
     exports: [
         SignupComponent,

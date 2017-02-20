@@ -1,25 +1,29 @@
 <div class="col-8 offset-2">
+
     <h3>Добавьте новый товар</h3>
     <form class="add-product-form" [formGroup]="productForm" (submit)="onSubmit(productForm.value)">
 
-        <div class="form-group" [class.has-danger]="!title.valid && title.touched" [class.has-success]="title.valid">
+        <div class="form-group" [class.has-danger]="!title.valid && title.touched"
+             [class.has-success]="title.valid">
             <label class="col-form-label" for="title">Название</label>
             <input type="text" formControlName="title" class="form-control form-control-success form-control-danger" id="title">
-            <div *ngIf="title.hasError('required') && price.touched" class="form-control-feedback">
+            <div *ngIf="title.hasError('required') && title.touched" class="form-control-feedback">
                 Должно присутствовать название товара
             </div>
         </div>
 
-        <div class="form-group" [class.has-danger]="!description.valid && description.touched" [class.has-success]="description.valid">
+        <div class="form-group" [class.has-danger]="!description.valid && description.touched"
+             [class.has-success]="description.valid">
             <label class="col-form-label" for="description">Описание</label>
-            <textarea class="form-control form-control-success form-control-danger" rows="5" formControlName="description" id="description"
-                      placeholder="Введите всю необходимую информацию о выставляемом вами товаре..."></textarea>
-            <div *ngIf="description.hasError('required') && price.touched" class="form-control-feedback">
+            <textarea class="form-control form-control-success form-control-danger" rows="5" formControlName="description"
+                      id="description" placeholder="Введите всю необходимую информацию о выставляемом вами товаре..."></textarea>
+            <div *ngIf="description.hasError('required') && description.touched" class="form-control-feedback">
                Должно присутствовать описание товара
             </div>
         </div>
 
-        <div class="form-group" [class.has-danger]="(!price.valid || productForm.hasError('negative')) && price.touched" [class.has-success]="price.valid">
+        <div class="form-group" [class.has-danger]="(!price.valid || productForm.hasError('negative')) && price.touched"
+             [class.has-success]="price.valid">
             <label class="col-form-label" for="price">Цена</label>
             <input type="number" formControlName="price" class="form-control form-control-success form-control-danger" id="price">
             <div *ngIf="price.hasError('required') && price.touched" class="form-control-feedback">

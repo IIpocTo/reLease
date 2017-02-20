@@ -11,7 +11,8 @@ export class Validators {
 
     static positive(c: FormControl) : ValidatorFn {
         return () : {[key: string]: any} => {
-            if (isNaN(parseInt(c.value)) || parseInt(c.value) >= 0) {
+            let parsedValue = parseInt(c.value);
+            if (isNaN(parsedValue) || parsedValue >= 0) {
                 return {};
             } else {
                 return {negative: true};
