@@ -1,9 +1,21 @@
 # Created by .ignore support plugin (hsz.mobi)
+
+# IntelliJ config files
 .idea
-target
 *.iml
+
+# Java compiled folder
+target
+
+# Auto-generated spock reports
 build
+
+# Installed node libs
 frontend/node_modules
 
-#H2 database folder
+# H2 database folder
 db
+
+# Webpack generated JS and source maps
+frontend/src/**/*.js
+frontend/src/**/*.js.map
