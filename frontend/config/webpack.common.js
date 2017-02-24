@@ -61,6 +61,10 @@ module.exports = {
                 test: /\.html$/,
                 use: 'raw-loader',
                 exclude: [helpers.root('src/index.html')]
+            },
+            {
+                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                use: 'url-loader?limit=10000',
             }
         ]
     },

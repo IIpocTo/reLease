@@ -2,13 +2,18 @@
 
 footer {
   margin-top: $margin-xlarge;
+  margin-bottom: $margin-xlarge;
   padding-top: $margin-xxsmall;
   border-top: 1px solid $border-color;
   color: $weak-text-color;
   text-align: center;
 }
 
-.grey {
+.footer-icon {
   color: $weak-text-color;
+}
+
+.footer-link {
+  @extend .footer-icon;
   text-decoration: underline;
 }
