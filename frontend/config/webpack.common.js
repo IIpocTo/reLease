@@ -72,8 +72,17 @@ module.exports = {
             helpers.root('src')
         ),
         new CommonsChunkPlugin({
-            name: 'polyfills'
+            name: 'polyfills',
+            chunks: ['polyfills']
         }),
+        new CommonsChunkPlugin({
+            name: 'vendor',
+            chunks: ['main']
+        }),
+        new CommonsChunkPlugin({
+            name: ['polyfills', 'vendor'].reverse()
+        }),
+
         new HtmlWebpackPlugin({
             template: 'src/index.html',
             chunksSortMode: 'dependency',
