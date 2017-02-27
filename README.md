@@ -4,8 +4,9 @@
 Requirements:
 
 1. Java 8 - http://www.oracle.com/technetwork/java/javase/downloads/index.html
-2. Node JS - https://nodejs.org/en/download/current/
-3. Yarn - https://yarnpkg.com/en/docs/install
+2. Maven - https://maven.apache.org/download.cgi
+3. Node JS - https://nodejs.org/en/download/current/
+4. Yarn - https://yarnpkg.com/en/docs/install
 
 Backend (http://localhost:8080/swagger-ui.html - REST API Docs)
 ```
