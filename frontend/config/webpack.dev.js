@@ -53,6 +53,7 @@ module.exports = webpackMerge(commonConfig, {
         port: 4200,
         host: 'localhost',
         historyApiFallback: true,
+        overlay: true,
         watchOptions: {
             aggregateTimeout: 300,
             poll: 1000
