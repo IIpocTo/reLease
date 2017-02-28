@@ -5,6 +5,8 @@ import {HttpErrorHandler} from "../../core/services/http-error-handler";
 import {Router} from "@angular/router";
 import {PageRequest} from "../../core/dto";
 
+const defaultPageSize: number = 5;
+
 @Component({
     selector: 'mpt-goods',
     styleUrls: ['goods.component.scss'],
@@ -25,7 +27,7 @@ export class GoodsComponent implements OnInit {
 
     ngOnInit(): any {
         this.productService
-            .list(this.user.id, new PageRequest(this.currentPage, 5))
+            .list(this.user.id, new PageRequest(this.currentPage, defaultPageSize))
             .subscribe(
                 page => {
                     this.products = page.content;
@@ -46,7 +48,7 @@ export class GoodsComponent implements OnInit {
             .subscribe(
                 () => {
                     this.productService
-                        .list(this.user.id, new PageRequest(this.currentPage, 5))
+                        .list(this.user.id, new PageRequest(this.currentPage, defaultPageSize))
                         .subscribe(
                             page => {
                                 this.products = page.content;
@@ -66,7 +68,7 @@ export class GoodsComponent implements OnInit {
     nextPage(): any {
         this.currentPage++;
         this.productService
-            .list("all", new PageRequest(this.currentPage, 5))
+            .list("all", new PageRequest(this.currentPage, defaultPageSize))
             .subscribe(
                 page => {
                     this.products = page.content;
@@ -80,7 +82,7 @@ export class GoodsComponent implements OnInit {
     prevPage(): any {
         this.currentPage--;
         this.productService
-            .list("all", new PageRequest(this.currentPage, 5))
+            .list("all", new PageRequest(this.currentPage, defaultPageSize))
             .subscribe(
                 page => {
                     this.products = page.content;

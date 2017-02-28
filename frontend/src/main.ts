@@ -3,7 +3,7 @@ import {bootloader} from "@angularclass/hmr";
 import {AppModule} from "./app";
 import {decorateModuleRef} from "./app/environment";
 
-export function main(): Promise<any> {
+export function main(): Promise<void> {
     return platformBrowserDynamic()
         .bootstrapModule(AppModule)
         .then(decorateModuleRef)

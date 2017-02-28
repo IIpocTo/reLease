@@ -10,7 +10,8 @@ export class HttpErrorHandler {
     }
 
     handle(error: any) {
-        if (error.status === 401) {
+        const httpUnauthorizedCode: number = 401;
+        if (error.status === httpUnauthorizedCode) {
             toastr.error('Please sign in');
             this.authService.logout();
             this.router.navigate(['login']);

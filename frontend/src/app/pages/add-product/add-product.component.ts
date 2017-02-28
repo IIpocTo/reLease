@@ -37,8 +37,9 @@ export class AddProductComponent implements OnInit {
     }
 
     handleError(error) {
+        const httpUnauthorizedCode: number = 401;
         switch (error.status) {
-            case 401:
+            case httpUnauthorizedCode:
                 toastr.error('Увы, какие-то данные были неправильными.');
                 break;
             default:

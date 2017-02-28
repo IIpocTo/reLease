@@ -7,6 +7,9 @@ import {EMAIL_PATTERN, Validators as AppValidators} from "../../core/forms/index
 import values from "lodash/values";
 import * as toastr from "toastr";
 
+const minLoginLength: number = 4;
+const minPasswordLength: number = 8;
+
 @Component({
     selector: 'mpt-signup',
     templateUrl: './signup.component.html',
@@ -40,7 +43,7 @@ export class SignupComponent implements OnInit {
     }
 
     private validateUsername(control: FormControl): Promise<any> {
-        if (control.value.length > 3) {
+        if (control.value.length >= minLoginLength) {
             return new Promise<any>(resolve => {
                 this.validationService.checkUsername(control.value)
                     .subscribe(data => {
@@ -83,7 +86,7 @@ export class SignupComponent implements OnInit {
         this.email = new FormControl('', Validators.required, this.validateEmail.bind(this));
         this.password = new FormControl('', Validators.compose([
             Validators.required,
-            Validators.minLength(8),
+            Validators.minLength(minPasswordLength),
         ]));
         this.passwordConfirmation = new FormControl('', Validators.compose([
             Validators.required,

@@ -5,6 +5,8 @@ import {ProductService} from "../../core/services/product.service";
 import {Product} from "../../core/domains";
 import {PageRequest} from "../../core/dto";
 
+const defaultPageSize: number = 5;
+
 @Component({
     selector: 'mpt-catalog',
     styleUrls: ['catalog.component.scss'],
@@ -24,7 +26,7 @@ export class CatalogComponent implements OnInit {
 
     ngOnInit(): any {
         this.productService
-            .list("all", new PageRequest(this.currentPage, 5))
+            .list("all", new PageRequest(this.currentPage, defaultPageSize))
             .subscribe(
                 page => {
                     this.products = page.content;
@@ -42,7 +44,7 @@ export class CatalogComponent implements OnInit {
     nextPage(): any {
         this.currentPage++;
         this.productService
-            .list("all", new PageRequest(this.currentPage, 5))
+            .list("all", new PageRequest(this.currentPage, defaultPageSize))
             .subscribe(
                 page => {
                     this.products = page.content;
@@ -56,7 +58,7 @@ export class CatalogComponent implements OnInit {
     prevPage(): any {
         this.currentPage--;
         this.productService
-            .list("all", new PageRequest(this.currentPage, 5))
+            .list("all", new PageRequest(this.currentPage, defaultPageSize))
             .subscribe(
                 page => {
                     this.products = page.content;

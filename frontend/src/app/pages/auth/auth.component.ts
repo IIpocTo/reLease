@@ -24,8 +24,9 @@ export class AuthComponent {
     }
 
     handleError(error) {
+        const httpUnauthorizedCode = 401;
         switch (error.status) {
-            case 401:
+            case httpUnauthorizedCode:
                 toastr.error('Неправильный логин или пароль.');
                 break;
             default:

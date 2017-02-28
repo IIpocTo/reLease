@@ -3,6 +3,15 @@
     "node_modules/codelyzer"
   ],
   "rules": {
+    "adjacent-overload-signatures": true,
+    "member-ordering": [
+      true,
+      "public-before-private",
+      "static-before-instance",
+      "variables-before-functions"
+    ],
+    "no-empty-interface": true,
+    "no-magic-numbers": [true, 0, 1, 2, 3, 4],
     "class-name": true,
     "curly": false,
     "eofline": true,
@@ -13,12 +22,6 @@
     "max-line-length": [
       true,
       120
-    ],
-    "member-ordering": [
-      true,
-      "public-before-private",
-      "static-before-instance",
-      "variables-before-functions"
     ],
     "no-arg": true,
     "no-construct": true,
